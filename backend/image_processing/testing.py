@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def getMSSISM(i1, i2):
+def get_mssism(i1, i2):
     C1 = 6.5025
     C2 = 58.5225
     # INITS

@@ -1,6 +1,6 @@
 import cv2
-from noise_removal import dull_razor, median_filtering, otsu_method, closing, and_bitwise
-from testing import getMSSISM
+from .noise_removal import dull_razor, median_filtering, otsu_method, closing, and_bitwise
+from .testing import get_mssism
 
 IMAGES_PATHS = ["example3.jpg", "example4.jpg", "melColor.jpg"]
 IMG_SIZE = 200
@@ -22,8 +22,9 @@ for i, path in enumerate(IMAGES_PATHS):
     cv2.imshow(f'Segmented lession {i + 1}', segmented_color)
     cv2.imshow(f'Original {i + 1}', img)
 
-    mssimv = getMSSISM(img, blurred_image)
-    print("MSSISM: R {}% G {}% B {}%".format(round(mssimv[2] * 100, 2), round(mssimv[1] * 100, 2), round(mssimv[0] * 100, 2)))
+    mssimv = get_mssism(img, blurred_image)
+    print(f"MSSISM: R {round(mssimv[2] * 100, 2)}% G {round(mssimv[1] * 100, 2)}% B "
+          + "{round(mssimv[0] * 100, 2)}%")
 
 cv2.waitKey(0)
 
