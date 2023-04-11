@@ -1,6 +1,14 @@
-import cv2
 import os
-from .noise_removal import dull_razor, median_filtering, otsu_method, closing, and_bitwise, chan_vese_segmentation, invert_bitwise, opening
+import cv2
+from .noise_removal import (
+    dull_razor,
+    median_filtering,
+    otsu_method, closing,
+    and_bitwise,
+    chan_vese_segmentation,
+    invert_bitwise,
+    opening,
+)
 from .testing import get_mssism
 
 IMAGE_PATH = os.path.join(os.path.dirname(__file__), "./img/")
