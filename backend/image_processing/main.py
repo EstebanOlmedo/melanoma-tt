@@ -1,4 +1,3 @@
-import os
 import cv2
 from .noise_removal import (
     dull_razor,
@@ -9,23 +8,14 @@ from .noise_removal import (
     invert_bitwise,
     opening,
 )
-from .testing import get_mssism
+from .testing import get_mssism, get_f1_score
+from .image import TEST_IMAGES
 
-IMAGE_PATH = os.path.join(os.path.dirname(__file__), "./img/")
-IMAGES_NAMES = [
-    # "example2.jpg",
-    # "example3.jpg",
-    # "example4.jpg",
-    "example5.jpg",
-    "example6.jpg",
-    # "melColor.jpg",
-]
-IMG_SIZE = 200
 
 def main():
-    for i, name in enumerate(IMAGES_NAMES):
-        img = cv2.imread(IMAGE_PATH + name, cv2.IMREAD_COLOR)
-        img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+    for i, image_metadata in enumerate(TEST_IMAGES):
+        img = cv2.imread(image_metadata.get_path(), cv2.IMREAD_COLOR)
+        img = cv2.resize(img, (image_metadata.size, image_metadata.size))
 
         processed_img, _bhf = dull_razor(img)
         blurred_image = median_filtering(processed_img)
@@ -47,9 +37,16 @@ def main():
         print(f"MSSISM: R {round(mssimv[2] * 100, 2)}% G {round(mssimv[1] * 100, 2)}% B "
               + f"{round(mssimv[0] * 100, 2)}%")
 
+        if image_metadata.has_segmented_image:
+            img_seg = cv2.imread(image_metadata.get_path(True), cv2.IMREAD_GRAYSCALE)
+            img_seg = cv2.resize(img_seg, (image_metadata.size, image_metadata.size))
+
+            f1_score = get_f1_score(img_seg, enclosed_image)
+            print(f'F1 Score: {f1_score}')
+
+            # cv2.imshow(f'Original segmented {i + 1}', img_seg)
+
     cv2.waitKey(0)
-
-
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':

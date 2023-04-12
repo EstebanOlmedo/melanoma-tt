@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from sklearn.metrics import f1_score
 
 def get_mssism(i1, i2):
     C1 = 6.5025
@@ -32,3 +33,11 @@ def get_mssism(i1, i2):
     ssim_map = cv2.divide(t3, t1)    # ssim_map =  t3./t1;
     mssim = cv2.mean(ssim_map)       # mssim = average of ssim map
     return mssim
+
+def get_f1_score(seg_org, seg_calc):
+    y_true = np.array(seg_org).ravel()
+    y_true = [int(np.round(x / 255)) for x in y_true]
+    y_pred = np.array(seg_calc).ravel()
+    y_pred = [int(np.round(x / 255)) for x in y_pred]
+
+    return f1_score(y_true, y_pred)
