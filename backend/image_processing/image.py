@@ -28,5 +28,5 @@ TEST_IMAGES = [
     ImageMetadata(IMAGES_PATH, 'LMM3_orig.jpg', IMG_SIZE, True, 'LMM3_contour.png'),
     ImageMetadata(IMAGES_PATH, 'LMM5_orig.jpg', IMG_SIZE, True, 'LMM5_contour.png'),
     ImageMetadata(IMAGES_PATH, 'LMM7_orig.jpg', IMG_SIZE, True, 'LMM7_contour.png'),
-    ImageMetadata(IMAGES_PATH, 'LMM8_orig.jpg', IMG_SIZE, True, 'LMM8_contour.png'),
+    ImageMetadata(IMAGES_PATH, 'LMM8_2_orig.jpg', IMG_SIZE, True, 'LMM8_2_contour.png'),
 ]
