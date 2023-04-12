@@ -76,3 +76,13 @@ def chan_vese_segmentation(
                      lambda2=config.lambda2, tol=config.tolerance, max_num_iter=config.iterations,
                      dt=config.delta, init_level_set="checkerboard", extended_output=False)
     return img * mask
+
+def hair_removal(img):
+    processed_img, _bhf = dull_razor(img)
+    return median_filtering(processed_img)
+
+def lession_segmentation(img):
+    segmented_image = otsu_method(img)
+    segmented_image = invert_bitwise(chan_vese_segmentation(invert_bitwise(segmented_image)))
+    enclosed_image = closing(segmented_image)
+    return opening(invert_bitwise(enclosed_image))
