@@ -12,4 +12,4 @@ disable=
 generated-members=cv2.*
 
 [FORMAT]
-good-names=i,j,x,y,r,g,b
+good-names=i,j,x,y,r,g,b,C1,C2,C,u,v

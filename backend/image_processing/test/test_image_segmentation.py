@@ -4,6 +4,7 @@ from ..testing import get_f1_score, get_mssism
 from ..noise_removal import hair_removal, lession_segmentation
 from ..image import ImageMetadata, TEST_IMAGES
 
+
 @pytest.mark.parametrize('image_metadata', TEST_IMAGES)
 def test_image_modification_in_hair_removal(image_metadata: ImageMetadata):
     approved_percentage = 0.8
@@ -15,6 +16,7 @@ def test_image_modification_in_hair_removal(image_metadata: ImageMetadata):
     mssimv = get_mssism(img_org, img)
     for i in range(3):
         assert mssimv[i] >= approved_percentage
+
 
 @pytest.mark.parametrize('image_metadata', TEST_IMAGES)
 def test_image_segmentation_precision(image_metadata: ImageMetadata):
