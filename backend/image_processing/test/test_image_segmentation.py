@@ -20,6 +20,7 @@ def test_image_modification_in_hair_removal(image_metadata: ImageMetadata):
     assert average / 3 >= approved_percentage
 
 
+
 @pytest.mark.parametrize('image_metadata', TEST_IMAGES)
 def test_image_segmentation_precision(image_metadata: ImageMetadata):
     approved_percentage = 0.3
