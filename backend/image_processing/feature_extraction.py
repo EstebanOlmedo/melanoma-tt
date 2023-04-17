@@ -3,7 +3,8 @@ import cv2
 import numpy as np
 
 
-Ellipse = tuple[tuple[int,int], tuple[int,int], float]
+Ellipse = tuple[tuple[int, int], tuple[int, int], float]
+
 
 def get_centroid(img) -> tuple[int, int]:
    # Find the contours in the binary image
@@ -44,10 +45,11 @@ def count_ones(img) -> int:
                 num_ones = num_ones + 1
     return num_ones
 
-# It must be a binary image
 
-
-def get_simetry(img) -> tuple[float,float]:
+def get_simetry(img) -> tuple[float, float]:
+    """
+    Receives a binary image
+    """
     rows, cols = img.shape
     ellipse, _ = get_major_axis(img)
     _center, _axes, angle = ellipse
@@ -162,11 +164,12 @@ def get_roughness(img) -> float:
     return slope
 
 
-def get_major_axis(img, img_org=None) -> tuple[Ellipse,np.ndarray | None]:
+def get_major_axis(img, img_org=None) -> tuple[Ellipse, np.ndarray | None]:
     contours, _ = cv2.findContours(
         img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     largest_contour = max(contours, key=cv2.contourArea)
     major_ellipse = cv2.fitEllipse(largest_contour)
+
     if img_org is None:
         return major_ellipse, None
     for contour in contours:
