@@ -4,12 +4,7 @@ import {
   Ionicons,
   AntDesign,
 } from "@expo/vector-icons";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
