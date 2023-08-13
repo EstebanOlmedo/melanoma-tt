@@ -58,7 +58,9 @@ const MenubarOption = (props: MenubarOptionProps) => {
     <View style={Styles.centeredContainer}>
       <TouchableOpacity style={Styles.centeredContainer}>
         <MenubarOptionIcon type={props.icon} />
-        <Text style={[Styles.text4, Styles.textWhite]}>{props.title}</Text>
+        <Text style={[Styles.textCaption, Styles.textWhite]}>
+          {props.title}
+        </Text>
       </TouchableOpacity>
     </View>
   );

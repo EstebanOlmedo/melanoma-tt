@@ -4,6 +4,7 @@ import Subtitle from "./subtitle";
 import Styles from "../styles";
 
 interface SectionProps {
+  title: string;
   body: React.ElementType;
 }
 
@@ -12,7 +13,7 @@ const Section = (props: SectionProps) => {
   return (
     <View style={[Styles.flexContainer, styles.container]}>
       <View>
-        <Subtitle title="Recordatorios" />
+        <Subtitle title={props.title} />
       </View>
       <View style={styles.bodyContainer}>
         <Body />

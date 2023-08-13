@@ -42,6 +42,9 @@ const ColorPallete = {
   border: {
     ligthbg: "#ebebeb",
   },
+  background: {
+    ligthbg: "#fbfbfb",
+  },
 };
 
 export default ColorPallete;

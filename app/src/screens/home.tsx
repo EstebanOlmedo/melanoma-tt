@@ -1,22 +1,20 @@
 import { View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import RemainderCarousel from "../components/home/RemainderCarousel";
+import LesionsOverview from "../components/home/lesionsOverview";
+import RemainderCarousel from "../components/home/remainderCarousel";
 import Menubar from "../components/menubar";
 import Section from "../components/section";
 import Title from "../components/title";
-import Remainder from "../models/remainder";
 import Styles from "../styles";
+import { getLesions, getRemainders } from "../utils/testData";
 
-const remainders = [
-  new Remainder("Brazo", new Date()),
-  new Remainder("Pierna", new Date()),
-  new Remainder("Estomago", new Date()),
-  new Remainder("Mano derecha", new Date()),
-];
+const Remainders = () => {
+  return <RemainderCarousel remainders={getRemainders()} />;
+};
 
-const SectionComponent = () => {
-  return <RemainderCarousel remainders={remainders} />;
+const Lesions = () => {
+  return <LesionsOverview lesions={getLesions()} />;
 };
 
 const Home = () => {
@@ -26,7 +24,12 @@ const Home = () => {
         <Title title="Seguimiento de lesiones" />
       </View>
       <View style={styles.bodyContainer}>
-        <Section body={SectionComponent} />
+        <View style={styles.remaindersContainer}>
+          <Section title="Recordatorios" body={Remainders} />
+        </View>
+        <View style={styles.lesionsContainer}>
+          <Section title="En seguimiento" body={Lesions} />
+        </View>
       </View>
       <View style={styles.menubarContainer}>
         <Menubar />
@@ -46,6 +49,12 @@ const styles = StyleSheet.create({
   },
   menubarContainer: {
     flex: 1,
+  },
+  remaindersContainer: {
+    flex: 1,
+  },
+  lesionsContainer: {
+    flex: 5,
   },
 });
 

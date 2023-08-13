@@ -11,10 +11,24 @@ const ContainerStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  horizontalContainer: {
+    flexDirection: "row",
+    alignSelf: "flex-start",
+    alignItems: "center",
+  },
+});
+
+const BorderStyles = StyleSheet.create({
+  cardBorder: {
+    borderRadius: 10,
+    shadowColor: "black",
+    backgroundColor: "white",
+    elevation: 3,
+  },
 });
 
 const TextStyles = StyleSheet.create({
-  text4: {
+  textCaption: {
     fontSize: 10,
     fontFamily: "Verdana",
     color: ColorPallete.text.ligthbg.body,
@@ -22,10 +36,16 @@ const TextStyles = StyleSheet.create({
   textWhite: {
     color: ColorPallete.text.darkbg.body,
   },
+  textBody: {
+    fontFamily: "Verdana",
+    fontSize: 12,
+    color: ColorPallete.text.ligthbg.body,
+  },
 });
 
 const Styles = {
   ...ContainerStyles,
+  ...BorderStyles,
   ...TextStyles,
 };
 
