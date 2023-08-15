@@ -9,9 +9,14 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
 
+interface MenubarProps {
+  onOptionPressed?: (pressedOption: string) => void;
+}
+
 interface MenubarOptionProps {
   title: string;
   icon: string;
+  onPress: () => void;
 }
 
 interface MenubarOptionIconProps {
@@ -56,7 +61,10 @@ const MenubarOptionIcon = (props: MenubarOptionIconProps) => {
 const MenubarOption = (props: MenubarOptionProps) => {
   return (
     <View style={Styles.centeredContainer}>
-      <TouchableOpacity style={Styles.centeredContainer}>
+      <TouchableOpacity
+        style={Styles.centeredContainer}
+        onPress={() => props.onPress()}
+      >
         <MenubarOptionIcon type={props.icon} />
         <Text style={[Styles.textCaption, Styles.textWhite]}>
           {props.title}
@@ -66,14 +74,38 @@ const MenubarOption = (props: MenubarOptionProps) => {
   );
 };
 
-const Menubar = () => {
+const Menubar = (props: MenubarProps) => {
   return (
     <View style={[Styles.flexContainer, styles.container]}>
       <View style={[Styles.flexContainer, styles.dockContainer]}>
-        <MenubarOption title="Seguimiento" icon="seguimiento" />
-        <MenubarOption title="Ayuda" icon="ayuda" />
-        <MenubarOption title="Agregar" icon="agregar" />
-        <MenubarOption title="Ajustes" icon="ajustes" />
+        <MenubarOption
+          title="Seguimiento"
+          icon="seguimiento"
+          onPress={() =>
+            props.onOptionPressed ? props.onOptionPressed("follow-up") : null
+          }
+        />
+        <MenubarOption
+          title="Ayuda"
+          icon="ayuda"
+          onPress={() =>
+            props.onOptionPressed ? props.onOptionPressed("help") : null
+          }
+        />
+        <MenubarOption
+          title="Agregar"
+          icon="agregar"
+          onPress={() =>
+            props.onOptionPressed ? props.onOptionPressed("add") : null
+          }
+        />
+        <MenubarOption
+          title="Ajustes"
+          icon="ajustes"
+          onPress={() =>
+            props.onOptionPressed ? props.onOptionPressed("settings") : null
+          }
+        />
       </View>
     </View>
   );

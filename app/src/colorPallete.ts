@@ -41,6 +41,7 @@ const ColorPallete = {
   },
   border: {
     ligthbg: "#ebebeb",
+    dark: "#848484",
   },
   background: {
     ligthbg: "#fbfbfb",
