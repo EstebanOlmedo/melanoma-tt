@@ -8,9 +8,10 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
+import HomeTabs from "../utils/HomeTabs";
 
 interface MenubarProps {
-  onOptionPressed?: (pressedOption: string) => void;
+  onOptionPressed?: (pressedOption: HomeTabs) => void;
 }
 
 interface MenubarOptionProps {
@@ -82,28 +83,28 @@ const Menubar = (props: MenubarProps) => {
           title="Seguimiento"
           icon="seguimiento"
           onPress={() =>
-            props.onOptionPressed ? props.onOptionPressed("follow-up") : null
+            props.onOptionPressed ? props.onOptionPressed(HomeTabs.FollowUp) : null
           }
         />
         <MenubarOption
           title="Ayuda"
           icon="ayuda"
           onPress={() =>
-            props.onOptionPressed ? props.onOptionPressed("help") : null
+            props.onOptionPressed ? props.onOptionPressed(HomeTabs.Help) : null
           }
         />
         <MenubarOption
           title="Agregar"
           icon="agregar"
           onPress={() =>
-            props.onOptionPressed ? props.onOptionPressed("add") : null
+            props.onOptionPressed ? props.onOptionPressed(HomeTabs.Add) : null
           }
         />
         <MenubarOption
           title="Ajustes"
           icon="ajustes"
           onPress={() =>
-            props.onOptionPressed ? props.onOptionPressed("settings") : null
+            props.onOptionPressed ? props.onOptionPressed(HomeTabs.Settings) : null
           }
         />
       </View>

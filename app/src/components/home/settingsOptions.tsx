@@ -8,14 +8,15 @@ import {
   SecurityIcon,
 } from "../icons";
 import SettingOption from "../settingOption";
+import {default as Options} from "../../utils/SettingsOptions";
 
 const SettingsOptions = () => {
   return (
     <View style={styles.container}>
-      <SettingOption name="Notificaciones" icon={NotificationIcon} />
-      <SettingOption name="Privacidad" icon={PrivacyIcon} />
-      <SettingOption name="Seguridad" icon={SecurityIcon} />
-      <SettingOption name="Seguridad" icon={InfoIcon} />
+      <SettingOption name="Notificaciones" option={Options.Notification} icon={NotificationIcon} />
+      <SettingOption name="Privacidad" option={Options.Privacy} icon={PrivacyIcon} />
+      <SettingOption name="Seguridad" option={Options.Security} icon={SecurityIcon} />
+      <SettingOption name="About" option={Options.About} icon={InfoIcon} />
     </View>
   );
 };
