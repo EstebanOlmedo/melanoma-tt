@@ -38,7 +38,6 @@ const Home = () => {
       </View>
       <Settings />
       <View style={styles.menubarContainer}>
-        <Menubar onOptionPressed={onMenubarPress} />
       </View>
     </View>
   );

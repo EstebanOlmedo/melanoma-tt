@@ -50,9 +50,6 @@ const Home = () => {
         <Title title={title} />
       </View>
       <FollowUp />
-      <View style={styles.menubarContainer}>
-        <Menubar onOptionPressed={onMenubarPress} />
-      </View>
     </View>
   );
 };
