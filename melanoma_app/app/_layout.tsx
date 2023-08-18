@@ -1,10 +1,10 @@
 import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import {Slot, Stack} from "expo-router";
 import ColorPallete from "../src/colorPallete";
 
 SplashScreen.preventAutoHideAsync();
@@ -27,7 +27,7 @@ const RootLayout = () => {
   return (
     <SafeAreaProvider style={styles.container} onLayout={onLayoutRootView}>
       <Stack>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );
@@ -40,4 +40,3 @@ const styles = StyleSheet.create({
 });
 
 export default RootLayout;
-

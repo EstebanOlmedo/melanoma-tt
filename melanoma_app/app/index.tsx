@@ -1,11 +1,11 @@
-import {Redirect, useRootNavigation, useRootNavigationState} from "expo-router";
+import { Redirect, useRootNavigationState } from "expo-router";
 
 const StartPage = () => {
-	const rootNavigationState = useRootNavigationState();
+  const rootNavigationState = useRootNavigationState();
 
-	if(!rootNavigationState?.key) return null
+  if (!rootNavigationState?.key) return null;
 
-	return <Redirect href="/followup" />
+  return <Redirect href="/followup" />;
 };
 
 export default StartPage;

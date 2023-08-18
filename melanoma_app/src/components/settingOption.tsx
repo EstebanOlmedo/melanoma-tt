@@ -1,10 +1,10 @@
 import { Entypo } from "@expo/vector-icons";
+import { Link } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
-import {Link} from "expo-router";
 import SettingsOptions from "../utils/SettingsOptions";
 
 interface SettingOptionProps {
@@ -24,21 +24,21 @@ const SettingOption = (props: SettingOptionProps) => {
 
   return (
     <Link href={RouterHref} asChild>
-    <TouchableOpacity>
-      <View style={styles.container}>
-        <View style={styles.nameContainer}>
-          <Icon />
-          <Text style={styles.name}>{props.name}</Text>
+      <TouchableOpacity>
+        <View style={styles.container}>
+          <View style={styles.nameContainer}>
+            <Icon />
+            <Text style={styles.name}>{props.name}</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Entypo
+              name="chevron-thin-right"
+              size={20}
+              color={ColorPallete.border.dark}
+            />
+          </View>
         </View>
-        <View style={styles.iconContainer}>
-          <Entypo
-            name="chevron-thin-right"
-            size={20}
-            color={ColorPallete.border.dark}
-          />
-        </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
     </Link>
   );
 };

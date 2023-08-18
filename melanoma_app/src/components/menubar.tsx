@@ -4,12 +4,11 @@ import {
   Ionicons,
   AntDesign,
 } from "@expo/vector-icons";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
-import HomeTabs from "../utils/HomeTabs";
-import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
 
 interface MenubarOptionProps {
   title: string;
@@ -74,10 +73,12 @@ const MenubarOption = (props: MenubarOptionProps) => {
   );
 };
 
-const Menubar = ({state, descriptors, navigation}: BottomTabBarProps) => {
+const Menubar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const tabOptions = state.routes.map((route, index) => {
-    const {options} = descriptors[route.key];
-    const label = (options.tabBarLabel ?? (options.title ?? route.name)) as string;
+    const { options } = descriptors[route.key];
+    const label = (options.tabBarLabel ??
+      options.title ??
+      route.name) as string;
     const isFocused = state.index === index;
     const onPress = () => {
       const event = navigation.emit({
@@ -95,13 +96,15 @@ const Menubar = ({state, descriptors, navigation}: BottomTabBarProps) => {
         target: route.key,
       });
     };
-    return <MenubarOption
-      title={label}
-      onPress={onPress}
-      onLongPress={onLongPress}
-      icon={route.name}
-      key={route.key}
-    />
+    return (
+      <MenubarOption
+        title={label}
+        onPress={onPress}
+        onLongPress={onLongPress}
+        icon={route.name}
+        key={route.key}
+      />
+    );
   });
 
   return (
