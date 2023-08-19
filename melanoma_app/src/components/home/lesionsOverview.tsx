@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 
 import { default as LesionModel } from "../../models/lesion";
 import Lesion from "../lesion";
@@ -8,15 +8,26 @@ interface LesionsOverviewProps {
 }
 
 const LesionsOverview = (props: LesionsOverviewProps) => {
-  const lesions = props.lesions.map((lesion, index) => {
-    return <Lesion lesion={lesion} key={index} />;
-  });
-  return <ScrollView style={styles.container}>{lesions}</ScrollView>;
+  const renderLesion = ({ item }: ListRenderItemInfo<LesionModel>) => {
+    return <Lesion lesion={item} />;
+  };
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={props.lesions}
+        renderItem={renderLesion}
+        contentContainerStyle={styles.scrollContainer}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 0,
+    flex: 1,
+  },
+  scrollContainer: {
+    flexGrow: 1,
   },
 });
 

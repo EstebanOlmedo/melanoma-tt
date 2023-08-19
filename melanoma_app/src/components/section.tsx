@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
   },
   container: {
     margin: 10,
-    padding: 10,
   },
   bodyContainer: {
+    flex: 1,
     marginTop: 10,
   },
 });

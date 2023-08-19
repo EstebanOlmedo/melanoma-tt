@@ -11,12 +11,15 @@ interface LesionProps {
 
 const Lesion = (props: LesionProps) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.touchContainer}>
       <View style={styles.container}>
         <View style={styles.photoContainer}>
           <Image
             source={LocalImages[props.lesion.getFirstPhoto().localId]}
             style={styles.image}
+            contentFit="cover"
+            contentPosition="center"
+            responsivePolicy="live"
           />
         </View>
         <View style={styles.overviewContainer}>
@@ -36,14 +39,21 @@ const Lesion = (props: LesionProps) => {
 };
 
 const styles = StyleSheet.create({
+  touchContainer: {
+    flex: 1,
+    marginVertical: 5,
+  },
   container: {
+    flex: 1,
+    width: "100%",
     padding: 10,
-    margin: 5,
     ...Styles.horizontalContainer,
     ...Styles.cardBorder,
   },
   photoContainer: {
     flex: 1,
+    height: "100%",
+    maxWidth: 100,
   },
   overviewContainer: {
     flex: 3,

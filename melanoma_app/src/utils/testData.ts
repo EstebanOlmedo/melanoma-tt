@@ -26,6 +26,11 @@ export function getLesions() {
     new Lesion("Brazo", getPhotos(1)),
     new Lesion("Espalda", getPhotos(3)),
     new Lesion("Mejilla", getPhotos(5)),
+    new Lesion("Cara", getPhotos(5)),
+    new Lesion("Espalda", getPhotos(5)),
+    new Lesion("Pierna", getPhotos(5)),
+    new Lesion("Abdomen", getPhotos(5)),
+    new Lesion("Mano", getPhotos(5)),
   ];
   return lesions;
 }

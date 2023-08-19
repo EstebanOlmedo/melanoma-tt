@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 
 import { default as RemainderModel } from "../../models/remainder";
 import Remainder from "../remainder";
@@ -8,14 +8,17 @@ interface RemainderCarouselProps {
 }
 
 const RemainderCarousel = (props: RemainderCarouselProps) => {
-  const remainders = props.remainders.map((remainder, index) => {
-    return <Remainder remainder={remainder} key={index} />;
-  });
+  const renderRemainder = ({ item }: ListRenderItemInfo<RemainderModel>) => {
+    return <Remainder remainder={item} />;
+  };
 
   return (
-    <ScrollView horizontal style={styles.container}>
-      {remainders}
-    </ScrollView>
+    <FlatList
+      data={props.remainders}
+      renderItem={renderRemainder}
+      contentContainerStyle={styles.container}
+      horizontal
+    />
   );
 };
 

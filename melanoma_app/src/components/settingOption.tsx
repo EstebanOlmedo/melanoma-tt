@@ -45,6 +45,7 @@ const SettingOption = (props: SettingOptionProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 5,
     ...Styles.horizontalContainer,
