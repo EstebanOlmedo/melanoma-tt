@@ -1,19 +1,20 @@
 import { Entypo } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
 import SettingsOptions from "../utils/SettingsOptions";
+import {Picker} from "@react-native-picker/picker";
 
-interface SettingOptionProps {
+interface SettingOptionLinkProps {
   name: string;
   icon: React.ElementType;
   option: SettingsOptions;
 }
 
-const SettingOption = (props: SettingOptionProps) => {
+export const SettingOptionLink = (props: SettingOptionLinkProps) => {
   const Icon = props.icon;
   const RouterHref = {
     pathname: "/settings/[option]",
@@ -26,7 +27,7 @@ const SettingOption = (props: SettingOptionProps) => {
     <Link href={RouterHref} asChild>
       <TouchableOpacity>
         <View style={styles.container}>
-          <View style={styles.nameContainer}>
+          <View style={[styles.nameContainer, Styles.horizontalContainer]}>
             <Icon />
             <Text style={styles.name}>{props.name}</Text>
           </View>
@@ -43,6 +44,43 @@ const SettingOption = (props: SettingOptionProps) => {
   );
 };
 
+interface SettingOptionProps {
+  name: string;
+}
+
+export const SettingBoolOption = (props: SettingOptionProps) => {
+  return (
+        <View style={styles.container}>
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{props.name}</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Switch/>
+          </View>
+        </View>
+  );
+};
+
+interface SettingPickOptionProps extends SettingOptionProps {
+  dataOptions: number[];
+}
+
+export const SettingPickOption = (props: SettingPickOptionProps) => {
+  const pickerOptions = props.dataOptions.map((val, index) => {
+    return <Picker.Item label={val.toString()} value={val} key={index} />
+  });
+  return (
+        <View style={styles.container}>
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{props.name}</Text>
+          </View>
+            <Picker style={styles.pickerContainer} mode="dropdown">
+              {pickerOptions}
+            </Picker>
+        </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -50,20 +88,22 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     ...Styles.horizontalContainer,
   },
-  debug: {},
+  debug: {
+    backgroundColor: 'red',
+  },
   nameContainer: {
     flex: 6,
-    ...Styles.horizontalContainer,
   },
   iconContainer: {
     flex: 1,
     alignItems: "flex-end",
     marginRight: 10,
   },
+  pickerContainer: {
+    flex: 2.5,
+  },
   name: {
     marginLeft: 5,
     ...Styles.textBody,
   },
 });
-
-export default SettingOption;

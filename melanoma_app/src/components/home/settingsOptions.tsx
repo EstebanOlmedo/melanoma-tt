@@ -8,27 +8,27 @@ import {
   PrivacyIcon,
   SecurityIcon,
 } from "../icons";
-import SettingOption from "../settingOption";
+import {SettingOptionLink} from "../settingOption";
 
 const SettingsOptions = () => {
   return (
     <View style={styles.container}>
-      <SettingOption
+      <SettingOptionLink
         name="Notificaciones"
         option={Options.Notification}
         icon={NotificationIcon}
       />
-      <SettingOption
+      <SettingOptionLink
         name="Privacidad"
         option={Options.Privacy}
         icon={PrivacyIcon}
       />
-      <SettingOption
+      <SettingOptionLink
         name="Seguridad"
         option={Options.Security}
         icon={SecurityIcon}
       />
-      <SettingOption name="About" option={Options.About} icon={InfoIcon} />
+      <SettingOptionLink name="About" option={Options.About} icon={InfoIcon} />
     </View>
   );
 };
