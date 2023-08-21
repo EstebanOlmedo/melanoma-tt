@@ -7,6 +7,7 @@ const TabLayout = () => {
   return (
     <Tabs
       tabBar={Menubar}
+      sceneContainerStyle={{ backgroundColor: ColorPallete.background.ligthbg }}
       screenOptions={{
         headerTitleAlign: "center",
         headerTitleStyle: {
@@ -23,6 +24,7 @@ const TabLayout = () => {
           title: "Seguimiento de lesiones",
         }}
       />
+      <Tabs.Screen name="help" options={{ title: "Ayuda" }} />
       <Tabs.Screen name="settings" options={{ title: "Ajustes" }} />
     </Tabs>
   );

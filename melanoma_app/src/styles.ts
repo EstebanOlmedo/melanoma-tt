@@ -16,6 +16,10 @@ const ContainerStyles = StyleSheet.create({
     alignSelf: "flex-start",
     alignItems: "center",
   },
+  scrollContainer: {
+    flexGrow: 1,
+    padding: 5,
+  },
 });
 
 const BorderStyles = StyleSheet.create({
@@ -24,6 +28,7 @@ const BorderStyles = StyleSheet.create({
     shadowColor: "black",
     backgroundColor: "white",
     elevation: 3,
+    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.25)",
   },
 });
 
@@ -40,6 +45,10 @@ const TextStyles = StyleSheet.create({
     fontFamily: "Verdana",
     fontSize: 12,
     color: ColorPallete.text.ligthbg.body,
+  },
+  textBold: {
+    fontFamily: "VerdanaBold",
+    fontWeight: "bold",
   },
 });
 

@@ -1,4 +1,10 @@
-import { Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  Entypo,
+  MaterialIcons,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
@@ -64,6 +70,36 @@ export const InfoIcon = () => {
         color={ColorPallete.green.normal}
       />
     </View>
+  );
+};
+
+export const NotificationCardIcon = () => {
+  return (
+    <Ionicons
+      name="notifications-outline"
+      size={24}
+      color={ColorPallete.skyblue.dark}
+    />
+  );
+};
+
+export const PhotoCardIcon = () => {
+  return <FontAwesome name="photo" size={24} color={ColorPallete.green.dark} />;
+};
+
+export const PrediagnosisCardIcon = () => {
+  return (
+    <FontAwesome name="search" size={24} color={ColorPallete.orange.dark} />
+  );
+};
+
+export const FollowupCardIcon = () => {
+  return (
+    <MaterialCommunityIcons
+      name="file-search-outline"
+      size={25}
+      color={ColorPallete.pink.dark}
+    />
   );
 };
 

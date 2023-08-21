@@ -8,7 +8,7 @@ import {
   PrivacyIcon,
   SecurityIcon,
 } from "../icons";
-import {SettingOptionLink} from "../settingOption";
+import { SettingOptionLink } from "../settingOption";
 
 const SettingsOptions = () => {
   return (

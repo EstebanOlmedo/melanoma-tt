@@ -1,4 +1,5 @@
 import { Entypo } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 import { Link } from "expo-router";
 import React from "react";
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
@@ -6,7 +7,6 @@ import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
 import SettingsOptions from "../utils/SettingsOptions";
-import {Picker} from "@react-native-picker/picker";
 
 interface SettingOptionLinkProps {
   name: string;
@@ -50,14 +50,14 @@ interface SettingOptionProps {
 
 export const SettingBoolOption = (props: SettingOptionProps) => {
   return (
-        <View style={styles.container}>
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{props.name}</Text>
-          </View>
-          <View style={styles.iconContainer}>
-            <Switch/>
-          </View>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.nameContainer}>
+        <Text style={styles.name}>{props.name}</Text>
+      </View>
+      <View style={styles.iconContainer}>
+        <Switch />
+      </View>
+    </View>
   );
 };
 
@@ -67,17 +67,17 @@ interface SettingPickOptionProps extends SettingOptionProps {
 
 export const SettingPickOption = (props: SettingPickOptionProps) => {
   const pickerOptions = props.dataOptions.map((val, index) => {
-    return <Picker.Item label={val.toString()} value={val} key={index} />
+    return <Picker.Item label={val.toString()} value={val} key={index} />;
   });
   return (
-        <View style={styles.container}>
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{props.name}</Text>
-          </View>
-            <Picker style={styles.pickerContainer} mode="dropdown">
-              {pickerOptions}
-            </Picker>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.nameContainer}>
+        <Text style={styles.name}>{props.name}</Text>
+      </View>
+      <Picker style={styles.pickerContainer} mode="dropdown">
+        {pickerOptions}
+      </Picker>
+    </View>
   );
 };
 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     ...Styles.horizontalContainer,
   },
   debug: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   nameContainer: {
     flex: 6,

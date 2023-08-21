@@ -14,7 +14,7 @@ const Lesions = () => {
   return <LesionsOverview lesions={getLesions()} />;
 };
 
-const Home = () => {
+const Followup = () => {
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.bodyContainer}>
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
   },
   remaindersContainer: {
     flex: 1,
+    maxHeight: 150,
   },
   lesionsContainer: {
     flex: 5,
   },
 });
 
-export default Home;
+export default Followup;

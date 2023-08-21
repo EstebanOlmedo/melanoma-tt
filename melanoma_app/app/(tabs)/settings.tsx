@@ -4,7 +4,7 @@ import SettingsOptions from "../../src/components/home/settingsOptions";
 import Section from "../../src/components/section";
 import Styles from "../../src/styles";
 
-const Home = () => {
+const Settings = () => {
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.bodyContainer}>
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Settings;

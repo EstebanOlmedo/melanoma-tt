@@ -1,6 +1,7 @@
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 
 import { default as LesionModel } from "../../models/lesion";
+import Styles from "../../styles";
 import Lesion from "../lesion";
 
 interface LesionsOverviewProps {
@@ -16,7 +17,7 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
       <FlatList
         data={props.lesions}
         renderItem={renderLesion}
-        contentContainerStyle={styles.scrollContainer}
+        contentContainerStyle={Styles.scrollContainer}
       />
     </View>
   );
@@ -25,9 +26,6 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollContainer: {
-    flexGrow: 1,
   },
 });
 

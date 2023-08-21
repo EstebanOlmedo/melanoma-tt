@@ -5,12 +5,12 @@ const ColorPallete = {
   orange: {
     normal: "#e6a84b",
     ligth: "#f7b552",
-    dark: "",
+    dark: "#945D0A",
   },
   skyblue: {
     normal: "#94d3e2",
     ligth: "#a9e2f0",
-    dark: "",
+    dark: "#1573FE",
   },
   blue: {
     normal: "#3975b3",
@@ -19,13 +19,13 @@ const ColorPallete = {
   },
   pink: {
     normal: "#c775b4",
-    ligth: "#faa8e2",
-    dark: "",
+    ligth: "#DEB6C9",
+    dark: "#DF1525",
   },
   green: {
     normal: "#8ccc70",
     ligth: "#91d474",
-    dark: "",
+    dark: "#049C6B",
   },
   text: {
     ligthbg: {

@@ -1,16 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View } from "react-native";
 
+import {
+  SettingBoolOption,
+  SettingPickOption,
+} from "../../src/components/settingOption";
 import Styles from "../../src/styles";
-import {SettingBoolOption, SettingPickOption} from "../../src/components/settingOption";
 
 const Setting = () => {
   const options = [1, 2, 3, 4, 5, 6];
   return (
-      <View style={styles.container}>
-        <SettingBoolOption name="Habilitar notificaciones"/>
-        <SettingPickOption name="Intervalo de notificaciones" dataOptions={options} />
-      </View>
+    <View style={styles.container}>
+      <SettingBoolOption name="Habilitar notificaciones" />
+      <SettingPickOption
+        name="Intervalo de notificaciones"
+        dataOptions={options}
+      />
+    </View>
   );
 };
 
