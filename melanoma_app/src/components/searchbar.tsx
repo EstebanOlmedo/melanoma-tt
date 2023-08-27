@@ -4,12 +4,13 @@ import { SearchBar } from "react-native-elements";
 import ColorPallete from "../colorPallete";
 
 interface SearchProps {
+  search?: string;
   placeholder: string;
   onChangeText?: (search: string) => void;
 }
 
 const Search = (props: SearchProps) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(props.search || "");
   const updateSearch = (search: string) => {
     setValue(search);
     props.onChangeText?.(search);

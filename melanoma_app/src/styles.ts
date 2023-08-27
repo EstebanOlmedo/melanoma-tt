@@ -50,6 +50,10 @@ const TextStyles = StyleSheet.create({
     fontFamily: "VerdanaBold",
     fontWeight: "bold",
   },
+  textTitle: {
+    fontSize: 26,
+    fontFamily: "Roboto",
+  },
 });
 
 const Styles = {

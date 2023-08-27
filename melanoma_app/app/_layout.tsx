@@ -32,6 +32,14 @@ const RootLayout = () => {
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="help/[id]"
+          options={{ title: "Preguntas frecuentes" }}
+        />
+        <Stack.Screen
+          name="help/tutorial/[id]"
+          options={{ headerShown: false }}
+        />
       </Stack>
     </SafeAreaProvider>
   );

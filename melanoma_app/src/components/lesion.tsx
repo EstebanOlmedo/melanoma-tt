@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { default as LesionModel } from "../models/lesion";
 import Styles from "../styles";
-import LocalImages from "../utils/images";
+import { LesionImages } from "../utils/images";
 
 interface LesionProps {
   lesion: LesionModel;
@@ -15,7 +15,7 @@ const Lesion = (props: LesionProps) => {
       <View style={styles.container}>
         <View style={styles.photoContainer}>
           <Image
-            source={LocalImages[props.lesion.getFirstPhoto().localId]}
+            source={LesionImages[props.lesion.getFirstPhoto().localId]}
             style={styles.image}
             contentFit="cover"
             contentPosition="center"

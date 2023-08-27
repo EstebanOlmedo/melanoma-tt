@@ -1,11 +1,33 @@
-import { Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+
+import Section from "../../src/components/section";
+import Styles from "../../src/styles";
+import { getQuestions } from "../../src/utils/helpData";
 
 const HelpAnswer = () => {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const questionIndex = parseInt(id || "0", 10);
+  const questions = getQuestions();
+  const { title, body } = questions[questionIndex];
+  const Body = () => {
+    return (
+      <View style={[Styles.cardBorder, style.bodyContainer]}>
+        <Text>{body}</Text>
+      </View>
+    );
+  };
   return (
-    <View>
-      <Text>Hola</Text>
-    </View>
+    <ScrollView style={Styles.flexContainer}>
+      <Section title={title} body={Body} />
+    </ScrollView>
   );
 };
+
+const style = StyleSheet.create({
+  bodyContainer: {
+    padding: 20,
+  },
+});
 
 export default HelpAnswer;

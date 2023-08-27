@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { FlatList, ListRenderItemInfo, View, StyleSheet } from "react-native";
 
-import ColorPallete from "../../colorPallete";
 import Styles from "../../styles";
+import { Tutorial, getTutorials } from "../../utils/helpData";
 import { InfoCard } from "../card";
 import {
   FollowupCardIcon,
@@ -10,45 +10,6 @@ import {
   PhotoCardIcon,
   PrediagnosisCardIcon,
 } from "../icons";
-
-interface Tutorial {
-  name: string;
-  label: string;
-}
-
-const tutorials = [
-  {
-    name: "notifications",
-    label: "Notificaciones",
-  },
-  {
-    name: "photos",
-    label: "Captura de imagenes",
-  },
-  {
-    name: "followup",
-    label: "Seguimiento",
-  },
-  {
-    name: "prediagnosis",
-    label: "Prediagnóstico",
-  },
-];
-
-const getBackgroundColor = (name: string) => {
-  switch (name) {
-    case "notifications":
-      return ColorPallete.skyblue.ligth;
-    case "photos":
-      return ColorPallete.green.ligth;
-    case "followup":
-      return ColorPallete.pink.ligth;
-    case "prediagnosis":
-      return ColorPallete.orange.ligth;
-    default:
-      return "white";
-  }
-};
 
 const getIcon = (name: string) => {
   switch (name) {
@@ -65,14 +26,24 @@ const getIcon = (name: string) => {
   }
 };
 
-const TutorialsOverview = () => {
+interface TutorialsOverviewProps {
+  searchFilter?: string;
+}
+
+const TutorialsOverview = (props: TutorialsOverviewProps) => {
+  const Tutorials = getTutorials();
+  const tutorials = Tutorials.filter((tutorial) => {
+    if (props.searchFilter === undefined) return true;
+    const label = tutorial.title.toLowerCase();
+    return label.includes(props.searchFilter);
+  });
   const renderCard = ({ item }: ListRenderItemInfo<Tutorial>) => {
     return (
       <InfoCard
-        title={item.label}
-        backgroundColor={getBackgroundColor(item.name)}
-        icon={getIcon(item.name)}
-        href={`/help/tutorial/${item.name}`}
+        title={item.title}
+        backgroundColor={item.color}
+        icon={getIcon(item.icon)}
+        href={`/help/tutorial/${item.id}`}
       />
     );
   };

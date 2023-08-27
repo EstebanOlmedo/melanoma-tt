@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import Questions from "../../src/components/home/questions";
@@ -5,41 +6,79 @@ import TutorialsOverview from "../../src/components/home/tutorialsOverview";
 import Search from "../../src/components/searchbar";
 import Section from "../../src/components/section";
 import Styles from "../../src/styles";
-import { getQuestions } from "../../src/utils/helpData";
+import { Question, getQuestions } from "../../src/utils/helpData";
 
-const SearchSection = () => {
+interface SearchSectionProps {
+  searchFilter: string;
+}
+
+const SearchSection = (props: SearchSectionProps) => {
   return (
     <View>
-      <Search placeholder="Ingresa una palabra clave" />
-      <TutorialsOverview />
+      <TutorialsOverview searchFilter={props.searchFilter} />
     </View>
   );
 };
 
-const QuestionsSection = () => {
-  return <Questions questions={getQuestions()} />;
+interface QuestionsSectionProps {
+  questions: Question[];
+}
+
+const QuestionsSection = (props: QuestionsSectionProps) => {
+  return <Questions questions={props.questions} />;
 };
 
 const Help = () => {
+  const rawQuestions = getQuestions();
+  const [searchFilter, setSearchFilter] = useState("");
+  const [questions, setQuestions] = useState(rawQuestions);
+  const onSearchChanged = (search: string) => {
+    search = search.toLowerCase();
+    setSearchFilter(search);
+    const filteredQuestions = rawQuestions.filter((question) => {
+      if (search === "") return true;
+      const title = question.title.toLowerCase();
+      const body = question.body.toLowerCase();
+      return title.includes(search) || body.includes(search);
+    });
+    setQuestions(filteredQuestions);
+  };
+  const searchSection = () => {
+    return SearchSection({
+      searchFilter,
+    });
+  };
+  const questionsSection = () => {
+    return QuestionsSection({
+      questions,
+    });
+  };
   return (
-    <View style={Styles.flexContainer}>
+    <View style={[styles.container, Styles.flexContainer]}>
+      <Search
+        placeholder="Ingresa una palabra clave"
+        onChangeText={onSearchChanged}
+      />
       <View style={styles.searchContainer}>
-        <Section title="¿Cómo te podemos ayudar?" body={SearchSection} />
+        <Section title="¿Cómo te podemos ayudar?" body={searchSection} />
       </View>
       <View style={styles.questionsContainer}>
-        <Section title="Preguntas frecuentes" body={QuestionsSection} />
+        <Section title="Preguntas frecuentes" body={questionsSection} />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    // minHeight: 1000,
+  },
   searchContainer: {
     flex: 1,
     maxHeight: 250,
   },
   questionsContainer: {
-    flex: 2,
+    flex: 2.5,
   },
 });
 
