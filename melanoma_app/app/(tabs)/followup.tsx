@@ -2,6 +2,7 @@ import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, InteractionManager } from "react-native";
 
+import { EditButton, SaveButton } from "../../src/components/button";
 import LesionsOverview from "../../src/components/home/lesionsOverview";
 import RemainderCarousel from "../../src/components/home/remainderCarousel";
 import Section from "../../src/components/section";
@@ -12,20 +13,35 @@ import { getLesions, getRemainders } from "../../src/utils/testData";
 
 const Followup = () => {
   const navigation = useNavigation();
+  const [isEditing, setIsEditing] = useState(false);
   const [lesions, setLesions] = useState<Lesion[]>([]);
   const [remainders, setRemainders] = useState<Remainder[]>([]);
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () =>
+        isEditing ? (
+          <SaveButton
+            style={{ marginRight: 10 }}
+            onPress={() => setIsEditing(false)}
+          />
+        ) : (
+          <EditButton
+            style={{ marginRight: 10 }}
+            onPress={() => setIsEditing(true)}
+          />
+        ),
+    });
     const task = InteractionManager.runAfterInteractions(() => {
       setLesions(getLesions());
       setRemainders(getRemainders());
     });
     return () => task.cancel();
-  }, [navigation]);
+  }, [navigation, isEditing]);
   const Remainders = () => {
     return RemainderCarousel({ remainders });
   };
   const Lesions = () => {
-    return LesionsOverview({ lesions });
+    return LesionsOverview({ lesions, isEditing });
   };
   return (
     <View style={Styles.flexContainer}>

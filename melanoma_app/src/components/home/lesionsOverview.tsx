@@ -6,11 +6,15 @@ import LesionItem from "../lesionItem";
 
 interface LesionsOverviewProps {
   lesions: LesionModel[];
+  isEditing: boolean;
 }
 
 const LesionsOverview = (props: LesionsOverviewProps) => {
   const renderLesion = ({ item }: ListRenderItemInfo<LesionModel>) => {
-    return <LesionItem lesion={item} />;
+    return <LesionItem lesion={item} isEditing={props.isEditing} />;
+  };
+  const gap = () => {
+    return <View style={styles.gap} />;
   };
   return (
     <View style={styles.container}>
@@ -18,6 +22,7 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
         data={props.lesions}
         renderItem={renderLesion}
         contentContainerStyle={Styles.scrollContainer}
+        ItemSeparatorComponent={gap}
       />
     </View>
   );
@@ -26,6 +31,9 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  gap: {
+    height: 10,
   },
 });
 

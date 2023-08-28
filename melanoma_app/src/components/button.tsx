@@ -1,17 +1,24 @@
 import { Feather, FontAwesome } from "@expo/vector-icons";
-import { StyleSheet, Text, TouchableOpacity, Platform } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Platform,
+  ViewStyle,
+} from "react-native";
 
 import ColorPallete from "../colorPallete";
 import Styles from "../styles";
 
 interface BaseButtonProps {
   onPress?: () => void;
+  style?: ViewStyle;
 }
 
 export const EditButton = (props: BaseButtonProps) => {
   return (
     <TouchableOpacity
-      style={styles.editButton}
+      style={[styles.editButton, props.style]}
       onPress={() => props.onPress?.()}
     >
       <Feather name="edit" size={24} color={ColorPallete.orange.normal} />
@@ -22,7 +29,7 @@ export const EditButton = (props: BaseButtonProps) => {
 export const SaveButton = (props: BaseButtonProps) => {
   return (
     <TouchableOpacity
-      style={styles.editButton}
+      style={[styles.editButton, props.style]}
       onPress={() => props.onPress?.()}
     >
       <FontAwesome name="save" size={24} color={ColorPallete.green.normal} />
