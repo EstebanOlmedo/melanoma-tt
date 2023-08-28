@@ -23,14 +23,14 @@ export function getPhotos(count: number) {
 
 export function getLesions() {
   const lesions = [
-    new Lesion("Brazo", getPhotos(1)),
-    new Lesion("Espalda", getPhotos(3)),
-    new Lesion("Mejilla", getPhotos(5)),
-    new Lesion("Cara", getPhotos(5)),
-    new Lesion("Espalda", getPhotos(5)),
-    new Lesion("Pierna", getPhotos(5)),
-    new Lesion("Abdomen", getPhotos(5)),
-    new Lesion("Mano", getPhotos(5)),
+    new Lesion(0, "Brazo", getPhotos(1)),
+    new Lesion(1, "Espalda", getPhotos(3)),
+    new Lesion(2, "Mejilla", getPhotos(5)),
+    new Lesion(3, "Cara", getPhotos(5)),
+    new Lesion(4, "Espalda", getPhotos(5)),
+    new Lesion(5, "Pierna", getPhotos(15)),
+    new Lesion(6, "Abdomen", getPhotos(5)),
+    new Lesion(7, "Mano", getPhotos(20)),
   ];
   return lesions;
 }

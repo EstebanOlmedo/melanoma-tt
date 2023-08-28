@@ -2,7 +2,7 @@ import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 
 import { default as LesionModel } from "../../models/lesion";
 import Styles from "../../styles";
-import Lesion from "../lesion";
+import LesionItem from "../lesionItem";
 
 interface LesionsOverviewProps {
   lesions: LesionModel[];
@@ -10,7 +10,7 @@ interface LesionsOverviewProps {
 
 const LesionsOverview = (props: LesionsOverviewProps) => {
   const renderLesion = ({ item }: ListRenderItemInfo<LesionModel>) => {
-    return <Lesion lesion={item} />;
+    return <LesionItem lesion={item} />;
   };
   return (
     <View style={styles.container}>

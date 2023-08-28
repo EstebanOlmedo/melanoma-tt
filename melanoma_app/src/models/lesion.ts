@@ -1,10 +1,12 @@
 import Photo from "./photo";
 
 export default class Lesion {
+  id: number;
   name: string;
   photos: Photo[];
 
-  constructor(name: string, photos: Photo[]) {
+  constructor(id: number, name: string, photos: Photo[]) {
+    this.id = id;
     this.name = name;
     this.photos = photos;
   }

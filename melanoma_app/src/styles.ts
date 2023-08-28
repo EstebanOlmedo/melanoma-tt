@@ -51,7 +51,7 @@ const TextStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   textTitle: {
-    fontSize: 26,
+    fontSize: 24,
     fontFamily: "Roboto",
   },
 });

@@ -40,6 +40,8 @@ const RootLayout = () => {
           name="help/tutorial/[id]"
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="lesion/[id]" />
+        <Stack.Screen name="settings/[option]" />
       </Stack>
     </SafeAreaProvider>
   );

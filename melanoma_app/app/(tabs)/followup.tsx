@@ -1,20 +1,32 @@
-import { View, StyleSheet } from "react-native";
+import { useNavigation } from "expo-router";
+import { useEffect, useState } from "react";
+import { View, StyleSheet, InteractionManager } from "react-native";
 
 import LesionsOverview from "../../src/components/home/lesionsOverview";
 import RemainderCarousel from "../../src/components/home/remainderCarousel";
 import Section from "../../src/components/section";
+import Lesion from "../../src/models/lesion";
+import Remainder from "../../src/models/remainder";
 import Styles from "../../src/styles";
 import { getLesions, getRemainders } from "../../src/utils/testData";
 
-const Remainders = () => {
-  return <RemainderCarousel remainders={getRemainders()} />;
-};
-
-const Lesions = () => {
-  return <LesionsOverview lesions={getLesions()} />;
-};
-
 const Followup = () => {
+  const navigation = useNavigation();
+  const [lesions, setLesions] = useState<Lesion[]>([]);
+  const [remainders, setRemainders] = useState<Remainder[]>([]);
+  useEffect(() => {
+    const task = InteractionManager.runAfterInteractions(() => {
+      setLesions(getLesions());
+      setRemainders(getRemainders());
+    });
+    return () => task.cancel();
+  }, [navigation]);
+  const Remainders = () => {
+    return RemainderCarousel({ remainders });
+  };
+  const Lesions = () => {
+    return LesionsOverview({ lesions });
+  };
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.bodyContainer}>
