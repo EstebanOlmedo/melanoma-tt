@@ -1,8 +1,8 @@
 import { View, StyleSheet } from "react-native";
 
-import SettingsOptions from "../../src/components/home/settingsOptions";
-import Section from "../../src/components/section";
-import Styles from "../../src/styles";
+import SettingsOptions from "@/components/home/settingsOptions";
+import Section from "@/components/section";
+import Styles from "@/styles";
 
 const Settings = () => {
   return (

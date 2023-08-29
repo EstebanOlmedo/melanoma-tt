@@ -4,14 +4,14 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import ColorPallete from "../src/colorPallete";
+import ColorPallete from "@/colorPallete";
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [areFontsLoaded] = useFonts({
-    Verdana: require("../assets/fonts/Verdana.ttf"),
-    VerdanaBold: require("../assets/fonts/verdanab.ttf"),
+    Verdana: require("@assets/fonts/Verdana.ttf"),
+    VerdanaBold: require("@assets/fonts/verdanab.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {

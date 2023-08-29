@@ -6,6 +6,7 @@ import ColorPallete from "../colorPallete";
 import { default as PhotoModel } from "../models/photo";
 import Styles from "../styles";
 import { LesionImages } from "../utils/images";
+import {Link} from "expo-router";
 
 interface PhotoItemProps {
   photo: PhotoModel;
@@ -35,6 +36,15 @@ const PhotoItem = (props: PhotoItemProps) => {
             <Entypo name="cross" size={20} color="red" />
           </TouchableOpacity>
         ) : (
+          <Link
+            href={{
+              pathname: "./photo",
+              params: {
+                id: props.photo.localId,
+            },
+            }}
+            asChild
+          >
           <TouchableOpacity style={styles.touchContainer}>
             <Entypo
               name="chevron-thin-right"
@@ -42,6 +52,7 @@ const PhotoItem = (props: PhotoItemProps) => {
               color={ColorPallete.border.dark}
             />
           </TouchableOpacity>
+          </Link>
         )}
       </View>
     </View>

@@ -2,14 +2,14 @@ import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, InteractionManager } from "react-native";
 
-import { EditButton, SaveButton } from "../../src/components/button";
-import LesionsOverview from "../../src/components/home/lesionsOverview";
-import RemainderCarousel from "../../src/components/home/remainderCarousel";
-import Section from "../../src/components/section";
-import Lesion from "../../src/models/lesion";
-import Remainder from "../../src/models/remainder";
-import Styles from "../../src/styles";
-import { getLesions, getRemainders } from "../../src/utils/testData";
+import { EditButton, SaveButton } from "@/components/button";
+import LesionsOverview from "@/components/home/lesionsOverview";
+import RemainderCarousel from "@/components/home/remainderCarousel";
+import Section from "@/components/section";
+import Lesion from "@/models/lesion";
+import Remainder from "@/models/remainder";
+import Styles from "@/styles";
+import { getLesions, getRemainders } from "@/utils/testData";
 
 const Followup = () => {
   const navigation = useNavigation();

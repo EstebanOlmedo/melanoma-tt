@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import Questions from "../../src/components/home/questions";
-import TutorialsOverview from "../../src/components/home/tutorialsOverview";
-import Search from "../../src/components/searchbar";
-import Section from "../../src/components/section";
-import Styles from "../../src/styles";
-import { Question, getQuestions } from "../../src/utils/helpData";
+import Questions from "@/components/home/questions";
+import TutorialsOverview from "@/components/home/tutorialsOverview";
+import Search from "@/components/searchbar";
+import Section from "@/components/section";
+import Styles from "@/styles";
+import { Question, getQuestions } from "@/utils/helpData";
 
 interface SearchSectionProps {
   searchFilter: string;

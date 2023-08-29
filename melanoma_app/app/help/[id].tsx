@@ -1,9 +1,9 @@
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import Section from "../../src/components/section";
-import Styles from "../../src/styles";
-import { getQuestions } from "../../src/utils/helpData";
+import Section from "@/components/section";
+import Styles from "@/styles";
+import { getQuestions } from "@/utils/helpData";
 
 const HelpAnswer = () => {
   const { id } = useLocalSearchParams<{ id: string }>();

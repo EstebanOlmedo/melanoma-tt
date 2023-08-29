@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { TutorialSlider } from "../../../src/components/help/tutorial";
-import { getTutorials } from "../../../src/utils/helpData";
+import { TutorialSlider } from "@/components/help/tutorial";
+import { getTutorials } from "@/utils/helpData";
 
 const Tutorial = () => {
   const { id } = useLocalSearchParams<{ id: string }>();

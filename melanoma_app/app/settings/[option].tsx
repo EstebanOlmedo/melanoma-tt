@@ -3,8 +3,8 @@ import { StyleSheet, View } from "react-native";
 import {
   SettingBoolOption,
   SettingPickOption,
-} from "../../src/components/settingOption";
-import Styles from "../../src/styles";
+} from "@/components/settingOption";
+import Styles from "@/styles";
 
 const Setting = () => {
   const options = [1, 2, 3, 4, 5, 6];

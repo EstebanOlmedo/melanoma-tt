@@ -2,14 +2,14 @@ import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Fragment, useEffect, useState } from "react";
 import { StyleSheet, TextInput, View, Platform } from "react-native";
 
-import ColorPallete from "../../src/colorPallete";
-import Button, { EditButton, SaveButton } from "../../src/components/button";
-import CompareSelector from "../../src/components/lesion/compareSelectot";
-import PhotosOverview from "../../src/components/lesion/photosOverview";
-import Section from "../../src/components/section";
-import { default as PhotoModel } from "../../src/models/photo";
-import Styles from "../../src/styles";
-import { getLesions } from "../../src/utils/testData";
+import ColorPallete from "@/colorPallete";
+import Button, { EditButton, SaveButton } from "@/components/button";
+import CompareSelector from "@/components/lesion/compareSelectot";
+import PhotosOverview from "@/components/lesion/photosOverview";
+import Section from "@/components/section";
+import { default as PhotoModel } from "@/models/photo";
+import Styles from "@/styles";
+import { getLesions } from "@/utils/testData";
 
 const LesionDetail = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
