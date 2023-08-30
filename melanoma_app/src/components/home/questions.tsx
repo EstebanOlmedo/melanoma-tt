@@ -23,9 +23,11 @@ const Questions = (props: QuestionsProps) => {
       />
     );
   };
+
   const gap = () => {
     return <View style={styles.gap} />;
   };
+
   return (
     <View style={Styles.flexContainer}>
       <FlatList

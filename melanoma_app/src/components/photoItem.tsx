@@ -15,6 +15,7 @@ interface PhotoItemProps {
 
 const PhotoItem = (props: PhotoItemProps) => {
   const { id } = useLocalSearchParams<{ id: string }>();
+
   return (
     <View style={styles.container}>
       <View style={styles.photoContainer}>

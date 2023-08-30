@@ -80,6 +80,7 @@ const Menubar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
       options.title ??
       route.name) as string;
     const isFocused = state.index === index;
+
     const onPress = () => {
       const event = navigation.emit({
         type: "tabPress",
@@ -90,12 +91,14 @@ const Menubar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         navigation.navigate(route.name);
       }
     };
+
     const onLongPress = () => {
       navigation.emit({
         type: "tabLongPress",
         target: route.key,
       });
     };
+
     return (
       <MenubarOption
         title={label}

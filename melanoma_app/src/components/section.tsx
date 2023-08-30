@@ -10,6 +10,7 @@ interface SectionProps {
 
 const Section = (props: SectionProps) => {
   const Body = props.body;
+
   return (
     <View style={[Styles.flexContainer, styles.container]}>
       <View>

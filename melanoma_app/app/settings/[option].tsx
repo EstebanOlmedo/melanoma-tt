@@ -8,6 +8,7 @@ import Styles from "@/styles";
 
 const Setting = () => {
   const options = [1, 2, 3, 4, 5, 6];
+
   return (
     <View style={styles.container}>
       <SettingBoolOption name="Habilitar notificaciones" />

@@ -16,6 +16,7 @@ const Followup = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [lesions, setLesions] = useState<Lesion[]>([]);
   const [remainders, setRemainders] = useState<Remainder[]>([]);
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () =>
@@ -31,18 +32,23 @@ const Followup = () => {
           />
         ),
     });
+
     const task = InteractionManager.runAfterInteractions(() => {
       setLesions(getLesions());
       setRemainders(getRemainders());
     });
+
     return () => task.cancel();
   }, [navigation, isEditing]);
+
   const Remainders = () => {
     return RemainderCarousel({ remainders });
   };
+
   const Lesions = () => {
     return LesionsOverview({ lesions, isEditing });
   };
+
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.bodyContainer}>

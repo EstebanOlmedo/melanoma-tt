@@ -37,6 +37,7 @@ const TutorialsOverview = (props: TutorialsOverviewProps) => {
     const label = tutorial.title.toLowerCase();
     return label.includes(props.searchFilter);
   });
+
   const renderCard = ({ item }: ListRenderItemInfo<Tutorial>) => {
     return (
       <InfoCard
@@ -47,9 +48,11 @@ const TutorialsOverview = (props: TutorialsOverviewProps) => {
       />
     );
   };
+
   const gap = () => {
     return <View style={styles.gap} />;
   };
+
   return (
     <View>
       <FlatList

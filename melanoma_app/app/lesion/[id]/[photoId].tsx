@@ -31,15 +31,18 @@ const DetailedPhoto = () => {
   const photo = getLesions()[id].photos[photoId];
   const navigator = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const Body = () => {
-    return ImageDescription({ description: photo.description });
-  };
+
   useEffect(() => {
     navigator.setOptions({
       title: photo.createdOn.toLocaleString(),
       headerRight: () => <EditButton onPress={() => setModalVisible(true)} />,
     });
   }, [navigator]);
+
+  const Body = () => {
+    return ImageDescription({ description: photo.description });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.photoContainer}>

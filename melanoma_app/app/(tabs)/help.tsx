@@ -32,6 +32,7 @@ const Help = () => {
   const rawQuestions = getQuestions();
   const [searchFilter, setSearchFilter] = useState("");
   const [questions, setQuestions] = useState(rawQuestions);
+
   const onSearchChanged = (search: string) => {
     search = search.toLowerCase();
     setSearchFilter(search);
@@ -43,16 +44,19 @@ const Help = () => {
     });
     setQuestions(filteredQuestions);
   };
+
   const searchSection = () => {
     return SearchSection({
       searchFilter,
     });
   };
+
   const questionsSection = () => {
     return QuestionsSection({
       questions,
     });
   };
+
   return (
     <View style={[styles.container, Styles.flexContainer]}>
       <Search

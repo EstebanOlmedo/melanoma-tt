@@ -17,6 +17,7 @@ export const InfoCard = (props: InfoCardProps) => {
     backgroundColor: props.backgroundColor,
   };
   const Icon = props.icon;
+
   return (
     <Link href={props.href} asChild style={[style.infoCardContainer, bgColor]}>
       <TouchableOpacity>

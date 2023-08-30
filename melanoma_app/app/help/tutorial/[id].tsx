@@ -8,6 +8,7 @@ const Tutorial = () => {
   const tutorialIndex = parseInt(id || "0", 10);
   const tutorial = getTutorials();
   const { steps } = tutorial[tutorialIndex];
+
   return <TutorialSlider tutorials={steps} />;
 };
 

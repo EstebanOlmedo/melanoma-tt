@@ -10,6 +10,7 @@ const HelpAnswer = () => {
   const questionIndex = parseInt(id || "0", 10);
   const questions = getQuestions();
   const { title, body } = questions[questionIndex];
+
   const Body = () => {
     return (
       <View style={[Styles.cardBorder, style.bodyContainer]}>
@@ -17,6 +18,7 @@ const HelpAnswer = () => {
       </View>
     );
   };
+
   return (
     <ScrollView style={Styles.flexContainer}>
       <Section title={title} body={Body} />

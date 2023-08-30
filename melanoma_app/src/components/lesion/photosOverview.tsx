@@ -13,9 +13,11 @@ const PhotosOverview = (props: PhotosOverviewProps) => {
   const renderPhoto = ({ item }: ListRenderItemInfo<PhotoModel>) => {
     return <PhotoItem photo={item} isEditing={props.isEditing} />;
   };
+
   const gap = () => {
     return <View style={styles.gap} />;
   };
+
   return (
     <View style={styles.container}>
       <FlatList

@@ -69,6 +69,7 @@ export const SettingPickOption = (props: SettingPickOptionProps) => {
   const pickerOptions = props.dataOptions.map((val, index) => {
     return <Picker.Item label={val.toString()} value={val} key={index} />;
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.nameContainer}>

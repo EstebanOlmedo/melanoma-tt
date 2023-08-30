@@ -22,6 +22,7 @@ const CompareSelector = (props: CompareSelectorProps) => {
       />
     );
   });
+
   return (
     <Modal
       transparent

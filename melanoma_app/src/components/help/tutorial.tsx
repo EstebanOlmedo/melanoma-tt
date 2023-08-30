@@ -53,6 +53,7 @@ export const TutorialSlider = (props: TutorialSliderProps) => {
   const [tutorials, setTutorials] = useState(props.tutorials);
   const [activeSlide, setActiveSlide] = useState(0);
   const carousel = useRef<Carousel<TutorialCardProps>>(null);
+
   const renderCard = (item: TutorialCardProps) => {
     return (
       <TutorialCard
@@ -63,11 +64,13 @@ export const TutorialSlider = (props: TutorialSliderProps) => {
       />
     );
   };
+
   const onSlide = (index: number) => {
     if (Platform.OS !== "web") {
       setActiveSlide(index);
     }
   };
+
   const slidePrev = () => {
     if (Platform.OS === "web") {
       const newActiveSlide =
@@ -78,6 +81,7 @@ export const TutorialSlider = (props: TutorialSliderProps) => {
       carousel.current?.snapToPrev();
     }
   };
+
   const slideNext = () => {
     if (Platform.OS === "web") {
       const newActiveSlide = (activeSlide + 1) % props.tutorials.length;
@@ -87,9 +91,11 @@ export const TutorialSlider = (props: TutorialSliderProps) => {
       carousel.current?.snapToNext();
     }
   };
+
   const onSkip = () => {
     router.back();
   };
+
   return (
     <View style={Styles.flexContainer}>
       <Carousel

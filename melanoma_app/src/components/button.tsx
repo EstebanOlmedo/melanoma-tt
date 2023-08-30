@@ -44,6 +44,7 @@ interface ButtonProps extends BaseButtonProps {
 
 const Button = (props: ButtonProps) => {
   const bgColor = { backgroundColor: props.color };
+
   return (
     <TouchableOpacity
       style={[bgColor, styles.container]}

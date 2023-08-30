@@ -13,9 +13,11 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
   const renderLesion = ({ item }: ListRenderItemInfo<LesionModel>) => {
     return <LesionItem lesion={item} isEditing={props.isEditing} />;
   };
+
   const gap = () => {
     return <View style={styles.gap} />;
   };
+
   return (
     <View style={styles.container}>
       <FlatList

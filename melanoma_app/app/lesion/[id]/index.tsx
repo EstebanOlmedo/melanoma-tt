@@ -26,9 +26,7 @@ const LesionDetail = () => {
   const [name, setName] = useState(lesion.name);
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const Photos = () => {
-    return PhotosOverview({ photos, isEditing });
-  };
+
   useEffect(() => {
     navigation.setOptions({
       title: lesion.name,
@@ -47,11 +45,17 @@ const LesionDetail = () => {
         />
       ),
     });
+
     const unsubscribe = navigation.addListener("transitionEnd", (_e) => {
       setPhotos(lesion.photos);
     });
+
     return unsubscribe;
   }, [navigation, isEditing, name]);
+  const Photos = () => {
+    return PhotosOverview({ photos, isEditing });
+  };
+
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.photosContainer}>

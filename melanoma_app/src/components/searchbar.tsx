@@ -11,6 +11,7 @@ interface SearchProps {
 
 const Search = (props: SearchProps) => {
   const [value, setValue] = useState(props.search || "");
+
   const updateSearch = (search: string) => {
     setValue(search);
     props.onChangeText?.(search);

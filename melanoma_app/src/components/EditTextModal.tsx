@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Modal, StyleSheet, TextInput, View } from "react-native";
 
 import Button from "./button";
 
@@ -13,16 +13,23 @@ interface TextEditModalProps {
 
 const TextEditModal = (props: TextEditModalProps) => {
   const [value, setValue] = useState(props.value);
+
   const onCancel = () => {
     setValue(props.value);
     props.onCancel();
   };
+
   return (
     <Modal animationType="slide" hardwareAccelerated visible={props.visible}>
       <View style={styles.container}>
-        <ScrollView style={[Styles.cardBorder, styles.textContainer]}>
-          <TextInput multiline onChangeText={setValue} value={value} />
-        </ScrollView>
+        <View style={[Styles.cardBorder, styles.textContainer]}>
+          <TextInput
+            style={styles.textInput}
+            multiline
+            onChangeText={setValue}
+            value={value}
+          />
+        </View>
         <View
           style={[
             Styles.horizontalContainer,
@@ -49,6 +56,10 @@ const styles = StyleSheet.create({
   },
   buttons: {
     position: "relative",
+  },
+  textInput: {
+    flex: 1,
+    textAlignVertical: "top",
   },
 });
 
