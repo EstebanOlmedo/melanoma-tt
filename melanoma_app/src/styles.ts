@@ -20,6 +20,13 @@ const ContainerStyles = StyleSheet.create({
     flexGrow: 1,
     padding: 5,
   },
+  buttonsBottomContainer: {
+    position: "absolute",
+    bottom: 0,
+    padding: 10,
+    width: "100%",
+    justifyContent: "space-evenly",
+  },
 });
 
 const BorderStyles = StyleSheet.create({

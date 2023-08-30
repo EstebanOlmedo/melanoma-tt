@@ -4,7 +4,7 @@ import { StyleSheet, TextInput, View, Platform } from "react-native";
 
 import ColorPallete from "@/colorPallete";
 import Button, { EditButton, SaveButton } from "@/components/button";
-import CompareSelector from "@/components/lesion/compareSelectot";
+import CompareSelector from "@/components/lesion/compareSelector";
 import PhotosOverview from "@/components/lesion/photosOverview";
 import Section from "@/components/section";
 import { default as PhotoModel } from "@/models/photo";
@@ -58,7 +58,9 @@ const LesionDetail = () => {
         <Section title="Fotos" body={Photos} />
       </View>
       {!isEditing ? (
-        <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
+        <View
+          style={[Styles.horizontalContainer, Styles.buttonsBottomContainer]}
+        >
           <Button
             title="Comparar"
             color={ColorPallete.pink.dark}
@@ -81,13 +83,6 @@ const LesionDetail = () => {
 const styles = StyleSheet.create({
   photosContainer: {
     flex: 1,
-  },
-  buttonsContainer: {
-    position: "absolute",
-    bottom: 0,
-    padding: 10,
-    width: "100%",
-    justifyContent: "space-evenly",
   },
   blackColor: {
     color: "black",

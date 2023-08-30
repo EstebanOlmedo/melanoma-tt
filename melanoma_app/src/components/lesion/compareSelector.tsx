@@ -36,7 +36,7 @@ const CompareSelector = (props: CompareSelectorProps) => {
               <View style={Styles.flexContainer}>
                 <Text>Antes:</Text>
               </View>
-              <Picker style={Styles.flexContainer} mode="dialog">
+              <Picker style={styles.pickOption} mode="dialog">
                 {options}
               </Picker>
             </View>
@@ -44,7 +44,7 @@ const CompareSelector = (props: CompareSelectorProps) => {
               <View style={Styles.flexContainer}>
                 <Text>Despues:</Text>
               </View>
-              <Picker style={Styles.flexContainer} mode="dialog">
+              <Picker style={styles.pickOption} mode="dialog">
                 {options}
               </Picker>
             </View>
@@ -62,7 +62,7 @@ const CompareSelector = (props: CompareSelectorProps) => {
 const styles = StyleSheet.create({
   container: {
     padding: 30,
-    margin: 40,
+    margin: 20,
   },
   dropdownsContainer: {
     width: "100%",
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-evenly",
     alignSelf: "flex-start",
+  },
+  pickOption: {
+    flex: 3,
   },
 });
 
