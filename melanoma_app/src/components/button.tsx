@@ -47,7 +47,7 @@ const Button = (props: ButtonProps) => {
 
   return (
     <TouchableOpacity
-      style={[bgColor, styles.container]}
+      style={[bgColor, styles.container, props.style]}
       onPress={() => props.onPress?.()}
     >
       <Text style={[Styles.textBody, Styles.textWhite]}>{props.title}</Text>

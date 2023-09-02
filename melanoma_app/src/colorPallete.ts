@@ -13,7 +13,7 @@ const ColorPallete = {
     dark: "#1573FE",
   },
   blue: {
-    normal: "#3975b3",
+    normal: "#265380",
     ligth: "",
     dark: "#2B5B8D",
   },

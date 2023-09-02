@@ -44,7 +44,7 @@ const LesionItem = (props: LesionProps) => {
         ) : (
           <Link
             href={{
-              pathname: "/lesion/[id]",
+              pathname: "/lesion/[id]/",
               params: {
                 id: props.lesion.id,
               },

@@ -1,4 +1,5 @@
 import { Picker } from "@react-native-picker/picker";
+import { useEffect, useState } from "react";
 import { Modal, StyleSheet, Text, View } from "react-native";
 
 import Photo from "../../models/photo";
@@ -8,11 +9,27 @@ import Button from "../button";
 interface CompareSelectorProps {
   visible: boolean;
   onCancel: () => void;
-  onCompare: () => void;
+  onCompareSelected: (
+    beforeId: number | undefined,
+    afterId: number | undefined
+  ) => void;
   photos: Photo[];
 }
 
 const CompareSelector = (props: CompareSelectorProps) => {
+  const [beforeImageId, setBeforeImageId] = useState<number | undefined>(
+    undefined
+  );
+  const [afterImageId, setAfterImageId] = useState<number | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    const [firstPhoto] = props.photos;
+    setBeforeImageId(firstPhoto?.localId);
+    setAfterImageId(firstPhoto?.localId);
+  }, [props.photos]);
+
   const options = props.photos.map((photo, index) => {
     return (
       <Picker.Item
@@ -37,7 +54,11 @@ const CompareSelector = (props: CompareSelectorProps) => {
               <View style={Styles.flexContainer}>
                 <Text>Antes:</Text>
               </View>
-              <Picker style={styles.pickOption} mode="dialog">
+              <Picker
+                style={styles.pickOption}
+                onValueChange={setBeforeImageId}
+                mode="dialog"
+              >
                 {options}
               </Picker>
             </View>
@@ -45,14 +66,23 @@ const CompareSelector = (props: CompareSelectorProps) => {
               <View style={Styles.flexContainer}>
                 <Text>Despues:</Text>
               </View>
-              <Picker style={styles.pickOption} mode="dialog">
+              <Picker
+                style={styles.pickOption}
+                onValueChange={setAfterImageId}
+                mode="dialog"
+              >
                 {options}
               </Picker>
             </View>
           </View>
           <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
             <Button title="Cancelar" color="black" onPress={props.onCancel} />
-            <Button title="Comparar" />
+            <Button
+              title="Comparar"
+              onPress={() =>
+                props.onCompareSelected(beforeImageId, afterImageId)
+              }
+            />
           </View>
         </View>
       </View>
@@ -79,7 +109,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   pickOption: {
-    flex: 3,
+    flex: 2.5,
   },
 });
 

@@ -16,15 +16,17 @@ interface SettingOptionLinkProps {
 
 export const SettingOptionLink = (props: SettingOptionLinkProps) => {
   const Icon = props.icon;
-  const RouterHref = {
-    pathname: "/settings/[option]",
-    params: {
-      option: props.option,
-    },
-  };
 
   return (
-    <Link href={RouterHref} asChild>
+    <Link
+      href={{
+        pathname: "/settings/[option]",
+        params: {
+          option: props.option,
+        },
+      }}
+      asChild
+    >
       <TouchableOpacity>
         <View style={styles.container}>
           <View style={[styles.nameContainer, Styles.horizontalContainer]}>

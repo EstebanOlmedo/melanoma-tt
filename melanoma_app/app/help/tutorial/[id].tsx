@@ -5,7 +5,7 @@ import { getTutorials } from "@/utils/helpData";
 
 const Tutorial = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const tutorialIndex = parseInt(id || "0", 10);
+  const tutorialIndex = Number(id || "0");
   const tutorial = getTutorials();
   const { steps } = tutorial[tutorialIndex];
 

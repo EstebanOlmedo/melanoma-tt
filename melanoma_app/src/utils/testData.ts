@@ -2,6 +2,8 @@ import Lesion from "../models/lesion";
 import Photo from "../models/photo";
 import Remainder from "../models/remainder";
 
+import Comparison from "@/models/comparison";
+
 export function getRemainders() {
   const remainders = [
     new Remainder("Brazo", new Date()),
@@ -18,7 +20,7 @@ export function getPhotos(count: number) {
   const photos = [];
   const id = Math.floor(Math.random() * 4);
   for (let i = 0; i < count; i++) {
-    photos.push(new Photo(`photo${i}`, id, new Date(), description));
+    photos.push(new Photo(i, `photo${i}`, id, new Date(), description));
   }
   return photos;
 }
@@ -35,4 +37,23 @@ export function getLesions() {
     new Lesion(7, "Mano", getPhotos(20)),
   ];
   return lesions;
+}
+
+export function getComparison(
+  beforeId: number,
+  afterId: number,
+  parameterName: string
+) {
+  const photos = getPhotos(3);
+  const beforeValue = 98;
+  const afterValue = 93;
+  return new Comparison(
+    photos[0],
+    photos[1],
+    photos[2],
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In enim magna, scelerisque ut fringilla in, porta a ligula. Suspendisse sed felis nibh. Cras dapibus, lacus quis finibus scelerisque, augue lacus tincidunt tortor, nec facilisis urna magna vel nisi. Donec molestie scelerisque pharetra. Nunc dictum eros justo, non aliquam massa pretium vel. Nunc dignissim ornare lorem non malesuada. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam a lorem eu massa venenatis ullamcorper sit amet a risus. Aenean porta eget libero in sodales.",
+    parameterName,
+    beforeValue,
+    afterValue
+  );
 }

@@ -26,8 +26,8 @@ const ImageDescription = (props: ImageDescriptionProps) => {
 
 const DetailedPhoto = () => {
   const params = useLocalSearchParams<{ id: string; photoId: string }>();
-  const id = parseInt(params.id, 10);
-  const photoId = parseInt(params.photoId, 10);
+  const id = Number(params.id);
+  const photoId = Number(params.photoId);
   const photo = getLesions()[id].photos[photoId];
   const navigator = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);

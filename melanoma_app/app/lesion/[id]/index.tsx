@@ -1,7 +1,8 @@
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { Fragment, useEffect, useState } from "react";
 import { StyleSheet, TextInput, View, Platform } from "react-native";
 
+import Alert from "@/Alert";
 import ColorPallete from "@/colorPallete";
 import Button, { EditButton, SaveButton } from "@/components/button";
 import CompareSelector from "@/components/lesion/compareSelector";
@@ -13,7 +14,7 @@ import { getLesions } from "@/utils/testData";
 
 const LesionDetail = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const lesionIndex = parseInt(id || "", 10);
+  const lesionIndex = Number(id || "");
   const lesions = getLesions();
   const lesion = lesions[lesionIndex];
   const navigation = useNavigation();
@@ -26,6 +27,22 @@ const LesionDetail = () => {
   const [name, setName] = useState(lesion.name);
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const compareImages = (beforeImageId: number, afterImageId: number) => {
+    if (beforeImageId === undefined || afterImageId === undefined) {
+      Alert("Error", "Selecciona dos fotos para comparar");
+      return;
+    }
+
+    setModalVisible(false);
+    router.push({
+      pathname: "/compare/[beforeId]/[afterId]",
+      params: {
+        beforeId: beforeImageId,
+        afterId: afterImageId,
+      },
+    });
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -79,6 +96,7 @@ const LesionDetail = () => {
         onCancel={() => setModalVisible(false)}
         photos={photos}
         visible={modalVisible}
+        onCompareSelected={compareImages}
       />
     </View>
   );

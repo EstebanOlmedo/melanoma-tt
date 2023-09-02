@@ -7,7 +7,7 @@ import { getQuestions } from "@/utils/helpData";
 
 const HelpAnswer = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const questionIndex = parseInt(id || "0", 10);
+  const questionIndex = Number(id || "0");
   const questions = getQuestions();
   const { title, body } = questions[questionIndex];
 
