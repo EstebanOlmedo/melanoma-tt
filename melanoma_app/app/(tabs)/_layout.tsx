@@ -25,6 +25,10 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen name="help" options={{ title: "Ayuda" }} />
+      <Tabs.Screen
+        name="add"
+        options={{ title: "Agregar nueva foto", tabBarLabel: "Agregar" }}
+      />
       <Tabs.Screen name="settings" options={{ title: "Ajustes" }} />
     </Tabs>
   );

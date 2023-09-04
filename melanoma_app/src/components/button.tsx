@@ -1,10 +1,12 @@
 import { Feather, FontAwesome } from "@expo/vector-icons";
+import React, { Fragment } from "react";
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   Platform,
   ViewStyle,
+  View,
 } from "react-native";
 
 import ColorPallete from "../colorPallete";
@@ -40,17 +42,25 @@ export const SaveButton = (props: BaseButtonProps) => {
 interface ButtonProps extends BaseButtonProps {
   title: string;
   color: string;
+  icon?: React.ElementType;
 }
 
 const Button = (props: ButtonProps) => {
   const bgColor = { backgroundColor: props.color };
+  const Icon = props.icon ?? Fragment;
+  const margin = props.icon !== undefined ? { marginRight: 10 } : {};
 
   return (
     <TouchableOpacity
       style={[bgColor, styles.container, props.style]}
       onPress={() => props.onPress?.()}
     >
-      <Text style={[Styles.textBody, Styles.textWhite]}>{props.title}</Text>
+      <View style={[Styles.horizontalContainer, styles.hCenterContainer]}>
+        <Text style={[Styles.textBody, Styles.textWhite, styles.text, margin]}>
+          {props.title}
+        </Text>
+        <Icon />
+      </View>
     </TouchableOpacity>
   );
 };
@@ -67,12 +77,18 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  text: {
+    // width: "100%",
+    textAlign: "center",
+  },
   container: {
-    flex: 1,
     padding: 15,
     alignItems: "center",
     borderRadius: 10,
-    maxWidth: 200,
+    margin: 1,
+  },
+  hCenterContainer: {
+    alignSelf: "center",
   },
 });
 

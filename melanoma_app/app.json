@@ -28,7 +28,9 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-image-picker",
+      "expo-camera"
     ],
     "experiments": {
       "tsconfigPaths": true,

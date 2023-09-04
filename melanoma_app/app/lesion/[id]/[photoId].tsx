@@ -2,8 +2,8 @@ import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import TextEditModal from "@/components/EditTextModal";
 import { EditButton } from "@/components/button";
+import TextEditModal from "@/components/editTextModal";
 import Section from "@/components/section";
 import ZoomeableImage from "@/components/zoomeableImage";
 import Styles from "@/styles";

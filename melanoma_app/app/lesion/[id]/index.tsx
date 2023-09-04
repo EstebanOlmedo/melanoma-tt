@@ -83,11 +83,16 @@ const LesionDetail = () => {
           style={[Styles.horizontalContainer, Styles.buttonsBottomContainer]}
         >
           <Button
+            style={Styles.flexContainer}
             title="Comparar"
             color={ColorPallete.pink.dark}
             onPress={() => setModalVisible(true)}
           />
-          <Button title="Agregar" color={ColorPallete.green.dark} />
+          <Button
+            style={Styles.flexContainer}
+            title="Agregar"
+            color={ColorPallete.green.dark}
+          />
         </View>
       ) : (
         <></>

@@ -76,8 +76,14 @@ const CompareSelector = (props: CompareSelectorProps) => {
             </View>
           </View>
           <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
-            <Button title="Cancelar" color="black" onPress={props.onCancel} />
             <Button
+              style={Styles.flexContainer}
+              title="Cancelar"
+              color="black"
+              onPress={props.onCancel}
+            />
+            <Button
+              style={Styles.flexContainer}
               title="Comparar"
               onPress={() =>
                 props.onCompareSelected(beforeImageId, afterImageId)

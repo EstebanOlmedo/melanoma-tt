@@ -113,7 +113,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
+    flex: 1,
     borderRadius: 0,
+    margin: 0,
   },
   buttonsContainer: {
     position: "relative",
