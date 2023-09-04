@@ -2,7 +2,9 @@ import Lesion from "../models/lesion";
 import Photo from "../models/photo";
 import Remainder from "../models/remainder";
 
+import RawImage from "@/data/testBase64Image.json";
 import Comparison from "@/models/comparison";
+import PrediagnosisResult from "@/models/prediagnosisResult";
 
 export function getRemainders() {
   const remainders = [
@@ -55,5 +57,14 @@ export function getComparison(
     parameterName,
     beforeValue,
     afterValue
+  );
+}
+
+export function getPrediagnosisResult() {
+  const image = { base64: RawImage.image };
+  return new PrediagnosisResult(
+    0.67,
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In enim magna, scelerisque ut fringilla in, porta a ligula. Suspendisse sed felis nibh. Cras dapibus, lacus quis finibus scelerisque, augue lacus tincidunt tortor, nec facilisis urna magna vel nisi. Donec molestie scelerisque pharetra. Nunc dictum eros justo, non aliquam massa pretium vel. Nunc dignissim ornare lorem non malesuada. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam a lorem eu massa venenatis ullamcorper sit amet a risus. Aenean porta eget libero in sodales.",
+    image
   );
 }

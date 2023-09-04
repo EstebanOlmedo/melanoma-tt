@@ -10,6 +10,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import Alert from "@/Alert";
 import Button from "@/components/button";
+import { useCurrentPictureMedia } from "@/contexts/pictureMediaContext";
 import Styles from "@/styles";
 import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
 
@@ -22,6 +23,7 @@ const GaleryIcon = () => {
 };
 
 const ImageGetter = () => {
+  const { setCurrentPictureMedia } = useCurrentPictureMedia();
   const pickImage = async () => {
     const permisionResponse = await requestMediaLibraryPermissionsAsync();
 
@@ -38,10 +40,14 @@ const ImageGetter = () => {
       quality: 1,
     });
 
-    console.log(result);
+    if (result.canceled) {
+      return;
+    }
+
+    setCurrentPictureMedia({ uri: result.assets[0].uri });
 
     router.push({
-      pathname: "/prediagnosis/result",
+      pathname: "/prediagnosis/analyze",
     });
   };
 

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import ColorPallete from "@/colorPallete";
+import { useCurrentPictureMedia } from "@/contexts/pictureMediaContext";
 
 interface CameraPreviewProps {
   onPhotoTaken: () => void;
@@ -22,6 +23,7 @@ const CameraPreview = (props: CameraPreviewProps) => {
   const [isRatioSet, setIsRatioSet] = useState(false);
   const { height, width } = Dimensions.get("window");
   const screenRatio = height / width;
+  const { setCurrentPictureMedia } = useCurrentPictureMedia();
 
   const prepareRatio = async () => {
     if (!camera.current || Platform.OS !== "android") {
@@ -67,7 +69,7 @@ const CameraPreview = (props: CameraPreviewProps) => {
     if (!camera.current) return;
     const photo = await camera.current.takePictureAsync();
     camera.current.pausePreview();
-    console.log(photo);
+    setCurrentPictureMedia({ uri: photo.uri });
 
     props.onPhotoTaken();
   };
