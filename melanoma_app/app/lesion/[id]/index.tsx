@@ -10,6 +10,7 @@ import PhotosOverview from "@/components/lesion/photosOverview";
 import Section from "@/components/section";
 import { default as PhotoModel } from "@/models/photo";
 import Styles from "@/styles";
+import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
 import { getLesions } from "@/utils/testData";
 
 const LesionDetail = () => {
@@ -28,7 +29,10 @@ const LesionDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const compareImages = (beforeImageId: number, afterImageId: number) => {
+  const compareImages = (
+    beforeImageId: number | undefined,
+    afterImageId: number | undefined
+  ) => {
     if (beforeImageId === undefined || afterImageId === undefined) {
       Alert("Error", "Selecciona dos fotos para comparar");
       return;
@@ -40,6 +44,16 @@ const LesionDetail = () => {
       params: {
         beforeId: beforeImageId,
         afterId: afterImageId,
+      },
+    });
+  };
+
+  const addPhoto = () => {
+    router.push({
+      pathname: "/photo/",
+      params: {
+        redirect: PhotoRedirectOptions.LESION,
+        lesionId: id,
       },
     });
   };
@@ -92,6 +106,7 @@ const LesionDetail = () => {
             style={Styles.flexContainer}
             title="Agregar"
             color={ColorPallete.green.dark}
+            onPress={addPhoto}
           />
         </View>
       ) : (

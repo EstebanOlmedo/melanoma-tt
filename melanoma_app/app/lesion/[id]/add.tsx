@@ -1,27 +1,30 @@
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 import ImageLoading from "@/components/imageLoading";
 import { useCurrentPictureMedia } from "@/contexts/pictureMediaContext";
 
-const Analyze = () => {
+const Add = () => {
+  const params = useLocalSearchParams<{ id: string }>();
   const { currentPictureMedia } = useCurrentPictureMedia();
 
   useEffect(() => {
     setTimeout(() => {
       router.replace({
-        pathname: "/prediagnosis/result",
+        pathname: "/lesion/[id]/",
+        params: {
+          id: params.id,
+        },
       });
     }, 3000);
   }, []);
 
   if (!currentPictureMedia.uri) {
     console.error("No picture media provided");
-
     return (
       <View>
-        <Text>Error: No se pudo obtener la foto</Text>
+        <Text>Error: no se pudo obtener la foto</Text>
       </View>
     );
   }
@@ -29,9 +32,9 @@ const Analyze = () => {
   return (
     <ImageLoading
       image={{ uri: currentPictureMedia.uri }}
-      message="Estamos analizando su foto, por favor espere..."
+      message="Añadiendo la foto"
     />
   );
 };
 
-export default Analyze;
+export default Add;

@@ -7,6 +7,7 @@ import Button from "@/components/button";
 import AddPhotoSelector from "@/components/home/addPhotoSelector";
 import Section from "@/components/section";
 import Styles from "@/styles";
+import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
 import { getLesions } from "@/utils/testData";
 
 const PrediagnosisBody = () => {
@@ -38,6 +39,7 @@ const PrediagnosisBody = () => {
 
 const LesionBody = () => {
   const lesions = getLesions();
+  const [selectedLesionId, setSelectedLesionId] = useState(lesions[0].id);
 
   const options = lesions.map((lesion) => {
     return (
@@ -57,11 +59,26 @@ const LesionBody = () => {
           <View style={{ flex: 0.3 }}>
             <Text>Lesión:</Text>
           </View>
-          <Picker style={Styles.flexContainer}>{options}</Picker>
+          <Picker
+            style={Styles.flexContainer}
+            selectedValue={selectedLesionId}
+            onValueChange={setSelectedLesionId}
+          >
+            {options}
+          </Picker>
         </View>
         <Button
           style={{ marginTop: 10 }}
           title="Agregar foto a la lesión seleccionada"
+          onPress={() =>
+            router.push({
+              pathname: "/photo/",
+              params: {
+                redirect: PhotoRedirectOptions.LESION,
+                lesionId: selectedLesionId,
+              },
+            })
+          }
         />
       </View>
     </View>

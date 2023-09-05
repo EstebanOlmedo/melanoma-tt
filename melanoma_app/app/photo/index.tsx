@@ -4,7 +4,10 @@ import CameraPreview from "@/components/cameraPreview";
 import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
 
 const Photo = () => {
-  const params = useLocalSearchParams<{ redirect?: string }>();
+  const params = useLocalSearchParams<{
+    redirect?: string;
+    lesionId?: string;
+  }>();
 
   const onPhotoTaken = () => {
     switch (params.redirect) {
@@ -12,6 +15,18 @@ const Photo = () => {
         router.replace({
           pathname: "/prediagnosis/analyze",
         });
+        break;
+      case PhotoRedirectOptions.LESION:
+        if (params.lesionId) {
+          router.replace({
+            pathname: "/lesion/[id]/add",
+            params: {
+              id: params.lesionId,
+            },
+          });
+        } else {
+          console.warn("Missing lesionId param");
+        }
         break;
       default:
         console.warn("Invalid redirect option");

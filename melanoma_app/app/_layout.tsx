@@ -44,6 +44,10 @@ const RootLayout = () => {
           />
           <Stack.Screen name="lesion/[id]/index" />
           <Stack.Screen name="lesion/[id]/[photoId]" />
+          <Stack.Screen
+            name="lesion/[id]/add"
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="settings/[option]" />
           <Stack.Screen
             name="prediagnosis/index"

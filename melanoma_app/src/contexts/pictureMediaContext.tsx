@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 import CustomProviderProps from "./customProviderProps";
 
-import PictureMedia from "@/models/mediaPicture";
+import PictureMedia from "@/models/pictureMedia";
 
 interface CurrentPictureMediaContextType {
   currentPictureMedia: PictureMedia;
