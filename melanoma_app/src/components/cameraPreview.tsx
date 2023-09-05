@@ -1,4 +1,5 @@
-import { Camera } from "expo-camera";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
@@ -21,6 +22,8 @@ const CameraPreview = (props: CameraPreviewProps) => {
   const [cameraPadding, setCameraPadding] = useState(0);
   const [ratio, setRatio] = useState("1:1");
   const [isRatioSet, setIsRatioSet] = useState(false);
+  const [cameraType, setCameraType] = useState(CameraType.back);
+  const [flashMode, setFlashMode] = useState(FlashMode.off);
   const { height, width } = Dimensions.get("window");
   const screenRatio = height / width;
   const { setCurrentPictureMedia } = useCurrentPictureMedia();
@@ -74,6 +77,22 @@ const CameraPreview = (props: CameraPreviewProps) => {
     props.onPhotoTaken();
   };
 
+  const toggleCameraType = () => {
+    if (cameraType === CameraType.back) {
+      setCameraType(CameraType.front);
+    } else {
+      setCameraType(CameraType.back);
+    }
+  };
+
+  const toggleFlashMode = () => {
+    if (flashMode === FlashMode.torch) {
+      setFlashMode(FlashMode.off);
+    } else {
+      setFlashMode(FlashMode.torch);
+    }
+  };
+
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 500);
   }, []);
@@ -83,6 +102,8 @@ const CameraPreview = (props: CameraPreviewProps) => {
       <Camera
         autoFocus
         useCamera2Api
+        flashMode={flashMode}
+        type={cameraType}
         onCameraReady={setCameraReady}
         style={[
           styles.camera,
@@ -92,8 +113,24 @@ const CameraPreview = (props: CameraPreviewProps) => {
         ratio={ratio}
         ref={camera}
       >
-        <View style={styles.captureContainer}>
+        <View style={[styles.captureContainer, styles.bottomContainer]}>
           <TouchableOpacity style={styles.captureButton} onPress={takePhoto} />
+        </View>
+        <View style={[styles.reverseCameraContainer, styles.bottomContainer]}>
+          <TouchableOpacity
+            style={[styles.reverseButton, styles.cameraButton]}
+            onPress={toggleCameraType}
+          >
+            <MaterialIcons name="flip-camera-android" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.flashContainer, styles.bottomContainer]}>
+          <TouchableOpacity
+            style={[styles.flashButton, styles.cameraButton]}
+            onPress={toggleFlashMode}
+          >
+            <Ionicons name="flash" size={30} color="white" />
+          </TouchableOpacity>
         </View>
       </Camera>
     </View>
@@ -109,11 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   captureContainer: {
-    position: "absolute",
-    flex: 1,
-    bottom: 0,
     alignSelf: "center",
-    marginBottom: 10,
   },
   captureButton: {
     borderRadius: 50,
@@ -122,6 +155,29 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: ColorPallete.blue.normal,
     borderWidth: 3,
+  },
+  reverseButton: {
+    marginRight: 10,
+  },
+  reverseCameraContainer: {
+    alignSelf: "flex-end",
+  },
+  flashContainer: {
+    alignSelf: "flex-start",
+  },
+  flashButton: {
+    marginLeft: 10,
+  },
+  cameraButton: {
+    flex: 1,
+    height: 50,
+    justifyContent: "center",
+  },
+  bottomContainer: {
+    position: "absolute",
+    flex: 1,
+    bottom: 0,
+    marginBottom: 10,
   },
 });
 
