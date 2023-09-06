@@ -94,7 +94,11 @@ const LesionDetail = () => {
       </View>
       {!isEditing ? (
         <View
-          style={[Styles.horizontalContainer, Styles.buttonsBottomContainer]}
+          style={[
+            Styles.horizontalContainer,
+            Styles.buttonsBottomContainer,
+            { position: "relative" },
+          ]}
         >
           <Button
             style={Styles.flexContainer}

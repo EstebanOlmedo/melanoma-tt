@@ -8,13 +8,17 @@ interface RemainderCarouselProps {
 }
 
 const RemainderCarousel = (props: RemainderCarouselProps) => {
+  const remainders = props.remainders.sort((a, b) => {
+    if (a.date === b.date) return 0;
+    return a.date < b.date ? -1 : 1;
+  });
   const renderRemainder = ({ item }: ListRenderItemInfo<RemainderModel>) => {
     return <Remainder remainder={item} />;
   };
 
   return (
     <FlatList
-      data={props.remainders}
+      data={remainders}
       renderItem={renderRemainder}
       contentContainerStyle={styles.container}
       horizontal

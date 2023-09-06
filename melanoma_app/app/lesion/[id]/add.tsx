@@ -4,17 +4,19 @@ import { Text, View } from "react-native";
 
 import ImageLoading from "@/components/imageLoading";
 import { useCurrentPictureMedia } from "@/contexts/pictureMediaContext";
+import { NEW_LESION_ID } from "@/utils/constants";
 
 const Add = () => {
   const params = useLocalSearchParams<{ id: string }>();
   const { currentPictureMedia } = useCurrentPictureMedia();
 
   useEffect(() => {
+    const lesionId = Number(params.id) === NEW_LESION_ID ? 0 : params.id;
     setTimeout(() => {
       router.replace({
         pathname: "/lesion/[id]/",
         params: {
-          id: params.id,
+          id: lesionId,
         },
       });
     }, 3000);

@@ -8,6 +8,7 @@ import AddPhotoSelector from "@/components/home/addPhotoSelector";
 import Section from "@/components/section";
 import Styles from "@/styles";
 import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
+import { NEW_LESION_ID } from "@/utils/constants";
 import { getLesions } from "@/utils/testData";
 
 const PrediagnosisBody = () => {
@@ -64,6 +65,7 @@ const LesionBody = () => {
             selectedValue={selectedLesionId}
             onValueChange={setSelectedLesionId}
           >
+            <Picker.Item label="Nueva lesión" value={NEW_LESION_ID} />
             {options}
           </Picker>
         </View>

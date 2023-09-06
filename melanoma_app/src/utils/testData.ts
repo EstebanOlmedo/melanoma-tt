@@ -7,11 +7,14 @@ import Comparison from "@/models/comparison";
 import PrediagnosisResult from "@/models/prediagnosisResult";
 
 export function getRemainders() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
   const remainders = [
-    new Remainder("Brazo", new Date()),
-    new Remainder("Pierna", new Date()),
-    new Remainder("Estomago", new Date()),
-    new Remainder("Mano derecha", new Date()),
+    new Remainder("Brazo", today),
+    new Remainder("Pierna", today),
+    new Remainder("Estomago", tomorrow),
+    new Remainder("Mano derecha", tomorrow),
   ];
   return remainders;
 }
