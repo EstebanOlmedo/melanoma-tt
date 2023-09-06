@@ -1,10 +1,11 @@
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import Button from "@/components/button";
 import AddPhotoSelector from "@/components/home/addPhotoSelector";
+import AddRemainderModal from "@/components/home/addRemainderModal";
 import Section from "@/components/section";
 import Styles from "@/styles";
 import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
@@ -87,9 +88,32 @@ const LesionBody = () => {
   );
 };
 
+const RemainderBody = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  return (
+    <View style={[Styles.centeredContainer, styles.topContainer]}>
+      <View style={[Styles.cardBorder, styles.card, { width: "100%" }]}>
+        <Text>
+          Agrega un recordatorio para que puedas llevar tu seguimiento de manera
+          constante y puntual
+        </Text>
+        <Button
+          style={{ marginTop: 10 }}
+          title="Agregar recordatorio"
+          onPress={() => setIsModalVisible(true)}
+        />
+      </View>
+      <AddRemainderModal
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+      />
+    </View>
+  );
+};
+
 const Add = () => {
   return (
-    <View style={Styles.flexContainer}>
+    <ScrollView style={Styles.flexContainer}>
       <View style={styles.prediagnosisContainer}>
         <Section
           title="Agregar foto para prediagnóstico"
@@ -99,7 +123,10 @@ const Add = () => {
       <View style={styles.lesionContainer}>
         <Section title="Agregar foto a lesión" body={LesionBody} />
       </View>
-    </View>
+      <View style={Styles.flexContainer}>
+        <Section title="Agregar nuevo recordatorio" body={RemainderBody} />
+      </View>
+    </ScrollView>
   );
 };
 
