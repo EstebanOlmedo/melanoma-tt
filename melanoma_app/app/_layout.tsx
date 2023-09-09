@@ -62,6 +62,7 @@ const RootLayout = () => {
             options={{ title: "Resultados" }}
           />
           <Stack.Screen name="photo/index" options={{ headerShown: false }} />
+          <Stack.Screen name="login/index" options={{ headerShown: false }} />
         </Stack>
       </Providers>
     </SafeAreaProvider>

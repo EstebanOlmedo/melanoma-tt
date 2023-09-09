@@ -1,6 +1,7 @@
 import { Entypo } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
+import { Fragment } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
@@ -30,6 +31,15 @@ const LesionItem = (props: LesionProps) => {
         <Text
           style={Styles.textCaption}
         >{`${props.lesion.photos.length} fotos`}</Text>
+        {props.lesion.ownerUsername ? (
+          <View style={styles.sharedBadge}>
+            <Text
+              style={Styles.textCaption}
+            >{`Compartido por: ${props.lesion.ownerUsername}`}</Text>
+          </View>
+        ) : (
+          <></>
+        )}
       </View>
       <View style={styles.dateContainer}>
         <Text style={Styles.textBody}>
@@ -103,6 +113,12 @@ const styles = StyleSheet.create({
   iconContainer: {
     flex: 0.5,
     alignItems: "flex-end",
+  },
+  sharedBadge: {
+    backgroundColor: ColorPallete.black.ligth,
+    padding: 2,
+    alignSelf: "flex-start",
+    borderRadius: 5,
   },
 });
 

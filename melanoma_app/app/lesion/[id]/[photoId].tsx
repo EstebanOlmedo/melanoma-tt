@@ -28,14 +28,19 @@ const DetailedPhoto = () => {
   const params = useLocalSearchParams<{ id: string; photoId: string }>();
   const id = Number(params.id);
   const photoId = Number(params.photoId);
-  const photo = getLesions()[id].photos[photoId];
+  const lesion = getLesions()[id];
+  const photo = lesion.photos[photoId];
   const navigator = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
+    if (lesion.userHasWriteNotesPermission) {
+      navigator.setOptions({
+        headerRight: () => <EditButton onPress={() => setModalVisible(true)} />,
+      });
+    }
     navigator.setOptions({
       title: photo.createdOn.toLocaleString(),
-      headerRight: () => <EditButton onPress={() => setModalVisible(true)} />,
     });
   }, [navigator]);
 

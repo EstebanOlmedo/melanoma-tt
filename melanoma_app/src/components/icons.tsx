@@ -9,6 +9,60 @@ import { StyleSheet, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
 
+export const LogoutIcon = () => {
+  return (
+    <View style={styles.relativeContainer}>
+      <MaterialIcons
+        style={styles.centeredIcon}
+        name="logout"
+        size={13}
+        color="white"
+      />
+      <MaterialIcons
+        name="stop-circle"
+        size={24}
+        color={ColorPallete.pink.normal}
+      />
+    </View>
+  );
+};
+
+export const DeleteAccountIcon = () => {
+  return (
+    <View style={styles.relativeContainer}>
+      <MaterialIcons
+        style={styles.centeredIcon}
+        name="delete"
+        size={13}
+        color="white"
+      />
+      <MaterialIcons
+        name="stop-circle"
+        size={24}
+        color={ColorPallete.orange.normal}
+      />
+    </View>
+  );
+};
+
+export const PasswordIcon = () => {
+  return (
+    <View style={styles.relativeContainer}>
+      <MaterialCommunityIcons
+        style={styles.centeredIcon}
+        name="form-textbox-password"
+        size={13}
+        color="white"
+      />
+      <MaterialIcons
+        name="stop-circle"
+        size={24}
+        color={ColorPallete.blue.normal}
+      />
+    </View>
+  );
+};
+
 export const NotificationIcon = () => {
   return (
     <Ionicons

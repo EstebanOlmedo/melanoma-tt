@@ -5,7 +5,7 @@ const StartPage = () => {
 
   if (!rootNavigationState?.key) return null;
 
-  return <Redirect href="/followup" />;
+  return <Redirect href="/login/" />;
 };
 
 export default StartPage;

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   warningStyle: {
     borderColor: ColorPallete.orange.normal,
     borderWidth: 3,
-    backgroundColor: ColorPallete.orange.ligth,
+    // backgroundColor: ColorPallete.orange.ligth,
   },
   modalContainer: {
     padding: 30,

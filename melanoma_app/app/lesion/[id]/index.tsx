@@ -7,6 +7,8 @@ import ColorPallete from "@/colorPallete";
 import Button, { EditButton, SaveButton } from "@/components/button";
 import CompareSelector from "@/components/lesion/compareSelector";
 import PhotosOverview from "@/components/lesion/photosOverview";
+import ShareModal from "@/components/lesion/shareModal";
+import SharedCarousel from "@/components/lesion/sharedCarousel";
 import Section from "@/components/section";
 import { default as PhotoModel } from "@/models/photo";
 import Styles from "@/styles";
@@ -25,9 +27,12 @@ const LesionDetail = () => {
       default: [],
     })
   );
-  const [name, setName] = useState(lesion.name);
+  const [name, setName] = useState(
+    lesion.userIsOwner ? lesion.name : `${lesion.ownerUsername}: ${lesion.name}`
+  );
   const [isEditing, setIsEditing] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [compareModalVisible, setCompareModalVisible] = useState(false);
+  const [shareModalVisible, setShareModalVisible] = useState(false);
 
   const compareImages = (
     beforeImageId: number | undefined,
@@ -38,7 +43,7 @@ const LesionDetail = () => {
       return;
     }
 
-    setModalVisible(false);
+    setCompareModalVisible(false);
     router.push({
       pathname: "/compare/[beforeId]/[afterId]",
       params: {
@@ -59,14 +64,17 @@ const LesionDetail = () => {
   };
 
   useEffect(() => {
+    if (lesion.userIsOwner) {
+      navigation.setOptions({
+        headerRight: () =>
+          isEditing ? (
+            <SaveButton onPress={() => setIsEditing(false)} />
+          ) : (
+            <EditButton onPress={() => setIsEditing(true)} />
+          ),
+      });
+    }
     navigation.setOptions({
-      title: lesion.name,
-      headerRight: () =>
-        isEditing ? (
-          <SaveButton onPress={() => setIsEditing(false)} />
-        ) : (
-          <EditButton onPress={() => setIsEditing(true)} />
-        ),
       headerTitle: () => (
         <TextInput
           style={[Styles.textTitle, styles.blackColor]}
@@ -83,12 +91,25 @@ const LesionDetail = () => {
 
     return unsubscribe;
   }, [navigation, isEditing, name]);
+
   const Photos = () => {
     return PhotosOverview({ photos, isEditing });
   };
 
+  const SharedUsers = () => {
+    return SharedCarousel({
+      users: lesion.sharedWithUsers,
+      parentLesion: lesion,
+    });
+  };
+
   return (
     <View style={Styles.flexContainer}>
+      {lesion.userIsOwner && (
+        <View style={styles.sharedUsersContainer}>
+          <Section title="Compartido con" body={SharedUsers} />
+        </View>
+      )}
       <View style={styles.photosContainer}>
         <Section title="Fotos" body={Photos} />
       </View>
@@ -104,23 +125,37 @@ const LesionDetail = () => {
             style={Styles.flexContainer}
             title="Comparar"
             color={ColorPallete.pink.dark}
-            onPress={() => setModalVisible(true)}
+            onPress={() => setCompareModalVisible(true)}
           />
-          <Button
-            style={Styles.flexContainer}
-            title="Agregar"
-            color={ColorPallete.green.dark}
-            onPress={addPhoto}
-          />
+          {lesion.userIsOwner && (
+            <Button
+              style={Styles.flexContainer}
+              title="Agregar"
+              color={ColorPallete.green.dark}
+              onPress={addPhoto}
+            />
+          )}
+          {lesion.userIsOwner && (
+            <Button
+              style={Styles.flexContainer}
+              title="Compartir"
+              color={ColorPallete.skyblue.dark}
+              onPress={() => setShareModalVisible(true)}
+            />
+          )}
         </View>
       ) : (
         <></>
       )}
       <CompareSelector
-        onCancel={() => setModalVisible(false)}
+        onCancel={() => setCompareModalVisible(false)}
         photos={photos}
-        visible={modalVisible}
+        visible={compareModalVisible}
         onCompareSelected={compareImages}
+      />
+      <ShareModal
+        visible={shareModalVisible}
+        onCancel={() => setShareModalVisible(false)}
       />
     </View>
   );
@@ -129,6 +164,9 @@ const LesionDetail = () => {
 const styles = StyleSheet.create({
   photosContainer: {
     flex: 1,
+  },
+  sharedUsersContainer: {
+    flex: 0.2,
   },
   blackColor: {
     color: "black",

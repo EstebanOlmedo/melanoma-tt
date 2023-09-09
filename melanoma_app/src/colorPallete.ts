@@ -1,5 +1,6 @@
 const ColorPallete = {
   black: {
+    ligth: "#e3e3e3",
     normal: "#333333",
   },
   orange: {

@@ -1,5 +1,6 @@
 import { View, StyleSheet } from "react-native";
 
+import AccountSettings from "@/components/home/accountSettings";
 import SettingsOptions from "@/components/home/settingsOptions";
 import Section from "@/components/section";
 import Styles from "@/styles";
@@ -8,6 +9,9 @@ const Settings = () => {
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.bodyContainer}>
+        <View style={Styles.flexContainer}>
+          <Section title="Ajustes de la cuenta" body={AccountSettings} />
+        </View>
         <View style={Styles.flexContainer}>
           <Section title="Ajustes de la aplicación" body={SettingsOptions} />
         </View>

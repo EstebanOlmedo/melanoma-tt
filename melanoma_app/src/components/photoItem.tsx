@@ -43,7 +43,7 @@ const PhotoItem = (props: PhotoItemProps) => {
               pathname: "/lesion/[id]/[photoId]",
               params: {
                 id,
-                photoId: props.photo.localId,
+                photoId: props.photo.id,
               },
             }}
             asChild
