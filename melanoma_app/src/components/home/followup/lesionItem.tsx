@@ -4,10 +4,10 @@ import { Link } from "expo-router";
 import { Fragment } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import ColorPallete from "../colorPallete";
-import { default as LesionModel } from "../models/lesion";
-import Styles from "../styles";
-import { LesionImages } from "../utils/images";
+import ColorPallete from "../../../colorPallete";
+import { default as LesionModel } from "../../../models/lesion";
+import Styles from "../../../styles";
+import { LesionImages } from "../../../utils/images";
 
 interface LesionProps {
   lesion: LesionModel;
@@ -17,7 +17,7 @@ interface LesionProps {
 const LesionItem = (props: LesionProps) => {
   return (
     <View style={styles.container}>
-      <View style={styles.photoContainer}>
+      <View style={[Styles.photoContainer, styles.customPhotoContainer]}>
         <Image
           source={LesionImages[props.lesion.getFirstPhoto().localId]}
           style={styles.image}
@@ -91,9 +91,7 @@ const styles = StyleSheet.create({
     ...Styles.horizontalContainer,
     ...Styles.cardBorder,
   },
-  photoContainer: {
-    flex: 1,
-    height: "100%",
+  customPhotoContainer: {
     maxWidth: 100,
   },
   overviewContainer: {

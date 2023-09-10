@@ -2,7 +2,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { Modal, StyleSheet, Text, View } from "react-native";
 
-import Button from "../button";
+import Button from "../../button";
 
 import Styles from "@/styles";
 import { MAX_REMAINDER_LENGHT } from "@/utils/constants";
@@ -37,7 +37,7 @@ const AddRemainderModal = (props: AddRemainderModalProps) => {
       visible={props.visible}
     >
       <View style={Styles.centeredContainer}>
-        <View style={[Styles.cardBorder, styles.container]}>
+        <View style={[Styles.cardBorder, Styles.modalContainer]}>
           <View style={styles.pickerContainer}>
             <View style={{ flex: 0.3 }}>
               <Text>Lesión:</Text>
@@ -62,9 +62,13 @@ const AddRemainderModal = (props: AddRemainderModalProps) => {
               {dayOptions}
             </Picker>
           </View>
-          <View>
+          <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
             <Button title="Añadir" />
-            <Button title="Cancelar" onPress={() => props.onCancel()} />
+            <Button
+              title="Cancelar"
+              onPress={() => props.onCancel()}
+              color="black"
+            />
           </View>
         </View>
       </View>
@@ -77,9 +81,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: "100%",
     ...Styles.horizontalContainer,
-  },
-  container: {
-    padding: 10,
   },
 });
 

@@ -1,14 +1,14 @@
 import { StyleSheet, View } from "react-native";
 
-import Styles from "../../styles";
-import { default as Options } from "../../utils/SettingsOptions";
+import Styles from "../../../styles";
+import { default as Options } from "../../../utils/SettingsOptions";
 import {
   InfoIcon,
   NotificationIcon,
   PrivacyIcon,
   SecurityIcon,
-} from "../icons";
-import { SettingOptionLink } from "../settingOption";
+} from "../../icons";
+import { SettingOptionLink } from "../../settings/settingOption";
 
 const SettingsOptions = () => {
   return (

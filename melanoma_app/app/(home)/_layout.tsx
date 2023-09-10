@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 
 import ColorPallete from "@/colorPallete";
-import Menubar from "@/components/menubar";
+import Menubar from "@/components/home/menubar";
 
 const TabLayout = () => {
   return (

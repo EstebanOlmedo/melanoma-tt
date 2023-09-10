@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 
-import AccountSettings from "@/components/home/accountSettings";
-import SettingsOptions from "@/components/home/settingsOptions";
+import AccountSettings from "@/components/home/settings/accountSettings";
+import SettingsOptions from "@/components/home/settings/settingsOptions";
 import Section from "@/components/section";
 import Styles from "@/styles";
 

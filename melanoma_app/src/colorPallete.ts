@@ -15,7 +15,7 @@ const ColorPallete = {
   },
   blue: {
     normal: "#265380",
-    ligth: "",
+    ligth: "#73a6d9",
     dark: "#2B5B8D",
   },
   pink: {

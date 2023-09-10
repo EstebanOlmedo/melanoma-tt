@@ -33,7 +33,7 @@ const RootLayout = () => {
             contentStyle: { backgroundColor: ColorPallete.background.ligthbg },
           }}
         >
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(home)" options={{ headerShown: false }} />
           <Stack.Screen
             name="help/[id]"
             options={{ title: "Preguntas frecuentes" }}

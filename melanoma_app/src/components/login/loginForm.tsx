@@ -9,7 +9,7 @@ import Styles from "@/styles";
 const LoginForm = () => {
   const login = () => {
     router.replace({
-      pathname: "/(tabs)/followup",
+      pathname: "/(home)/followup",
     });
   };
 
@@ -23,7 +23,7 @@ const LoginForm = () => {
         <Text style={Styles.textBody}>Contraseña:</Text>
         <TextInput style={styles.input} />
       </View>
-      <View style={styles.buttonsContainer}>
+      <View style={[Styles.buttonsContainer, Styles.horizontalContainer]}>
         <Button
           title="Ingresar"
           color={ColorPallete.green.dark}
@@ -44,12 +44,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     ...Styles.cardBorder,
-    ...Styles.horizontalContainer,
-  },
-  buttonsContainer: {
-    marginTop: 15,
-    width: "100%",
-    justifyContent: "center",
     ...Styles.horizontalContainer,
   },
   input: {

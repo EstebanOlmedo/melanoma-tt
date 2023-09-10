@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import {
   SettingBoolOption,
   SettingPickOption,
-} from "@/components/settingOption";
+} from "@/components/settings/settingOption";
 import Styles from "@/styles";
 
 const Setting = () => {

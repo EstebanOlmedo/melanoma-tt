@@ -71,10 +71,10 @@ const ImageGetter = () => {
   };
 
   return (
-    <View style={[Styles.centeredContainer, styles.topContainer]}>
+    <View style={[Styles.centeredContainer, Styles.topContainer]}>
       <View style={[Styles.cardBorder, styles.card]}>
         <Text>Tomar foto nueva o seleccionar desde galería</Text>
-        <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
+        <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
           <Button
             onPress={startCamera}
             style={Styles.flexContainer}
@@ -94,19 +94,11 @@ const ImageGetter = () => {
 };
 
 const styles = StyleSheet.create({
-  topContainer: {
-    width: "100%",
-    justifyContent: "flex-start",
-  },
   card: {
     padding: 10,
   },
   cameraContainer: {
     flex: 1,
-    width: "100%",
-  },
-  buttonsContainer: {
-    marginTop: 10,
     width: "100%",
   },
 });

@@ -27,6 +27,25 @@ const ContainerStyles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-evenly",
   },
+  buttonsContainer: {
+    marginTop: 30,
+    width: "100%",
+    justifyContent: "center",
+    alignSelf: "flex-start",
+  },
+  topContainer: {
+    width: "100%",
+    justifyContent: "flex-start",
+  },
+  photoContainer: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
+  },
+  modalContainer: {
+    padding: 30,
+    margin: 20,
+  },
 });
 
 const BorderStyles = StyleSheet.create({
@@ -63,10 +82,17 @@ const TextStyles = StyleSheet.create({
   },
 });
 
+const UtilStyles = StyleSheet.create({
+  gap: {
+    height: 10,
+  },
+});
+
 const Styles = {
   ...ContainerStyles,
   ...BorderStyles,
   ...TextStyles,
+  ...UtilStyles,
 };
 
 export default Styles;

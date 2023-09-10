@@ -1,16 +1,11 @@
-import { ImageSource } from "expo-image";
-
 import { TutorialsImages } from "./images";
 import RawQuestions from "../data/questions.json";
 import RawTutorials from "../data/tutorials.json";
 
-export interface Question {
-  title: string;
-  body: string;
-  id: number;
-}
+import IQuestion from "@/models/question";
+import ITutorial from "@/models/tutorial";
 
-export function getQuestions(): Question[] {
+export function getQuestions(): IQuestion[] {
   return RawQuestions.map((question, index) => {
     return {
       id: index,
@@ -19,22 +14,7 @@ export function getQuestions(): Question[] {
   });
 }
 
-export interface TutorialStep {
-  title: string;
-  body: string;
-  backgroundColor: string;
-  image: ImageSource;
-}
-
-export interface Tutorial {
-  id: number;
-  title: string;
-  color: string;
-  icon: string;
-  steps: TutorialStep[];
-}
-
-export function getTutorials(): Tutorial[] {
+export function getTutorials(): ITutorial[] {
   return RawTutorials.map((rawTutorial, index) => {
     const steps = rawTutorial.steps.map((step) => {
       return {

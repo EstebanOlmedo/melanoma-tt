@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import ImageGetter from "@/components/imageGetter";
+import ImageGetter from "@/components/prediagnosis/imageGetter";
 import Section from "@/components/section";
 import Styles from "@/styles";
 

@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { Modal, Text, View } from "react-native";
 
 import Button from "./button";
 
@@ -20,29 +20,20 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
       visible={props.visible}
     >
       <View style={Styles.centeredContainer}>
-        <View style={[Styles.cardBorder, styles.modalContainer]}>
+        <View style={[Styles.cardBorder, Styles.modalContainer]}>
           <Text style={Styles.textBody}>{props.message}</Text>
-          <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
+          <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
             <Button title="Ok" onPress={() => props.onConfirmation?.()} />
-            <Button title="Cancelar" onPress={() => props.onCancel?.()} />
+            <Button
+              title="Cancelar"
+              onPress={() => props.onCancel?.()}
+              color="black"
+            />
           </View>
         </View>
       </View>
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    padding: 30,
-    margin: 20,
-  },
-  buttonsContainer: {
-    marginTop: 30,
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignSelf: "flex-start",
-  },
-});
 
 export default ConfirmationModal;

@@ -1,10 +1,11 @@
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, TextInput, View, Platform } from "react-native";
 
 import Alert from "@/Alert";
 import ColorPallete from "@/colorPallete";
 import Button, { EditButton, SaveButton } from "@/components/button";
+import { AddPhotoIcon, CompareIcon, ShareIcon } from "@/components/icons";
 import CompareSelector from "@/components/lesion/compareSelector";
 import PhotosOverview from "@/components/lesion/photosOverview";
 import ShareModal from "@/components/lesion/shareModal";
@@ -126,6 +127,7 @@ const LesionDetail = () => {
             title="Comparar"
             color={ColorPallete.pink.dark}
             onPress={() => setCompareModalVisible(true)}
+            icon={CompareIcon}
           />
           {lesion.userIsOwner && (
             <Button
@@ -133,6 +135,7 @@ const LesionDetail = () => {
               title="Agregar"
               color={ColorPallete.green.dark}
               onPress={addPhoto}
+              icon={AddPhotoIcon}
             />
           )}
           {lesion.userIsOwner && (
@@ -141,6 +144,7 @@ const LesionDetail = () => {
               title="Compartir"
               color={ColorPallete.skyblue.dark}
               onPress={() => setShareModalVisible(true)}
+              icon={ShareIcon}
             />
           )}
         </View>

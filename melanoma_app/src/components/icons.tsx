@@ -9,6 +9,22 @@ import { StyleSheet, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
 
+export const AddPhotoIcon = () => {
+  return <MaterialIcons name="add-photo-alternate" size={20} color="white" />;
+};
+
+export const AddRemainderIcon = () => {
+  return <MaterialIcons name="add-alert" size={20} color="white" />;
+};
+
+export const CompareIcon = () => {
+  return <MaterialIcons name="compare" size={20} color="white" />;
+};
+
+export const ShareIcon = () => {
+  return <FontAwesome name="share-square-o" size={20} color="white" />;
+};
+
 export const LogoutIcon = () => {
   return (
     <View style={styles.relativeContainer}>

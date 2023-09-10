@@ -1,8 +1,8 @@
-import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
+import { FlatList, ListRenderItemInfo, View } from "react-native";
 
-import { default as LesionModel } from "../../models/lesion";
-import Styles from "../../styles";
-import LesionItem from "../lesionItem";
+import LesionItem from "./lesionItem";
+import { default as LesionModel } from "../../../models/lesion";
+import Styles from "../../../styles";
 
 interface LesionsOverviewProps {
   lesions: LesionModel[];
@@ -15,11 +15,11 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
   };
 
   const gap = () => {
-    return <View style={styles.gap} />;
+    return <View style={Styles.gap} />;
   };
 
   return (
-    <View style={styles.container}>
+    <View style={Styles.flexContainer}>
       <FlatList
         data={props.lesions}
         renderItem={renderLesion}
@@ -29,14 +29,5 @@ const LesionsOverview = (props: LesionsOverviewProps) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gap: {
-    height: 10,
-  },
-});
 
 export default LesionsOverview;

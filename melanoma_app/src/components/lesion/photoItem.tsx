@@ -3,10 +3,10 @@ import { Image } from "expo-image";
 import { Link, useLocalSearchParams } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import ColorPallete from "../colorPallete";
-import { default as PhotoModel } from "../models/photo";
-import Styles from "../styles";
-import { LesionImages } from "../utils/images";
+import ColorPallete from "../../colorPallete";
+import { default as PhotoModel } from "../../models/photo";
+import Styles from "../../styles";
+import { LesionImages } from "../../utils/images";
 
 interface PhotoItemProps {
   photo: PhotoModel;
@@ -18,7 +18,7 @@ const PhotoItem = (props: PhotoItemProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.photoContainer}>
+      <View style={[Styles.photoContainer, styles.customPhotoContainer]}>
         <Image
           source={LesionImages[props.photo.localId]}
           style={styles.image}
@@ -79,9 +79,7 @@ const styles = StyleSheet.create({
     ...Styles.horizontalContainer,
     ...Styles.cardBorder,
   },
-  photoContainer: {
-    flex: 1,
-    height: "100%",
+  customPhotoContainer: {
     maxWidth: 100,
   },
   overviewContainer: {

@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 
-import CameraPreview from "@/components/cameraPreview";
+import CameraPreview from "@/components/photo/cameraPreview";
 import PhotoRedirectOptions from "@/utils/PhotoRedirectOptions";
 
 const Photo = () => {

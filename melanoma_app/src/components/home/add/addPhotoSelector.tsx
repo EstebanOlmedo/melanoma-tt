@@ -1,6 +1,6 @@
 import { Button, Modal, View } from "react-native";
 
-import ImageGetter from "../imageGetter";
+import ImageGetter from "../../prediagnosis/imageGetter";
 
 import Styles from "@/styles";
 

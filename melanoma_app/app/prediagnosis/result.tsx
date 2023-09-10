@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
+import ResultDescription from "@/components/prediagnosis/resultDescription";
 import Section from "@/components/section";
 import ZoomeableImage from "@/components/zoomeableImage";
 import Styles from "@/styles";
@@ -9,16 +10,7 @@ const Result = () => {
   const result = getPrediagnosisResult();
 
   const Body = () => {
-    return (
-      <View style={styles.result}>
-        <Text
-          style={Styles.textBody}
-        >{`Probabilidad de cáncer de melanoma: ${result.probability}`}</Text>
-        <Text
-          style={[Styles.textBody, { marginTop: 10 }]}
-        >{`Descripción: ${result.description}`}</Text>
-      </View>
-    );
+    return ResultDescription({ result });
   };
 
   return (
@@ -26,7 +18,7 @@ const Result = () => {
       <View style={styles.imageContainer}>
         <ZoomeableImage
           style={styles.image}
-          image={result.segementedLesion.base64}
+          image={{ uri: result.segementedLesion.base64 }}
         />
       </View>
       <ScrollView style={styles.resultContainer}>
@@ -45,10 +37,6 @@ const styles = StyleSheet.create({
   },
   resultContainer: {
     flex: 1,
-  },
-  result: {
-    padding: 10,
-    ...Styles.cardBorder,
   },
 });
 

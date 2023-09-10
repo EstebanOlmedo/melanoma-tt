@@ -37,8 +37,8 @@ const TextEditModal = (props: TextEditModalProps) => {
             styles.buttons,
           ]}
         >
-          <Button title="Cancelar" onPress={onCancel} color="black" />
           <Button title="Guardar" />
+          <Button title="Cancelar" onPress={onCancel} color="black" />
         </View>
       </View>
     </Modal>

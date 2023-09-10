@@ -1,15 +1,14 @@
 import { Link } from "expo-router";
-import { Href } from "expo-router/build/link/href";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import Styles from "../styles";
+import Styles from "../../../styles";
 
 interface InfoCardProps {
   title: string;
   icon: React.ElementType;
   backgroundColor: string;
-  href: Href;
+  tutorialId: number;
 }
 
 export const InfoCard = (props: InfoCardProps) => {
@@ -19,7 +18,16 @@ export const InfoCard = (props: InfoCardProps) => {
   const Icon = props.icon;
 
   return (
-    <Link href={props.href} asChild style={[style.infoCardContainer, bgColor]}>
+    <Link
+      href={{
+        pathname: "/help/tutorial/[id]",
+        params: {
+          id: props.tutorialId,
+        },
+      }}
+      asChild
+      style={[style.infoCardContainer, bgColor]}
+    >
       <TouchableOpacity>
         <View>
           <Icon />
@@ -34,13 +42,18 @@ export const InfoCard = (props: InfoCardProps) => {
 interface QuestionCardProps {
   title: string;
   body: string;
-  href: Href;
+  questionId: number;
 }
 
 export const QuestionCard = (props: QuestionCardProps) => {
   return (
     <Link
-      href={props.href}
+      href={{
+        pathname: "/help/[id]",
+        params: {
+          id: props.questionId,
+        },
+      }}
       asChild
       style={[Styles.cardBorder, style.questionCardContainer]}
     >

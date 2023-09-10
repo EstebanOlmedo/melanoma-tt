@@ -54,12 +54,6 @@ const styles = StyleSheet.create({
     padding: 30,
     margin: 20,
   },
-  buttonsContainer: {
-    marginTop: 30,
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignSelf: "flex-start",
-  },
 });
 
 export default SharedUser;

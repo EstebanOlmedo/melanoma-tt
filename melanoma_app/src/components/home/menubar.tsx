@@ -7,8 +7,8 @@ import {
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import ColorPallete from "../colorPallete";
-import Styles from "../styles";
+import ColorPallete from "../../colorPallete";
+import Styles from "../../styles";
 
 interface MenubarOptionProps {
   title: string;

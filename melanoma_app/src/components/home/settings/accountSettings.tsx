@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-import { DeleteAccountIcon, LogoutIcon, PasswordIcon } from "../icons";
-import { SettingOptionLink } from "../settingOption";
+import { DeleteAccountIcon, LogoutIcon, PasswordIcon } from "../../icons";
+import { SettingOptionLink } from "../../settings/settingOption";
 
 import Styles from "@/styles";
 import SettingsOptions from "@/utils/SettingsOptions";

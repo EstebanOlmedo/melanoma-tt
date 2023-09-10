@@ -4,9 +4,9 @@ import { Link } from "expo-router";
 import React from "react";
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
 
-import ColorPallete from "../colorPallete";
-import Styles from "../styles";
-import SettingsOptions from "../utils/SettingsOptions";
+import ColorPallete from "../../colorPallete";
+import Styles from "../../styles";
+import SettingsOptions from "../../utils/SettingsOptions";
 
 interface SettingOptionLinkProps {
   name: string;

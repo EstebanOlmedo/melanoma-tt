@@ -48,7 +48,7 @@ const CompareSelector = (props: CompareSelectorProps) => {
       visible={props.visible}
     >
       <View style={Styles.centeredContainer}>
-        <View style={[Styles.cardBorder, styles.container]}>
+        <View style={[Styles.cardBorder, Styles.modalContainer]}>
           <View style={styles.dropdownsContainer}>
             <View style={styles.pickerContainer}>
               <View style={Styles.flexContainer}>
@@ -75,19 +75,19 @@ const CompareSelector = (props: CompareSelectorProps) => {
               </Picker>
             </View>
           </View>
-          <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
-            <Button
-              style={Styles.flexContainer}
-              title="Cancelar"
-              color="black"
-              onPress={props.onCancel}
-            />
+          <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
             <Button
               style={Styles.flexContainer}
               title="Comparar"
               onPress={() =>
                 props.onCompareSelected(beforeImageId, afterImageId)
               }
+            />
+            <Button
+              style={Styles.flexContainer}
+              title="Cancelar"
+              color="black"
+              onPress={props.onCancel}
             />
           </View>
         </View>
@@ -97,22 +97,12 @@ const CompareSelector = (props: CompareSelectorProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 30,
-    margin: 20,
-  },
   dropdownsContainer: {
     width: "100%",
   },
   pickerContainer: {
     width: "100%",
     ...Styles.horizontalContainer,
-  },
-  buttonsContainer: {
-    marginTop: 30,
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignSelf: "flex-start",
   },
   pickOption: {
     flex: 2.5,

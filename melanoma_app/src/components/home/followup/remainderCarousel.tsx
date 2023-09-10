@@ -1,7 +1,7 @@
 import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 
-import { default as RemainderModel } from "../../models/remainder";
-import Remainder from "../remainder";
+import Remainder from "./remainder";
+import { default as RemainderModel } from "../../../models/remainder";
 
 interface RemainderCarouselProps {
   remainders: RemainderModel[];

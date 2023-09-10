@@ -1,28 +1,14 @@
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { EditButton } from "@/components/button";
 import TextEditModal from "@/components/editTextModal";
+import ImageDescription from "@/components/lesion/imageDescription";
 import Section from "@/components/section";
 import ZoomeableImage from "@/components/zoomeableImage";
-import Styles from "@/styles";
 import { LesionImages } from "@/utils/images";
 import { getLesions } from "@/utils/testData";
-
-interface ImageDescriptionProps {
-  description: string;
-}
-
-const ImageDescription = (props: ImageDescriptionProps) => {
-  return (
-    <ScrollView style={[Styles.cardBorder, styles.photoDescription]}>
-      <Text style={[Styles.textBody, styles.textDescription]}>
-        {props.description}
-      </Text>
-    </ScrollView>
-  );
-};
 
 const DetailedPhoto = () => {
   const params = useLocalSearchParams<{ id: string; photoId: string }>();
@@ -80,12 +66,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-  },
-  photoDescription: {
-    padding: 10,
-  },
-  textDescription: {
-    marginBottom: 15,
   },
 });
 

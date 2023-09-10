@@ -1,32 +1,12 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import Questions from "@/components/home/questions";
-import TutorialsOverview from "@/components/home/tutorialsOverview";
+import Questions from "@/components/home/help/questions";
+import TutorialsOverview from "@/components/home/help/tutorialsOverview";
 import Search from "@/components/searchbar";
 import Section from "@/components/section";
 import Styles from "@/styles";
-import { Question, getQuestions } from "@/utils/helpData";
-
-interface SearchSectionProps {
-  searchFilter: string;
-}
-
-const SearchSection = (props: SearchSectionProps) => {
-  return (
-    <View>
-      <TutorialsOverview searchFilter={props.searchFilter} />
-    </View>
-  );
-};
-
-interface QuestionsSectionProps {
-  questions: Question[];
-}
-
-const QuestionsSection = (props: QuestionsSectionProps) => {
-  return <Questions questions={props.questions} />;
-};
+import { getQuestions } from "@/utils/helpData";
 
 const Help = () => {
   const rawQuestions = getQuestions();
@@ -45,16 +25,12 @@ const Help = () => {
     setQuestions(filteredQuestions);
   };
 
-  const searchSection = () => {
-    return SearchSection({
-      searchFilter,
-    });
+  const SearchSection = () => {
+    return TutorialsOverview({ searchFilter });
   };
 
-  const questionsSection = () => {
-    return QuestionsSection({
-      questions,
-    });
+  const QuestionsSection = () => {
+    return Questions({ questions });
   };
 
   return (
@@ -64,10 +40,10 @@ const Help = () => {
         onChangeText={onSearchChanged}
       />
       <View style={styles.searchContainer}>
-        <Section title="¿Cómo te podemos ayudar?" body={searchSection} />
+        <Section title="¿Cómo te podemos ayudar?" body={SearchSection} />
       </View>
       <View style={styles.questionsContainer}>
-        <Section title="Preguntas frecuentes" body={questionsSection} />
+        <Section title="Preguntas frecuentes" body={QuestionsSection} />
       </View>
     </View>
   );

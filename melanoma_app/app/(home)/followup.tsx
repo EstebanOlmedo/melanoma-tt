@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, InteractionManager } from "react-native";
 
 import { EditButton, SaveButton } from "@/components/button";
-import LesionsOverview from "@/components/home/lesionsOverview";
-import RemainderCarousel from "@/components/home/remainderCarousel";
+import LesionsOverview from "@/components/home/followup/lesionsOverview";
+import RemainderCarousel from "@/components/home/followup/remainderCarousel";
 import Section from "@/components/section";
 import Lesion from "@/models/lesion";
 import Remainder from "@/models/remainder";

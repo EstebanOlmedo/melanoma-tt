@@ -23,7 +23,7 @@ const ShareModal = (props: ShareModalProps) => {
       visible={props.visible}
     >
       <View style={Styles.centeredContainer}>
-        <View style={[Styles.cardBorder, styles.container]}>
+        <View style={[Styles.cardBorder, Styles.modalContainer]}>
           <View style={styles.inputContainer}>
             <Text style={Styles.textBody}>Usuario:</Text>
             <TextInput
@@ -40,9 +40,13 @@ const ShareModal = (props: ShareModalProps) => {
               onPress={() => setIsChecked(!isChecked)}
             />
           </View>
-          <View style={styles.buttonsContainer}>
+          <View style={[Styles.buttonsContainer, Styles.horizontalContainer]}>
             <Button title="Compartir" />
-            <Button title="Cancelar" onPress={() => props.onCancel()} />
+            <Button
+              title="Cancelar"
+              onPress={() => props.onCancel()}
+              color="black"
+            />
           </View>
         </View>
       </View>
@@ -53,16 +57,6 @@ const ShareModal = (props: ShareModalProps) => {
 const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
-    ...Styles.horizontalContainer,
-  },
-  container: {
-    margin: 20,
-    padding: 10,
-  },
-  buttonsContainer: {
-    marginTop: 15,
-    width: "100%",
-    justifyContent: "center",
     ...Styles.horizontalContainer,
   },
   textInput: {

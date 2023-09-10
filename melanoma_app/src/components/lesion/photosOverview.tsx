@@ -1,8 +1,8 @@
-import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
+import { FlatList, ListRenderItemInfo, View } from "react-native";
 
+import PhotoItem from "./photoItem";
 import { default as PhotoModel } from "../../models/photo";
 import Styles from "../../styles";
-import PhotoItem from "../photoItem";
 
 interface PhotosOverviewProps {
   photos: PhotoModel[];
@@ -15,11 +15,11 @@ const PhotosOverview = (props: PhotosOverviewProps) => {
   };
 
   const gap = () => {
-    return <View style={styles.gap} />;
+    return <View style={Styles.gap} />;
   };
 
   return (
-    <View style={styles.container}>
+    <View style={Styles.flexContainer}>
       <FlatList
         data={props.photos}
         renderItem={renderPhoto}
@@ -29,14 +29,5 @@ const PhotosOverview = (props: PhotosOverviewProps) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gap: {
-    height: 10,
-  },
-});
 
 export default PhotosOverview;

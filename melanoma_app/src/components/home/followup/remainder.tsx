@@ -2,9 +2,10 @@ import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Modal } from "react-native";
 
-import Button from "./button";
-import { default as RemainderModel } from "../models/remainder";
-import Styles from "../styles";
+import { default as RemainderModel } from "../../../models/remainder";
+import Styles from "../../../styles";
+import Button from "../../button";
+import ConfirmationModal from "../../confirmationModal";
 
 import ColorPallete from "@/colorPallete";
 
@@ -14,6 +15,7 @@ interface RemainderProps {
 
 const Remainder = (props: RemainderProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const isOverdue = props.remainder.date <= new Date();
 
   return (
@@ -21,7 +23,7 @@ const Remainder = (props: RemainderProps) => {
       <TouchableOpacity onPress={() => setIsModalVisible(true)}>
         <Text style={Styles.textBody}>{props.remainder.getLabel()}</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIsDeleteModalVisible(true)}>
         <Entypo name="cross" size={20} color="black" />
       </TouchableOpacity>
       <Modal
@@ -31,11 +33,11 @@ const Remainder = (props: RemainderProps) => {
         visible={isModalVisible}
       >
         <View style={Styles.centeredContainer}>
-          <View style={[Styles.cardBorder, styles.modalContainer]}>
+          <View style={[Styles.cardBorder, Styles.modalContainer]}>
             <Text
               style={Styles.textBody}
             >{`Es hora de agregar un nuevo registro a ${props.remainder.lesion}`}</Text>
-            <View style={[Styles.horizontalContainer, styles.buttonsContainer]}>
+            <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
               <Button
                 title="Aplazar"
                 onPress={() => setIsModalVisible(false)}
@@ -45,6 +47,11 @@ const Remainder = (props: RemainderProps) => {
           </View>
         </View>
       </Modal>
+      <ConfirmationModal
+        visible={isDeleteModalVisible}
+        message="¿Estas seguro que deseas descartar el recordatorio?"
+        onCancel={() => setIsDeleteModalVisible(false)}
+      />
     </View>
   );
 };
@@ -57,19 +64,9 @@ const styles = StyleSheet.create({
     ...Styles.cardBorder,
   },
   warningStyle: {
-    borderColor: ColorPallete.orange.normal,
+    borderColor: ColorPallete.skyblue.normal,
     borderWidth: 3,
     // backgroundColor: ColorPallete.orange.ligth,
-  },
-  modalContainer: {
-    padding: 30,
-    margin: 20,
-  },
-  buttonsContainer: {
-    marginTop: 30,
-    width: "100%",
-    justifyContent: "space-evenly",
-    alignSelf: "flex-start",
   },
 });
 
