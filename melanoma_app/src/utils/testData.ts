@@ -1,8 +1,9 @@
+import RawImage from "@assets/data/testBase64Image.json";
+
 import Lesion from "../models/lesion";
 import Photo from "../models/photo";
 import Remainder from "../models/remainder";
 
-import RawImage from "@/data/testBase64Image.json";
 import Comparison from "@/models/comparison";
 import PrediagnosisResult from "@/models/prediagnosisResult";
 

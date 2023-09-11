@@ -9,6 +9,14 @@ import { StyleSheet, View } from "react-native";
 
 import ColorPallete from "../colorPallete";
 
+export const LogoutButtonIcon = () => {
+  return <MaterialIcons name="logout" size={20} color="white" />;
+};
+
+export const DeleteAccountButtonIcon = () => {
+  return <MaterialIcons name="delete" size={20} color="white" />;
+};
+
 export const AddPhotoIcon = () => {
   return <MaterialIcons name="add-photo-alternate" size={20} color="white" />;
 };

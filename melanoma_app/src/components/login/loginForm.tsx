@@ -15,13 +15,17 @@ const LoginForm = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.formRow}>
-        <Text style={Styles.textBody}>Usuario:</Text>
+      <View style={[Styles.formRow, Styles.cardBorder]}>
+        <Text style={Styles.inputLabel}>Usuario:</Text>
         <TextInput style={styles.input} />
       </View>
-      <View style={styles.formRow}>
-        <Text style={Styles.textBody}>Contraseña:</Text>
-        <TextInput style={styles.input} />
+      <View style={[Styles.formRow, Styles.cardBorder]}>
+        <Text style={Styles.inputLabel}>Contraseña:</Text>
+        <TextInput
+          style={styles.input}
+          autoComplete="password"
+          secureTextEntry
+        />
       </View>
       <View style={[Styles.buttonsContainer, Styles.horizontalContainer]}>
         <Button
@@ -39,12 +43,6 @@ const styles = StyleSheet.create({
   container: {
     margin: 30,
     ...Styles.centeredContainer,
-  },
-  formRow: {
-    marginTop: 10,
-    padding: 10,
-    ...Styles.cardBorder,
-    ...Styles.horizontalContainer,
   },
   input: {
     flex: 1,

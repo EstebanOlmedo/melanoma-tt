@@ -7,6 +7,8 @@ import Styles from "@/styles";
 interface ConfirmationModalProps {
   visible: boolean;
   message: string;
+  confirmationTitle?: string;
+  cancelTitle?: string;
   onConfirmation?: () => void;
   onCancel?: () => void;
 }
@@ -23,9 +25,12 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
         <View style={[Styles.cardBorder, Styles.modalContainer]}>
           <Text style={Styles.textBody}>{props.message}</Text>
           <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
-            <Button title="Ok" onPress={() => props.onConfirmation?.()} />
             <Button
-              title="Cancelar"
+              title={props.confirmationTitle ?? "Ok"}
+              onPress={() => props.onConfirmation?.()}
+            />
+            <Button
+              title={props.cancelTitle ?? "Cancelar"}
               onPress={() => props.onCancel?.()}
               color="black"
             />

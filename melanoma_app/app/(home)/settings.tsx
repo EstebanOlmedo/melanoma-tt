@@ -12,7 +12,7 @@ const Settings = () => {
         <View style={Styles.flexContainer}>
           <Section title="Ajustes de la cuenta" body={AccountSettings} />
         </View>
-        <View style={Styles.flexContainer}>
+        <View style={styles.settingsSection}>
           <Section title="Ajustes de la aplicación" body={SettingsOptions} />
         </View>
       </View>
@@ -21,22 +21,11 @@ const Settings = () => {
 };
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   bodyContainer: {
     flex: 10,
   },
-  menubarContainer: {
-    flex: 1,
-  },
-  remaindersContainer: {
-    flex: 1,
-  },
-  lesionsContainer: {
-    flex: 5,
+  settingsSection: {
+    flex: 2,
   },
 });
 

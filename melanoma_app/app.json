@@ -3,9 +3,15 @@
     "name": "Melanoma App",
     "slug": "melanoma_app",
     "version": "1.0.0",
+    "platforms": ["android", "web"],
     "orientation": "portrait",
+    "primaryColor": "#265380",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "melanoma-app",
+    "androidNavigationBar": {
+      "barStyle": "dark-content"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

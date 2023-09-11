@@ -15,7 +15,11 @@ const ImageLoading = (props: ImageLoadingProps) => {
   return (
     <View style={Styles.flexContainer}>
       <View style={styles.photoContainer}>
-        <ZoomeableImage style={styles.image} image={props.image} />
+        <ZoomeableImage
+          contentFit="cover"
+          style={styles.image}
+          image={props.image}
+        />
       </View>
       <View style={styles.statusContainer}>
         <Text style={[Styles.textBody, Styles.textWhite]}>{props.message}</Text>

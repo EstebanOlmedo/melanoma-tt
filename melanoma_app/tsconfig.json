@@ -10,9 +10,11 @@
       "@assets/*": [
         "assets/*"
       ]
-    }
+    },
+    "typeRoots": ["src/types/declarations.d.ts"]
   },
   "include": [
+    "**/*.md",
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",

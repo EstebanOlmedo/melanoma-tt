@@ -1,15 +1,24 @@
+import RawQuestions from "@assets/data/questions.json";
+import RawTutorials from "@assets/data/tutorials.json";
+
 import { TutorialsImages } from "./images";
-import RawQuestions from "../data/questions.json";
-import RawTutorials from "../data/tutorials.json";
+import { QuestionMarkdownFiles } from "./markdowns";
 
 import IQuestion from "@/models/question";
 import ITutorial from "@/models/tutorial";
 
 export function getQuestions(): IQuestion[] {
   return RawQuestions.map((question, index) => {
+    let mdFile: undefined | number = undefined;
+    if (question.markdownFile) {
+      const fileName =
+        question.markdownFile as keyof typeof QuestionMarkdownFiles;
+      mdFile = QuestionMarkdownFiles[fileName];
+    }
     return {
-      id: index,
       ...question,
+      id: index,
+      markdownFile: mdFile,
     };
   });
 }

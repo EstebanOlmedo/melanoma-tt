@@ -1,10 +1,9 @@
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { default as RemainderModel } from "../../../models/remainder";
 import Styles from "../../../styles";
-import Button from "../../button";
 import ConfirmationModal from "../../confirmationModal";
 
 import ColorPallete from "@/colorPallete";
@@ -26,27 +25,13 @@ const Remainder = (props: RemainderProps) => {
       <TouchableOpacity onPress={() => setIsDeleteModalVisible(true)}>
         <Entypo name="cross" size={20} color="black" />
       </TouchableOpacity>
-      <Modal
-        transparent
-        animationType="slide"
-        hardwareAccelerated
+      <ConfirmationModal
         visible={isModalVisible}
-      >
-        <View style={Styles.centeredContainer}>
-          <View style={[Styles.cardBorder, Styles.modalContainer]}>
-            <Text
-              style={Styles.textBody}
-            >{`Es hora de agregar un nuevo registro a ${props.remainder.lesion}`}</Text>
-            <View style={[Styles.horizontalContainer, Styles.buttonsContainer]}>
-              <Button
-                title="Aplazar"
-                onPress={() => setIsModalVisible(false)}
-              />
-              <Button title="Descartar" />
-            </View>
-          </View>
-        </View>
-      </Modal>
+        message={`Es hora de agregar un nuevo registro a ${props.remainder.lesion}`}
+        confirmationTitle="Descartar"
+        cancelTitle="Aplazar"
+        onCancel={() => setIsModalVisible(false)}
+      />
       <ConfirmationModal
         visible={isDeleteModalVisible}
         message="¿Estas seguro que deseas descartar el recordatorio?"

@@ -85,8 +85,29 @@ const TextStyles = StyleSheet.create({
 const UtilStyles = StyleSheet.create({
   gap: {
     height: 10,
+    width: 10,
+  },
+  formRow: {
+    marginTop: 10,
+    padding: 10,
+    ...ContainerStyles.horizontalContainer,
+  },
+  inputLabel: {
+    marginRight: 5,
+    ...TextStyles.textBody,
+  },
+  settingOptionCard: {
+    padding: 10,
+    ...BorderStyles.cardBorder,
+    ...ContainerStyles.topContainer,
   },
 });
+
+export const MarkdownStyles = {
+  tableHeader: {
+    backgroundColor: ColorPallete.blue.ligth,
+  },
+};
 
 const Styles = {
   ...ContainerStyles,

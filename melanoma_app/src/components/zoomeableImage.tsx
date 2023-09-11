@@ -1,5 +1,5 @@
 import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
-import { Image, ImageSource } from "expo-image";
+import { Image, ImageContentFit, ImageSource } from "expo-image";
 import { ViewStyle } from "react-native";
 
 import Styles from "@/styles";
@@ -7,6 +7,7 @@ import Styles from "@/styles";
 interface ZoomeableImageProps {
   image: ImageSource;
   style?: ViewStyle;
+  contentFit?: ImageContentFit;
 }
 
 const ZoomeableImage = (props: ZoomeableImageProps) => {
@@ -21,7 +22,7 @@ const ZoomeableImage = (props: ZoomeableImageProps) => {
       <Image
         source={props.image}
         style={Styles.photoContainer}
-        contentFit="cover"
+        contentFit={props.contentFit ?? "contain"}
         contentPosition="center"
         responsivePolicy="live"
       />
