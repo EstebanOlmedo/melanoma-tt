@@ -44,6 +44,7 @@
   "dependencies": {
     "@azure/identity": "^3.3.1",
     "@azure/keyvault-secrets": "^4.7.0",
+    "@azure/storage-blob": "^12.16.0",
     "applicationinsights": "^2.9.0",
     "body-parser": "^1.20.2",
     "bunyan": "^1.8.15",
