@@ -1,6 +1,7 @@
 import { type RequestHandler, Router } from 'express';
 import { deleteDummyById, getDummybyId, patchDummyById, postDummy } from '../services/dummy';
 import getDatabasePool from '../../adapters/database';
+import { downloadImage, uploadImage } from '../../adapters/blobStorage';
 
 // add http routes for an endpoint in src/routes,
 // example:
@@ -32,6 +33,11 @@ dummyRouter.get('/:id', (async (req, res, next) => {
 
   const pool = await getDatabasePool();
   console.log(pool);
+
+  const file = 'asdasdasdadasdads';
+  await uploadImage({ name: 'test', data: file, ext: 'jpg' });
+  const download = await downloadImage('test.jpg');
+  console.log(download);
 
   try {
     const result = await getDummybyId(options);
