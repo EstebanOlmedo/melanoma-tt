@@ -1,5 +1,10 @@
 import { type RequestHandler, Router } from 'express';
-import { deleteDummyById, getDummybyId, patchDummyById, postDummy } from '../services/dummy';
+import {
+  deleteDummyById,
+  getDummybyId,
+  patchDummyById,
+  postDummy,
+} from '../services/dummy';
 import getDatabasePool from '../../adapters/database';
 import { downloadImage, uploadImage } from '../../adapters/blobStorage';
 
@@ -14,7 +19,7 @@ const dummyRouter = Router();
 
 dummyRouter.post('/', (async (req, res, next) => {
   const options = {
-    body: req.body
+    body: req.body,
   };
 
   try {
@@ -28,7 +33,7 @@ dummyRouter.post('/', (async (req, res, next) => {
 dummyRouter.get('/:id', (async (req, res, next) => {
   const options = {
     id: req.params.id,
-    body: req.body
+    body: req.body,
   };
 
   const pool = await getDatabasePool();
@@ -50,7 +55,7 @@ dummyRouter.get('/:id', (async (req, res, next) => {
 dummyRouter.patch('/:id', (async (req, res, next) => {
   const options = {
     id: req.params.id,
-    body: req.body
+    body: req.body,
   };
 
   try {
@@ -64,7 +69,7 @@ dummyRouter.patch('/:id', (async (req, res, next) => {
 dummyRouter.delete('/:id', (async (req, res, next) => {
   const options = {
     id: req.params.id,
-    body: req.body
+    body: req.body,
   };
 
   try {

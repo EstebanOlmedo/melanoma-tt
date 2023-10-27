@@ -1,13 +1,18 @@
 import getDatabasePool from '../../adapters/database';
 import log from '../../lib/logger';
-import { DELETE_LESION, GET_LESION, INSERT_LESION, UPDATE_LESION } from '../../lib/sqlQueries';
+import {
+  DELETE_LESION,
+  GET_LESION,
+  INSERT_LESION,
+  UPDATE_LESION,
+} from '../../lib/sqlQueries';
 import { type RequestOptions } from '../../lib/types';
 import type Lesion from '../../models/lesion';
 import sql from 'mssql';
 import { getPhotosByLesionId } from './photo';
 import type Photo from '../../models/photo';
 
-function LesionFromRecord (record: any, photos: Photo[]): Lesion {
+function LesionFromRecord(record: any, photos: Photo[]): Lesion {
   return {
     id: record.id_lesion as number,
     name: record.name as string,
@@ -27,15 +32,15 @@ export const postLesion = async (options: LesionPostRequestOptions) => {
     await ps.prepare(INSERT_LESION);
     const dbResquest = await ps.execute({
       name: options.body.name,
-      id_owner: 0
+      id_owner: 0,
     });
     log.info(dbResquest.rowsAffected, 'Lesion was inserted');
     return {
       status: 200,
       data: {
         result: true,
-        message: 'Ok'
-      }
+        message: 'Ok',
+      },
     };
   } catch (error) {
     log.error(error, 'Error inserting lesion');
@@ -43,13 +48,13 @@ export const postLesion = async (options: LesionPostRequestOptions) => {
       status: 400,
       data: {
         result: false,
-        message: 'Error inserting lesion'
-      }
+        message: 'Error inserting lesion',
+      },
     };
   }
 };
 
-type LesionGetRequestOptions = RequestOptions<unknown, { id: number; }>;
+type LesionGetRequestOptions = RequestOptions<unknown, { id: number }>;
 
 export const getLesionbyId = async (options: LesionGetRequestOptions) => {
   try {
@@ -59,15 +64,15 @@ export const getLesionbyId = async (options: LesionGetRequestOptions) => {
     ps.input('id', sql.BigInt);
     await ps.prepare(GET_LESION);
     const dbRequest = await ps.execute({
-      id: options.params.id
+      id: options.params.id,
     });
     if (dbRequest.recordset.length === 0) {
       return {
         status: 404,
         data: {
           result: false,
-          message: 'Lesion does not exists'
-        }
+          message: 'Lesion does not exists',
+        },
       };
     }
     log.info(dbRequest.rowsAffected, 'Lesion was returned');
@@ -87,7 +92,7 @@ export const getLesionbyId = async (options: LesionGetRequestOptions) => {
     const photos = data as Photo[];
     return {
       status: 200,
-      data: LesionFromRecord(dbRequest.recordset[0], photos)
+      data: LesionFromRecord(dbRequest.recordset[0], photos),
     };
   } catch (error) {
     log.error(error, 'Error getting lesion');
@@ -95,13 +100,13 @@ export const getLesionbyId = async (options: LesionGetRequestOptions) => {
       status: 400,
       data: {
         result: false,
-        message: 'Error getting lesion'
-      }
+        message: 'Error getting lesion',
+      },
     };
   }
 };
 
-type LesionPatchRequestOptions = RequestOptions<Lesion, { id: number; }>;
+type LesionPatchRequestOptions = RequestOptions<Lesion, { id: number }>;
 
 export const patchLesionById = async (options: LesionPatchRequestOptions) => {
   try {
@@ -113,15 +118,15 @@ export const patchLesionById = async (options: LesionPatchRequestOptions) => {
     await ps.prepare(UPDATE_LESION);
     const dbRequest = await ps.execute({
       id: options.params.id,
-      name: options.body.name
+      name: options.body.name,
     });
     log.info(dbRequest.rowsAffected, 'Lesion was updated');
     return {
       status: 200,
       data: {
         result: true,
-        message: 'Updated successfully'
-      }
+        message: 'Updated successfully',
+      },
     };
   } catch (error) {
     log.error(error, 'Error updating lesion');
@@ -129,13 +134,13 @@ export const patchLesionById = async (options: LesionPatchRequestOptions) => {
       status: 400,
       data: {
         result: false,
-        message: 'Error updating lesion'
-      }
+        message: 'Error updating lesion',
+      },
     };
   }
 };
 
-type LesionDeleteRequestOptions = RequestOptions<unknown, { id: number; }>;
+type LesionDeleteRequestOptions = RequestOptions<unknown, { id: number }>;
 
 export const deleteLesionById = async (options: LesionDeleteRequestOptions) => {
   try {
@@ -145,15 +150,15 @@ export const deleteLesionById = async (options: LesionDeleteRequestOptions) => {
     ps.input('id', sql.BigInt);
     await ps.prepare(DELETE_LESION);
     const dbRequest = await ps.execute({
-      id: options.params.id
+      id: options.params.id,
     });
     log.info(dbRequest.rowsAffected, 'Lesion was deleted');
     return {
       status: 200,
       data: {
         result: true,
-        message: 'Deleted successfully'
-      }
+        message: 'Deleted successfully',
+      },
     };
   } catch (error) {
     log.error(error, 'Error deleting lesion');
@@ -161,8 +166,8 @@ export const deleteLesionById = async (options: LesionDeleteRequestOptions) => {
       status: 400,
       data: {
         result: false,
-        message: 'Error deleting lesion'
-      }
+        message: 'Error deleting lesion',
+      },
     };
   }
 };

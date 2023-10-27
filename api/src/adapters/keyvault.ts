@@ -2,11 +2,12 @@ import { SecretClient } from '@azure/keyvault-secrets';
 import { ClientSecretCredential } from '@azure/identity';
 import config from '../lib/config';
 
-type SecretsKeys = 'dummySecret' |
-'AIConnectionString' |
-'blobStorageConnectionString' |
-'imageContainerName' |
-'dbConnectionString';
+type SecretsKeys =
+  | 'dummySecret'
+  | 'AIConnectionString'
+  | 'blobStorageConnectionString'
+  | 'imageContainerName'
+  | 'dbConnectionString';
 
 const secrets = new Map<SecretsKeys, string | undefined>();
 
@@ -18,12 +19,24 @@ const getSecrets = async () => {
   const clientId = config.azure.keyvault.clientId;
   const tenantId = config.azure.keyvault.tenantId;
 
-  if (keyVaultName == null) throw new Error('config.azure.keyvault.name is empty');
-  if (clientId == null) throw new Error('config.azure.keyvault.clientId is empty');
-  if (clientSecret == null) throw new Error('config.azure.keyvault.clientSecret is empty');
-  if (tenantId == null) throw new Error('config.azure.keyvault.tenantId is empty');
+  if (keyVaultName == null) {
+    throw new Error('config.azure.keyvault.name is empty');
+  }
+  if (clientId == null) {
+    throw new Error('config.azure.keyvault.clientId is empty');
+  }
+  if (clientSecret == null) {
+    throw new Error('config.azure.keyvault.clientSecret is empty');
+  }
+  if (tenantId == null) {
+    throw new Error('config.azure.keyvault.tenantId is empty');
+  }
 
-  const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+  const credential = new ClientSecretCredential(
+    tenantId,
+    clientId,
+    clientSecret,
+  );
   const url = 'https://' + keyVaultName + '.vault.azure.net';
 
   const client = new SecretClient(url, credential);
