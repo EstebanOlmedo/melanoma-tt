@@ -3,7 +3,7 @@ info:
   title: Melanoma API
   version: '1.0'
 servers:
-  - url: https://api.server.test/v1 # TODO: update to actual url
+  - url: http://localhost:3000 # TODO: update to actual url
 paths:
 
   # /user: # create user
@@ -32,13 +32,12 @@ paths:
         '400':
           $ref: "#/components/responses/BadRequest"
 
-  /lesion/{id}:
+  /lesion/{idLesion}:
     parameters:
       - $ref: '#/components/parameters/idLesion'
     get:
       responses:
         '200':
-          $ref: "#/components/responses/OK"
           description: The lesion is returnd successfully
           content:
             application/json:
@@ -102,7 +101,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/photo'
-          $ref: "#/components/responses/OK"
         '404':
           $ref: "#/components/responses/NotFound"
         '401':
@@ -153,7 +151,6 @@ paths:
     get:
       responses:
         '200':
-          $ref: "#/components/responses/OK"
           description: The user is returned successfully
           content:
             application/json:
@@ -285,13 +282,13 @@ components:
 
   parameters:
     idLesion:
-      name: id,
+      name: idLesion
       in: path
       required: true
       schema:
         type: integer
     idPhoto:
-      name: id,
+      name: idPhoto
       in: path
       required: true
       schema:
@@ -361,6 +358,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/reminder'
+    image:
+      type: object
+      properties:
+        name:
+          type: string
+        data:
+          type: string
+        ext:
+          type: string
     photo:
       type: object
       properties:
@@ -372,8 +378,10 @@ components:
           type: number
         description:
           type: string
-        url:
+        blobName:
           type: string
+        image:
+          $ref: '#/components/schemas/image'
     lesion:
       type: object
       properties:
