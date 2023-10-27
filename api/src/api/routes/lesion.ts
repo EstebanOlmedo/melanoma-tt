@@ -1,5 +1,10 @@
 import { type RequestHandler, Router } from 'express';
-import { deleteLesionById, getLesionbyId, patchLesionById, postLesion } from '../services/lesion';
+import {
+  deleteLesionById,
+  getLesionbyId,
+  patchLesionById,
+  postLesion,
+} from '../services/lesion';
 import type Lesion from '../../models/lesion';
 import photoRouter from './photo';
 
@@ -10,12 +15,12 @@ lesionRouter.post('/', (async (req, res, next) => {
   if (lesion.name == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion name'
+      message: 'missing lesion name',
     });
   }
   const options = {
     body: lesion as Lesion,
-    params: {}
+    params: {},
   };
 
   try {
@@ -30,14 +35,14 @@ lesionRouter.get('/:id', (async (req, res, next) => {
   if (req.params.id == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   const options = {
     params: {
-      id: Number(req.params.id)
+      id: Number(req.params.id),
     },
-    body: null
+    body: null,
   };
 
   try {
@@ -53,14 +58,14 @@ lesionRouter.patch('/:id', (async (req, res, next) => {
   if (lesion.name == null) {
     return res.status(200).send({
       result: true,
-      message: 'Nothing to update'
+      message: 'Nothing to update',
     });
   }
   const options = {
     params: {
-      id: Number(req.params.id)
+      id: Number(req.params.id),
     },
-    body: lesion
+    body: lesion,
   };
 
   try {
@@ -75,14 +80,14 @@ lesionRouter.delete('/:id', (async (req, res, next) => {
   if (req.params.id == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   const options = {
     params: {
-      id: Number(req.params.id)
+      id: Number(req.params.id),
     },
-    body: null
+    body: null,
   };
 
   try {

@@ -1,6 +1,11 @@
 import { type RequestHandler, Router } from 'express';
 import type Photo from '../../models/photo';
-import { deletePhotoById, getPhotobyId, patchPhotoById, postPhoto } from '../services/photo';
+import {
+  deletePhotoById,
+  getPhotobyId,
+  patchPhotoById,
+  postPhoto,
+} from '../services/photo';
 
 const photoRouter = Router({ mergeParams: true });
 
@@ -11,7 +16,7 @@ photoRouter.post('/', (async (req, res, next) => {
   if (idLesion == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   if (photo.name == null) {
@@ -23,14 +28,14 @@ photoRouter.post('/', (async (req, res, next) => {
   if (photo.image?.data == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing image data'
+      message: 'missing image data',
     });
   }
   const options = {
     body: photo as Photo,
     params: {
-      idLesion: Number(idLesion)
-    }
+      idLesion: Number(idLesion),
+    },
   };
 
   try {
@@ -45,21 +50,21 @@ photoRouter.get('/:idPhoto', (async (req, res, next) => {
   if (req.params.idLesion == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   if (req.params.idPhoto == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   const options = {
     params: {
       idPhoto: Number(req.params.idPhoto),
-      idLesion: Number(req.params.idLesion)
+      idLesion: Number(req.params.idLesion),
     },
-    body: null
+    body: null,
   };
 
   try {
@@ -75,21 +80,21 @@ photoRouter.patch('/:idPhoto', (async (req, res, next) => {
   if (req.params.idPhoto == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing photo id'
+      message: 'missing photo id',
     });
   }
   if (req.params.idLesion == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   const options = {
     params: {
       idPhoto: Number(req.params.idPhoto),
-      idLesion: Number(req.params.idLesion)
+      idLesion: Number(req.params.idLesion),
     },
-    body: photo
+    body: photo,
   };
 
   try {
@@ -104,21 +109,21 @@ photoRouter.delete('/:idPhoto', (async (req, res, next) => {
   if (req.params.idPhoto == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing photo id'
+      message: 'missing photo id',
     });
   }
   if (req.params.idLesion == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing lesion id'
+      message: 'missing lesion id',
     });
   }
   const options = {
     params: {
       idPhoto: Number(req.params.idPhoto),
-      idLesion: Number(req.params.idLesion)
+      idLesion: Number(req.params.idLesion),
     },
-    body: null
+    body: null,
   };
 
   try {

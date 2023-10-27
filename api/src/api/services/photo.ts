@@ -3,11 +3,18 @@ import log from '../../lib/logger';
 import { type RequestOptions } from '../../lib/types';
 import sql from 'mssql';
 import type Photo from '../../models/photo';
-import { ADD_BLOB_TO_PHOTO, DELETE_PHOTO, GET_PHOTO, GET_PHOTOS_BY_LESION_ID, INSERT_PHOTO, UPDATE_PHOTO } from '../../lib/sqlQueries';
+import {
+  ADD_BLOB_TO_PHOTO,
+  DELETE_PHOTO,
+  GET_PHOTO,
+  GET_PHOTOS_BY_LESION_ID,
+  INSERT_PHOTO,
+  UPDATE_PHOTO,
+} from '../../lib/sqlQueries';
 import { downloadImage, uploadImage } from '../../adapters/blobStorage';
 import type Image from '../../models/image';
 
-function photoFromRecord (record: any, image: Image): Photo {
+function photoFromRecord(record: any, image: Image): Photo {
   return {
     id: record.id_photo as number,
     name: record.name as string,
@@ -18,7 +25,9 @@ function photoFromRecord (record: any, image: Image): Photo {
   };
 }
 
-export const postPhoto = async (options: RequestOptions<Photo, { idLesion: number; }>) => {
+export const postPhoto = async (
+  options: RequestOptions<Photo, { idLesion: number }>,
+) => {
   try {
     const pool = await getDatabasePool();
     let ps = new sql.PreparedStatement(pool);
@@ -32,14 +41,14 @@ export const postPhoto = async (options: RequestOptions<Photo, { idLesion: numbe
       idLesion: options.params.idLesion,
       name: options.body.name,
       timestamp: options.body.dateOfCreation,
-      description: options.body.description
+      description: options.body.description,
     });
     log.info(dbRequest.rowsAffected, 'Photo was inserted');
     const idPhoto = dbRequest.recordset[0].id_photo;
     await uploadImage({
       data: options.body.image.data,
       name: String(idPhoto),
-      ext: 'jpg'
+      ext: 'jpg',
     });
     ps = new sql.PreparedStatement(pool);
     ps.input('blob', sql.VarChar);
@@ -47,7 +56,7 @@ export const postPhoto = async (options: RequestOptions<Photo, { idLesion: numbe
     await ps.prepare(ADD_BLOB_TO_PHOTO);
     const dbRequestBlobName = await ps.execute({
       blob: `${idPhoto}.jpg`,
-      id: idPhoto
+      id: idPhoto,
     });
     log.info(dbRequestBlobName.rowsAffected, 'Photo blob name was updated');
     return {
@@ -55,7 +64,7 @@ export const postPhoto = async (options: RequestOptions<Photo, { idLesion: numbe
       data: {
         result: true,
         message: 'Ok',
-      }
+      },
     };
   } catch (error) {
     log.error(error, 'Error inserting photo');
@@ -63,13 +72,15 @@ export const postPhoto = async (options: RequestOptions<Photo, { idLesion: numbe
       status: 400,
       data: {
         result: false,
-        message: 'Error inserting photo'
-      }
+        message: 'Error inserting photo',
+      },
     };
   }
 };
 
-export const getPhotosByLesionId = async (options: RequestOptions<unknown, { idLesion: number; }>) => {
+export const getPhotosByLesionId = async (
+  options: RequestOptions<unknown, { idLesion: number }>,
+) => {
   try {
     const pool = await getDatabasePool();
     const ps = new sql.PreparedStatement(pool);
@@ -77,12 +88,14 @@ export const getPhotosByLesionId = async (options: RequestOptions<unknown, { idL
     ps.input('id', sql.BigInt);
     await ps.prepare(GET_PHOTOS_BY_LESION_ID);
     const dbRequest = await ps.execute({
-      id: options.params.idLesion
+      id: options.params.idLesion,
     });
     log.info(dbRequest.rowsAffected, 'Photos were returned');
-    const images = await Promise.all(dbRequest.recordset.map(async photo => {
-      return await downloadImage(photo.blob_name);
-    }));
+    const images = await Promise.all(
+      dbRequest.recordset.map(async (photo) => {
+        return await downloadImage(photo.blob_name);
+      }),
+    );
     const photos = dbRequest.recordset.map((photo, index) => {
       return photoFromRecord(photo, images[index]);
     });
@@ -96,13 +109,15 @@ export const getPhotosByLesionId = async (options: RequestOptions<unknown, { idL
       status: 400,
       data: {
         result: false,
-        message: 'Error getting photos'
-      }
+        message: 'Error getting photos',
+      },
     };
   }
 };
 
-export const getPhotobyId = async (options: RequestOptions<unknown, { idLesion: number; idPhoto: number; }>) => {
+export const getPhotobyId = async (
+  options: RequestOptions<unknown, { idLesion: number; idPhoto: number }>,
+) => {
   try {
     const pool = await getDatabasePool();
     const ps = new sql.PreparedStatement(pool);
@@ -110,22 +125,22 @@ export const getPhotobyId = async (options: RequestOptions<unknown, { idLesion: 
     ps.input('id', sql.BigInt);
     await ps.prepare(GET_PHOTO);
     const dbRequest = await ps.execute({
-      id: options.params.idPhoto
+      id: options.params.idPhoto,
     });
     if (dbRequest.recordset.length === 0) {
       return {
         status: 404,
         data: {
           result: false,
-          message: 'Photo does not exists'
-        }
+          message: 'Photo does not exists',
+        },
       };
     }
     log.info(dbRequest.rowsAffected, 'Photo was returned');
     const image = await downloadImage(dbRequest.recordset[0].blob_name);
     return {
       status: 200,
-      data: photoFromRecord(dbRequest.recordset[0], image)
+      data: photoFromRecord(dbRequest.recordset[0], image),
     };
   } catch (error) {
     log.error(error, 'Error getting photo');
@@ -133,8 +148,8 @@ export const getPhotobyId = async (options: RequestOptions<unknown, { idLesion: 
       status: 400,
       data: {
         result: false,
-        message: 'Error getting photo'
-      }
+        message: 'Error getting photo',
+      },
     };
   }
 };
@@ -143,7 +158,9 @@ type NullablePhoto = {
   [K in keyof Photo]: Photo[K] | null;
 };
 
-export const patchPhotoById = async (options: RequestOptions<NullablePhoto, { idLesion: number; idPhoto: number; }>) => {
+export const patchPhotoById = async (
+  options: RequestOptions<NullablePhoto, { idLesion: number; idPhoto: number }>,
+) => {
   try {
     const { status, data } = await getPhotobyId(options);
     if (status === 400) {
@@ -166,15 +183,15 @@ export const patchPhotoById = async (options: RequestOptions<NullablePhoto, { id
     const dbRequest = await ps.execute({
       id: options.params.idPhoto,
       name: photo.name,
-      description: photo.description
+      description: photo.description,
     });
     log.info(dbRequest.rowsAffected, 'Photo was updated');
     return {
       status: 200,
       data: {
         result: true,
-        message: 'Updated successfully'
-      }
+        message: 'Updated successfully',
+      },
     };
   } catch (error) {
     log.error(error, 'Error updating photo');
@@ -182,13 +199,15 @@ export const patchPhotoById = async (options: RequestOptions<NullablePhoto, { id
       status: 400,
       data: {
         result: false,
-        message: 'Error updating photo'
-      }
+        message: 'Error updating photo',
+      },
     };
   }
 };
 
-export const deletePhotoById = async (options: RequestOptions<unknown, { idPhoto: number; idLesion: number; }>) => {
+export const deletePhotoById = async (
+  options: RequestOptions<unknown, { idPhoto: number; idLesion: number }>,
+) => {
   try {
     const pool = await getDatabasePool();
     const ps = new sql.PreparedStatement(pool);
@@ -196,15 +215,15 @@ export const deletePhotoById = async (options: RequestOptions<unknown, { idPhoto
     ps.input('id', sql.BigInt);
     await ps.prepare(DELETE_PHOTO);
     const dbRequest = await ps.execute({
-      id: options.params.idPhoto
+      id: options.params.idPhoto,
     });
     log.info(dbRequest.rowsAffected, 'Photo was deleted');
     return {
       status: 200,
       data: {
         result: true,
-        message: 'Deleted successfully'
-      }
+        message: 'Deleted successfully',
+      },
     };
   } catch (error) {
     log.error(error, 'Error deleting photo');
@@ -212,8 +231,8 @@ export const deletePhotoById = async (options: RequestOptions<unknown, { idPhoto
       status: 400,
       data: {
         result: false,
-        message: 'Error deleting photo'
-      }
+        message: 'Error deleting photo',
+      },
     };
   }
 };
