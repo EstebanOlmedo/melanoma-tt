@@ -4,9 +4,15 @@ import config from '../lib/config';
 
 type SecretsKeys = 'dummySecret' |
 'AIConnectionString' |
+'blobStorageConnectionString' |
+'imageContainerName' |
 'dbConnectionString';
 
+const secrets = new Map<SecretsKeys, string | undefined>();
+
 const getSecrets = async () => {
+  if (secrets.size !== 0) return secrets;
+
   const keyVaultName = config.azure.keyvault.name;
   const clientSecret = config.azure.keyvault.clientSecret;
   const clientId = config.azure.keyvault.clientId;
@@ -22,14 +28,10 @@ const getSecrets = async () => {
 
   const client = new SecretClient(url, credential);
 
-  const keys: SecretsKeys[] = ['dummySecret', 'dbConnectionString', 'AIConnectionString'];
-  const secrets = new Map<SecretsKeys, string | undefined>();
-
-  await Promise.all(keys.map(async (key) => {
-    const secret = await client.getSecret(key);
-    secrets.set(key, secret.value);
-    return [key, secret.value];
-  }));
+  for await (const secretProperties of client.listPropertiesOfSecrets()) {
+    const secret = await client.getSecret(secretProperties.name);
+    secrets.set(secretProperties.name as SecretsKeys, secret.value);
+  }
 
   return secrets;
 };
