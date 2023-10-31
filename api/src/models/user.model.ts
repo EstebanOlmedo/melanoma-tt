@@ -16,28 +16,28 @@ export default class User extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
-  id!: number;
+    id!: number;
 
   @Column
-  name!: string;
+    name!: string;
 
   @Column
-  lastName!: string;
+    lastName!: string;
 
   @Column
-  userName!: string;
+    userName!: string;
 
   @Column
-  password!: string;
+    password!: string;
 
   @CreatedAt
-  creationDate?: Date;
+    creationDate?: Date;
 
   @UpdatedAt
-  updatedOn?: Date;
+    updatedOn?: Date;
 
   @DeletedAt
-  deletionDate?: Date;
+    deletionDate?: Date;
 
   // @HasMany(() => Reminder)
   // reminders?: Reminder[];

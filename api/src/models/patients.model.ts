@@ -15,20 +15,20 @@ export default class Patients extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
-  id!: number;
+    id!: number;
 
   // @Unique
   // @Column
   // user!: User;
 
   @CreatedAt
-  creationDate?: Date;
+    creationDate?: Date;
 
   @UpdatedAt
-  updatedOn?: Date;
+    updatedOn?: Date;
 
   @DeletedAt
-  deletionDate?: Date;
+    deletionDate?: Date;
 
   // @HasMany(() => User)
   // patients!: User[];

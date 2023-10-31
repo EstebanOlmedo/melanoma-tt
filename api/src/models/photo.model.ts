@@ -18,27 +18,27 @@ export default class Photo extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
-  id!: number;
+    id!: number;
 
   @Column
-  name!: string;
+    name!: string;
 
   @Column
-  description!: string;
+    description!: string;
 
   @CreatedAt
-  createdAt!: Date;
+    createdAt!: Date;
 
   @Column
-  blobName!: string;
+    blobName!: string;
 
   @ForeignKey(() => Lesion)
   @Column
-  lesionId!: number;
+    lesionId!: number;
 
   @BelongsTo(() => Lesion)
-  lesion!: Lesion;
+    lesion!: Lesion;
 
   @Column(DataType.VIRTUAL)
-  image: Image;
+    image: Image;
 }

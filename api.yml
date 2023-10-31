@@ -183,9 +183,10 @@ paths:
         '401':
           $ref: "#/components/responses/Unauthorized"
 
-  /user/{idUser}/reminder:
+  /user/{idUser}/reminder/{idLesion}:
     parameters:
       - $ref: '#/components/parameters/idUser'
+      - $ref: '#/components/parameters/idLesion'
     post:
       description: Adds a new reminder to the specified user
       requestBody:
@@ -206,21 +207,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/idUser'
       - $ref: '#/components/parameters/idReminder'
-    post:
-      description: The reminder is returned successfuly
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/reminder'
-      responses:
-        '200':
-          $ref: "#/components/responses/OK"
-        '404':
-          $ref: "#/components/responses/NotFound"
-        '401':
-          $ref: "#/components/responses/Unauthorized"
     patch:
       requestBody:
         required: true
@@ -243,26 +229,6 @@ paths:
           $ref: "#/components/responses/OK"
         '401':
           $ref: "#/components/responses/Unauthorized"
-
-  /user/{idUser}/reminder/{idLesion}:
-    parameters:
-      - $ref: '#/components/parameters/idUser'
-      - $ref: '#/components/parameters/idLesion'
-    patch:
-      description: Adds a reminder for the lesion to the user
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/reminder'
-      responses:
-        '200':
-          $ref: "#/components/responses/OK"
-        '401':
-          $ref: "#/components/responses/Unauthorized"
-        '400':
-          $ref: "#/components/responses/BadRequest"
 
   /user/{idUser}/associate/{idUserToAssociate}:
     parameters:
@@ -305,7 +271,6 @@ components:
       required: true
       schema:
         type: integer
-
     idReminder:
       name: idReminder
       in: path
@@ -404,9 +369,7 @@ components:
       properties:
         id:
           type: number
-        name:
+        targetTimeStamp:
           type: string
-        date:
-          type: string
-        lesion:
-          $ref: '#/components/schemas/lesion'
+        lesionID:
+          type: number

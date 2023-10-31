@@ -13,11 +13,11 @@ export default class Lesion extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
-  id!: number;
+    id!: number;
 
   @Column
-  name!: string;
+    name!: string;
 
   @HasMany(() => Photo)
-  photos!: Photo[];
+    photos!: Photo[];
 }

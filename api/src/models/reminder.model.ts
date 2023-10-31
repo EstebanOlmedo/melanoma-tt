@@ -9,24 +9,33 @@ import {
   PrimaryKey,
   Table,
   UpdatedAt,
+  ForeignKey,
 } from 'sequelize-typescript';
 import { User } from './user.model';
+import Lesion from './lesion.model';
 
 @Table
 export default class Reminder extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
-  id!: number;
+    id!: number;
+
+  @ForeignKey(() => Lesion)
+  @Column
+    idLesion!: number;
 
   @CreatedAt
-  creationDate?: Date;
+    creationDate?: Date;
 
   @UpdatedAt
-  updatedOn?: Date;
+    updatedOn?: Date;
 
   @DeletedAt
-  deletionDate?: Date;
+    deletionDate?: Date;
+
+  @Column
+    targetTimeStamp?: Date;
 
   // @BelongsTo(() => User)
   // user!:User;
