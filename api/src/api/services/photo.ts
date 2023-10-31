@@ -1,16 +1,6 @@
-import getDatabasePool from '../../adapters/database';
 import log from '../../lib/logger';
 import { type RequestOptions } from '../../lib/types';
-import sql from 'mssql';
-import type Photo from '../../models/photo';
-import {
-  ADD_BLOB_TO_PHOTO,
-  DELETE_PHOTO,
-  GET_PHOTO,
-  GET_PHOTOS_BY_LESION_ID,
-  INSERT_PHOTO,
-  UPDATE_PHOTO,
-} from '../../lib/sqlQueries';
+import Photo from '../../models/photo.model';
 import { downloadImage, uploadImage } from '../../adapters/blobStorage';
 import type Image from '../../models/image';
 
@@ -29,36 +19,22 @@ export const postPhoto = async (
   options: RequestOptions<Photo, { idLesion: number }>,
 ) => {
   try {
-    const pool = await getDatabasePool();
-    let ps = new sql.PreparedStatement(pool);
-    log.info('Inserting new photo');
-    ps.input('name', sql.VarChar);
-    ps.input('timestamp', sql.BigInt);
-    ps.input('description', sql.VarChar);
-    ps.input('idLesion', sql.BigInt);
-    await ps.prepare(INSERT_PHOTO);
-    const dbRequest = await ps.execute({
-      idLesion: options.params.idLesion,
+    const photo = new Photo({
+      blobName: '',
       name: options.body.name,
-      timestamp: options.body.dateOfCreation,
       description: options.body.description,
+      lesionId: options.params.idLesion,
     });
-    log.info(dbRequest.rowsAffected, 'Photo was inserted');
-    const idPhoto = dbRequest.recordset[0].id_photo;
+    await photo.save();
+    log.info('Photo was inserted');
+    const idPhoto = photo.id;
     await uploadImage({
       data: options.body.image.data,
       name: String(idPhoto),
       ext: 'jpg',
     });
-    ps = new sql.PreparedStatement(pool);
-    ps.input('blob', sql.VarChar);
-    ps.input('id', sql.BigInt);
-    await ps.prepare(ADD_BLOB_TO_PHOTO);
-    const dbRequestBlobName = await ps.execute({
-      blob: `${idPhoto}.jpg`,
-      id: idPhoto,
-    });
-    log.info(dbRequestBlobName.rowsAffected, 'Photo blob name was updated');
+    await photo.update({ blobName: `${photo.id}.jpg` });
+    log.info('Photo blob name was updated');
     return {
       status: 200,
       data: {
@@ -82,22 +58,10 @@ export const getPhotosByLesionId = async (
   options: RequestOptions<unknown, { idLesion: number }>,
 ) => {
   try {
-    const pool = await getDatabasePool();
-    const ps = new sql.PreparedStatement(pool);
-    log.info('Getting photos');
-    ps.input('id', sql.BigInt);
-    await ps.prepare(GET_PHOTOS_BY_LESION_ID);
-    const dbRequest = await ps.execute({
-      id: options.params.idLesion,
-    });
-    log.info(dbRequest.rowsAffected, 'Photos were returned');
-    const images = await Promise.all(
-      dbRequest.recordset.map(async (photo) => {
-        return await downloadImage(photo.blob_name);
-      }),
-    );
-    const photos = dbRequest.recordset.map((photo, index) => {
-      return photoFromRecord(photo, images[index]);
+    const photos = await Photo.findAll({
+      where: {
+        lesionId: options.params.idLesion,
+      },
     });
     return {
       status: 200,
@@ -119,15 +83,8 @@ export const getPhotobyId = async (
   options: RequestOptions<unknown, { idLesion: number; idPhoto: number }>,
 ) => {
   try {
-    const pool = await getDatabasePool();
-    const ps = new sql.PreparedStatement(pool);
-    log.info('Getting photo');
-    ps.input('id', sql.BigInt);
-    await ps.prepare(GET_PHOTO);
-    const dbRequest = await ps.execute({
-      id: options.params.idPhoto,
-    });
-    if (dbRequest.recordset.length === 0) {
+    const photo = await Photo.findByPk(options.params.idPhoto);
+    if (photo === null) {
       return {
         status: 404,
         data: {
@@ -136,11 +93,11 @@ export const getPhotobyId = async (
         },
       };
     }
-    log.info(dbRequest.rowsAffected, 'Photo was returned');
-    const image = await downloadImage(dbRequest.recordset[0].blob_name);
+    log.info('Photo was returned');
+    photo.image = await downloadImage(photo.blobName);
     return {
       status: 200,
-      data: photoFromRecord(dbRequest.recordset[0], image),
+      data: photo,
     };
   } catch (error) {
     log.error(error, 'Error getting photo');
@@ -162,30 +119,28 @@ export const patchPhotoById = async (
   options: RequestOptions<NullablePhoto, { idLesion: number; idPhoto: number }>,
 ) => {
   try {
-    const { status, data } = await getPhotobyId(options);
-    if (status === 400) {
-      return { status, data };
+    const photo = await Photo.findByPk(options.params.idPhoto);
+    if (photo === null) {
+      return {
+        status: 404,
+        data: {
+          result: false,
+          message: 'Photo does not exists',
+        },
+      };
     }
-    const photo = data as Photo;
+    const update = {
+      description: photo.description,
+      name: photo.name,
+    };
     if (options.body.description != null) {
-      photo.description = options.body.description;
+      update.description = options.body.description;
     }
     if (options.body.name != null) {
-      photo.name = options.body.name;
+      update.name = options.body.name;
     }
-    const pool = await getDatabasePool();
-    const ps = new sql.PreparedStatement(pool);
-    log.info('Updating photo');
-    ps.input('id', sql.BigInt);
-    ps.input('name', sql.VarChar);
-    ps.input('description', sql.VarChar);
-    await ps.prepare(UPDATE_PHOTO);
-    const dbRequest = await ps.execute({
-      id: options.params.idPhoto,
-      name: photo.name,
-      description: photo.description,
-    });
-    log.info(dbRequest.rowsAffected, 'Photo was updated');
+    await photo.update(update);
+    log.info('Photo was updated');
     return {
       status: 200,
       data: {
@@ -209,15 +164,10 @@ export const deletePhotoById = async (
   options: RequestOptions<unknown, { idPhoto: number; idLesion: number }>,
 ) => {
   try {
-    const pool = await getDatabasePool();
-    const ps = new sql.PreparedStatement(pool);
     log.info('Deleting photo');
-    ps.input('id', sql.BigInt);
-    await ps.prepare(DELETE_PHOTO);
-    const dbRequest = await ps.execute({
-      id: options.params.idPhoto,
-    });
-    log.info(dbRequest.rowsAffected, 'Photo was deleted');
+    const photo = await Photo.findByPk(options.params.idPhoto);
+    await photo?.destroy();
+    log.info('Photo was deleted');
     return {
       status: 200,
       data: {

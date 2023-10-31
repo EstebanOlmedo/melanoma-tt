@@ -3,6 +3,7 @@ import app from './api';
 import http from 'http';
 import config from './lib/config';
 import log from './lib/logger';
+import getSequelize from './adapters/database';
 
 const port = normalizePort(config.api.port ?? '3000');
 app.set('port', port);
@@ -54,8 +55,9 @@ function onError(error: NodeJS.ErrnoException) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-function onListening() {
+async function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr?.port}`;
   log.debug(`Listening on ${bind}`);
+  await getSequelize();
 }

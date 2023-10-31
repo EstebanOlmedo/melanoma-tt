@@ -1,5 +1,5 @@
 import { type RequestHandler, Router } from 'express';
-import type Photo from '../../models/photo';
+import type Photo from '../../models/photo.model';
 import {
   deletePhotoById,
   getPhotobyId,

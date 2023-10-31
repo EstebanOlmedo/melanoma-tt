@@ -7,6 +7,10 @@ type SecretsKeys =
   | 'AIConnectionString'
   | 'blobStorageConnectionString'
   | 'imageContainerName'
+  | 'dbHost'
+  | 'dbPassword'
+  | 'dbUsername'
+  | 'dbName'
   | 'dbConnectionString';
 
 const secrets = new Map<SecretsKeys, string | undefined>();

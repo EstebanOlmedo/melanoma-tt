@@ -8,6 +8,7 @@
     "start": "node ./dist/src/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/index.ts | bunyan",
     "lint": "eslint --ext .ts ./src ./tests --fix && prettier . --write",
+    "pretty": "prettier . --write",
     "test": "jest",
     "prestart": "mkdir -p log && npm run build"
   },

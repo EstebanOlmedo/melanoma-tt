@@ -5,7 +5,7 @@ import {
   patchLesionById,
   postLesion,
 } from '../services/lesion';
-import type Lesion from '../../models/lesion';
+import type Lesion from '../../models/lesion.model';
 import photoRouter from './photo';
 
 const lesionRouter = Router();
