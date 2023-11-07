@@ -4,7 +4,6 @@ import {
   Column,
   CreatedAt,
   DeletedAt,
-  HasMany,
   Model,
   PrimaryKey,
   Table,
