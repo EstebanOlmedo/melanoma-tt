@@ -11,8 +11,9 @@ passport.use(
         .then(function (user) {
           if (!user || validatePassword(password, user.salt, user.hash)) {
             done(null, false, {
-              errors: { 'email o contraseña': 'equivocado(a)' },
-            }); return;
+              message: 'email o contraseña equivocado(a)',
+            });
+            return;
           }
           done(null, user);
         })
