@@ -357,7 +357,7 @@ components:
           type: number
         name:
           type: string
-        dateOfCreation:
+        createdAt:
           type: number
         description:
           type: string

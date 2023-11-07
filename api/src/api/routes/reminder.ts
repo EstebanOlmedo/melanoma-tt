@@ -14,7 +14,6 @@ reminderRouter.post('/:idLesion', (async (req, res, next) => {
 
   const idLesion = req.params.idLesion;
   const idUser = req.params.idUser;
-  reminder.targetTimeStamp = reminder.targetTimeStamp;
 
   if (idUser == null) {
     return res.status(400).send({

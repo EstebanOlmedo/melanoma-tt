@@ -1,4 +1,16 @@
-import { Table, Column, Model, HasMany, AutoIncrement, Unique, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  HasMany,
+  AutoIncrement,
+  PrimaryKey,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  DataType,
+} from 'sequelize-typescript';
+import Lesion from './lesion.model';
 import Reminder from './reminder.model';
 
 @Table
@@ -34,6 +46,9 @@ export default class User extends Model {
 
   @HasMany(() => Reminder)
     reminders?: Reminder[];
+
+  @HasMany(() => Lesion)
+    lesions?: Lesion[];
 
   // @HasMany(() => User)
   //   patients?: User[];

@@ -7,11 +7,7 @@ import {
   CreatedAt,
   UpdatedAt,
   DeletedAt,
-  DataType,
-  Unique,
-  HasMany,
 } from 'sequelize-typescript';
-import User from './user.model';
 
 @Table
 export default class Patients extends Model {
