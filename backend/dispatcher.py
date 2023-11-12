@@ -1,5 +1,6 @@
 from adapters.blob_storage import download_image
 import sys
+import image_processing.processor as img_proc
 import json
 
 
@@ -12,14 +13,12 @@ def verify_image_content(img, id):
         exit(-1)
 
 def compare(id1, id2):
-    img1 = download_image(id1)
-    img2 = download_image(id2)
-
-    verify_image_content(img1, id1)
-    verify_image_content(img2, id2)
+    result1 = extract(id1)
+    result2 = extract(id2)
 
     result = {
-        'border_radius': 5.5,
+            'result1': result1,
+            'result2': result2,
     };
 
     return json.dumps(result)
@@ -39,10 +38,7 @@ def extract(id):
     img = download_image(id)
     verify_image_content(img, id)
 
-    result = {
-        'border_radius': 5.5,
-        'color': 2.4,
-    };
+    result = img_proc.extract(img['data'])
 
     return json.dumps(result)
 
