@@ -4,17 +4,17 @@ import image_processing.processor as img_proc
 import json
 
 
-def verify_image_content(img, id):
+def verify_image_content(img, blobName):
     if 'error' in img:
         result = {
-                'error': f'Error with img: {id} {img["error"]} ',
+                'error': f'Error with img: {blobName} {img["error"]} ',
         }
         print(json.dumps(result), file=sys.stderr)
         exit(-1)
 
-def compare(id1, id2):
-    result1 = extract(id1)
-    result2 = extract(id2)
+def compare(blobNameBefore, blobNameAfter):
+    result1 = extract(blobNameBefore)
+    result2 = extract(blobNameAfter)
 
     result = {
             'result1': result1,
@@ -24,9 +24,9 @@ def compare(id1, id2):
     return json.dumps(result)
 
 
-def classify(id):
-    img = download_image(id)
-    verify_image_content(img, id)
+def classify(blobName):
+    img = download_image(blobName)
+    verify_image_content(img, blobName)
 
     result = {
         'percentage' : 85.3,
@@ -34,9 +34,9 @@ def classify(id):
 
     return json.dumps(result)
 
-def extract(id):
-    img = download_image(id)
-    verify_image_content(img, id)
+def extract(blobName):
+    img = download_image(blobName)
+    verify_image_content(img, blobName)
 
     result = img_proc.extract(img['data'])
 
@@ -46,15 +46,15 @@ def extract(id):
 def main():
     op = sys.argv[1]
     if op == 'compare':
-        id1 = sys.argv[2]
-        id2 = sys.argv[3]
-        print(compare(id1, id2))
+        blobNameBefore = sys.argv[2]
+        blobNameAfter = sys.argv[3]
+        print(compare(blobNameBefore, blobNameAfter))
     elif op == 'classify':
-        id1 = sys.argv[2]
-        print(classify(id1))
+        blobName = sys.argv[2]
+        print(classify(blobName))
     elif op == 'extract':
-        id1 = sys.argv[2]
-        print(extract(id1))
+        blobName = sys.argv[2]
+        print(extract(blobName))
     else:
         result = {
                 'error': 'bad request',
