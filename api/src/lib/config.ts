@@ -8,4 +8,8 @@ const config = load(
   process.env.ENVIRONMENT,
 ) as IConfig;
 
+if (process.env.PORT != null) {
+  config.api.port = process.env.PORT;
+}
+
 export default config;

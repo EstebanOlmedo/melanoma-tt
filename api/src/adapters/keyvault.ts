@@ -19,7 +19,8 @@ const getSecrets = async () => {
   if (secrets.size !== 0) return secrets;
 
   const keyVaultName = config.azure.keyvault.name ?? process.env.KEY_VAULT_NAME;
-  const clientSecret = config.azure.keyvault.clientSecret ?? process.env.CLIENT_SECRET;
+  const clientSecret =
+    config.azure.keyvault.clientSecret ?? process.env.CLIENT_SECRET;
   const clientId = config.azure.keyvault.clientId ?? process.env.CLIENT_ID;
   const tenantId = config.azure.keyvault.tenantId ?? process.env.TENANT_ID;
 
