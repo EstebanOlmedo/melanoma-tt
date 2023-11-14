@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import './adapters/applicationInsights';
 import app from './api';
 import http from 'http';
