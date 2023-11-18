@@ -8,6 +8,8 @@ import Crypto from 'crypto';
 import passport from 'passport';
 import PatientRelationship from '../../models/patientRelationship.model';
 import log from '../../lib/logger';
+import Lesion from '../../models/lesion.model';
+import Photo from '../../models/photo.model';
 
 const userRouter = Router();
 
@@ -77,19 +79,25 @@ userRouter.get('/:idUser', (async (req, res, next) => {
         },
         attributes: ['id', 'userName'],
       },
-      Lesion,
       {
         model: Lesion,
-        as: 'lesions',
-        attributes: ['id', 'name'],
-      },
+        include: [{model: Photo}],
+      }
     ],
   })
-    .then((user) => {
+    .then(async (user) => {
       if (!user) {
         return res
           .status(401)
           .send(`The user ${req.params.idUser} wasn't found `);
+      }
+      if (user.lesions === undefined) {
+        user.lesions = [];
+      }
+      for (const lesion of user.lesions) {
+        for await (const photo of lesion.photos) {
+          await Photo.setImage(photo);
+        }
       }
       const response = {
         username: user.userName,
