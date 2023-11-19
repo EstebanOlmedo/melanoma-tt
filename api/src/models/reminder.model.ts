@@ -42,4 +42,10 @@ export default class Reminder extends Model {
 
   @Column
     targetTimeStamp?: Date;
+
+  @BelongsTo(() => User)
+    user!: User;
+
+  @BelongsTo(() => Lesion)
+    lesion!: Lesion;
 }
