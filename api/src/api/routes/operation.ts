@@ -2,7 +2,7 @@ import { type RequestHandler, Router } from 'express';
 import { spawnProcess } from '../services/operation';
 
 const operationRouter = Router({ mergeParams: true });
-operationRouter.patch('/analyze/:operation', (async (req, res, next) => {
+operationRouter.post('/analyze/:operation', (async (req, res, next) => {
   if (req.params.operation == null) {
     return res.status(400).send({
       result: false,
@@ -25,22 +25,22 @@ operationRouter.patch('/analyze/:operation', (async (req, res, next) => {
   }
   const cmd = {
     cmd: '',
-    blobName1: '',
-    blobName2: '',
+    blobNameBefore: '',
+    blobNameAfter: '',
   };
   switch (operation) {
     case 'compare':
       cmd.cmd = 'compare';
-      cmd.blobName1 = req.body.ids[0];
-      cmd.blobName2 = req.body.ids[1];
+      cmd.blobNameBefore = req.body.blobNames[0];
+      cmd.blobNameAfter = req.body.blobNames[1];
       break;
     case 'classify':
       cmd.cmd = 'classify';
-      cmd.blobName1 = req.body.ids[0];
+      cmd.blobNameBefore = req.body.blobNames[0];
       break;
     case 'extract':
       cmd.cmd = 'extract';
-      cmd.blobName1 = req.body.ids[0];
+      cmd.blobNameBefore = req.body.blobNames[0];
       break;
     default:
       return badRequest();

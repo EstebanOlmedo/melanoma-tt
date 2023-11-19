@@ -281,7 +281,7 @@ paths:
   /operation/analyze/{operation}:
     parameters:
       - $ref: '#/components/parameters/operation'
-    patch:
+    post:
       description: Gets the result of an operation under images
       requestBody:
         required: true
@@ -448,7 +448,7 @@ components:
     analyze:
       type: object
       properties:
-        ids:
+        blobNames:
           type: array
           items:
             type: string
