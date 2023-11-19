@@ -10,6 +10,7 @@ import PatientRelationship from '../../models/patientRelationship.model';
 import log from '../../lib/logger';
 import Lesion from '../../models/lesion.model';
 import Photo from '../../models/photo.model';
+import Reminder from '../../models/reminder.model';
 
 const userRouter = Router();
 
@@ -71,6 +72,10 @@ userRouter.get('/:idUser', (async (req, res, next) => {
     where: { id: req.params.idUser },
     include: [
       Reminder,
+      {
+        model: Reminder,
+        include: [{model: Lesion, attributes: ['name']}],
+      }
       {
         model: User,
         as: 'patients',
