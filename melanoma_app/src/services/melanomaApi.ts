@@ -11,14 +11,14 @@ import {
   PostUserResponse,
 } from "@/types/melanomaApiTypes";
 
-const baseUrl = "http://192.168.100.82:3000/";
+const baseUrl = process.env.EXPO_PUBLIC_MELANOMA_API_URL;
 
 export const melanomaApi = createApi({
   reducerPath: "melanomaApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: ["User", "Lesion", "Photo", "Reminder"],
   endpoints: (builder) => ({
-    postUser: builder.mutation<PostUserResponse, User>({
+    postUser: builder.mutation<PostUserResponse, Partial<User>>({
       query: (user) => ({
         url: "user",
         method: "post",
