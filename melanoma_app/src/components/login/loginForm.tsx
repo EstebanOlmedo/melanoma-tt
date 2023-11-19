@@ -123,12 +123,10 @@ const RegisterForm = ({ onLoginPressed }: RegisterFormProps) => {
       return;
     }
     postUser({
-      id: 0,
       userName: userName.trim(),
       name: name.trim(),
       lastName: lastName.trim(),
       password: password.trim(),
-      hasWritePermission: false,
     });
   };
 
@@ -142,7 +140,6 @@ const RegisterForm = ({ onLoginPressed }: RegisterFormProps) => {
 
   if (result.isSuccess) {
     Alert("Usuario registrado", "Ahora puedes ingresar con tu cuenta");
-    onLoginPressed();
   }
 
   return (

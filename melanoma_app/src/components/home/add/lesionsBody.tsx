@@ -18,7 +18,7 @@ const LesionBody = () => {
   const lesions = (data?.lesions ?? []).map((lesion) =>
     lesionFromInterface(lesion, user)
   );
-  const [selectedLesionId, setSelectedLesionId] = useState(lesions[0]?.id ?? 0);
+  const [selectedLesionId, setSelectedLesionId] = useState(NEW_LESION_ID);
 
   const options = lesions.map((lesion) => {
     return (

@@ -70,8 +70,8 @@ const CameraPreview = (props: CameraPreviewProps) => {
 
   const takePhoto = async () => {
     if (!camera.current) return;
-    const photo = await camera.current.takePictureAsync({ base64: true });
     camera.current.pausePreview();
+    const photo = await camera.current.takePictureAsync({ base64: true });
     setCurrentPictureMedia({
       uri: photo.uri,
       base64: "data:image/jpg;base64," + photo.base64,

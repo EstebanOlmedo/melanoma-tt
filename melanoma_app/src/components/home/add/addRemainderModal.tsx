@@ -4,6 +4,7 @@ import { Modal, StyleSheet, Text, View } from "react-native";
 
 import Button from "../../button";
 
+import Alert from "@/Alert";
 import { useUser } from "@/contexts/userContext";
 import Lesion from "@/models/lesion";
 import { usePostReminderMutation } from "@/services/melanomaApi";
@@ -19,7 +20,9 @@ interface AddRemainderModalProps {
 const AddRemainderModal = (props: AddRemainderModalProps) => {
   const { user } = useUser();
   const lesions = props.lesions;
-  const [selectedLesionId, setSelectedLesionId] = useState(lesions[0]?.id ?? 0);
+  const [selectedLesionId, setSelectedLesionId] = useState(
+    lesions[0]?.id ?? -1
+  );
   const [selectedDays, setSelectedDays] = useState(1);
   const [postReminderTrigger] = usePostReminderMutation();
 
@@ -36,6 +39,10 @@ const AddRemainderModal = (props: AddRemainderModalProps) => {
     });
 
   const addReminder = () => {
+    if (selectedLesionId === -1) {
+      Alert("Error", "Lesión inválida");
+      return;
+    }
     const date = new Date();
     date.setDate(date.getDate() + selectedDays);
     postReminderTrigger({
