@@ -71,11 +71,10 @@ userRouter.get('/:idUser', (async (req, res, next) => {
   User.findOne({
     where: { id: req.params.idUser },
     include: [
-      Reminder,
       {
         model: Reminder,
         include: [{model: Lesion, attributes: ['name']}],
-      }
+      },
       {
         model: User,
         as: 'patients',
