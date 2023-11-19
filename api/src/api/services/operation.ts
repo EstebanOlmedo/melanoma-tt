@@ -16,15 +16,15 @@ interface IProcessResult {
 export const spawnProcess = async (
   options: RequestOptions<
   unknown,
-  { cmd: { cmd: string; id1: string; id2: string } }
+  { cmd: { cmd: string; blobName1: string; blobName2: string } }
   >,
 ) => {
   const cmd = options.params.cmd;
   const pythonProcess = spawn('python3', [
     path.join(__dirname, '../../../../backend/dispatcher.py'),
     cmd.cmd,
-    cmd.id1,
-    cmd.id2,
+    cmd.blobName1,
+    cmd.blobName2,
   ]);
 
   let dataRes = '';
