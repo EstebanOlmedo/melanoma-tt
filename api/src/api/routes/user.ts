@@ -8,9 +8,7 @@ import Crypto from 'crypto';
 import passport from 'passport';
 import PatientRelationship from '../../models/patientRelationship.model';
 import log from '../../lib/logger';
-import Lesion from '../../models/lesion.model';
 import Photo from '../../models/photo.model';
-import Reminder from '../../models/reminder.model';
 
 const userRouter = Router();
 
@@ -73,7 +71,7 @@ userRouter.get('/:idUser', (async (req, res, next) => {
     include: [
       {
         model: Reminder,
-        include: [{model: Lesion, attributes: ['name']}],
+        include: [{ model: Lesion, attributes: ['name'] }],
       },
       {
         model: User,
@@ -85,8 +83,8 @@ userRouter.get('/:idUser', (async (req, res, next) => {
       },
       {
         model: Lesion,
-        include: [{model: Photo}],
-      }
+        include: [{ model: Photo }],
+      },
     ],
   })
     .then(async (user) => {
@@ -125,7 +123,7 @@ userRouter.patch('/:idUser', (async (req, res, next) => {
     body.hash = pass.hash;
     body.salt = pass.salt;
   }
-  if('userName' in body){
+  if ('userName' in body) {
     body.userName = body.userName.toLocaleLowerCase();
   }
   User.update(body, { where: { id: req.params.idUser } })
