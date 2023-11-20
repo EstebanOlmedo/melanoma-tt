@@ -125,7 +125,9 @@ userRouter.patch('/:idUser', (async (req, res, next) => {
     body.hash = pass.hash;
     body.salt = pass.salt;
   }
-  body.userName = body.userName.toLocaleLowerCase();
+  if('userName' in body){
+    body.userName = body.userName.toLocaleLowerCase();
+  }
   User.update(body, { where: { id: req.params.idUser } })
     .then(() => {
       res

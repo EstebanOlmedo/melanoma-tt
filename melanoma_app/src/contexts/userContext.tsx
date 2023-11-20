@@ -6,7 +6,7 @@ import User from "@/models/user";
 
 interface UserContextType {
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 }
 
 const UserContext = createContext<UserContextType>({

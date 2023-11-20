@@ -26,6 +26,21 @@ export const melanomaApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+    patchUser: builder.mutation<ApiResponse, Partial<User>>({
+      query: (user) => ({
+        url: `user/${user.id}`,
+        method: "patch",
+        body: user,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    deleteUser: builder.mutation<ApiResponse, number>({
+      query: (userId) => ({
+        url: `user/${userId}`,
+        method: "delete",
+      }),
+      invalidatesTags: ["User"],
+    }),
     postLogin: builder.query<PostLoginResponse, User>({
       query: (user) => ({
         url: "user/login",
@@ -153,4 +168,6 @@ export const {
   usePostReminderMutation,
   useDeleteReminderMutation,
   usePostLesionMutation,
+  usePatchUserMutation,
+  useDeleteUserMutation,
 } = melanomaApi;
