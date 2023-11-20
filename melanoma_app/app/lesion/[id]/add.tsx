@@ -44,9 +44,10 @@ const Add = () => {
   useEffect(() => {
     if (lesionId === NEW_LESION_ID) {
       postLesionTrigger(user?.id ?? 0)
-        .then((response: { data: PostLesionResponse }) => {
-          setLesionId(response.data.id);
-          postPhoto(response.data.id);
+        .then((response) => {
+          const result = response as { data: PostLesionResponse };
+          setLesionId(result.data.id);
+          postPhoto(result.data.id);
         })
         .catch((error) => console.log(error));
     } else {

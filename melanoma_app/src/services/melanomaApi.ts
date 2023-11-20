@@ -15,7 +15,10 @@ const baseUrl = process.env.EXPO_PUBLIC_MELANOMA_API_URL;
 
 export const melanomaApi = createApi({
   reducerPath: "melanomaApi",
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl,
+    mode: "cors",
+  }),
   tagTypes: ["User", "Lesion", "Photo", "Reminder"],
   endpoints: (builder) => ({
     postUser: builder.mutation<PostUserResponse, Partial<User>>({
