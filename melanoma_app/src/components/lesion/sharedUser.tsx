@@ -17,14 +17,14 @@ const SharedUser = (props: SharedUserProps) => {
   const [isDeleteModalVisible, setDeleteIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setUpdateIsModalVisible] = useState(false);
   const message =
-    `${props.user.username}${props.user.hasWritePermission ? " " : " no "}` +
+    `${props.user.userName}${props.user.hasWritePermission ? " " : " no "}` +
     "tiene permiso para modificar las notas de las fotos. " +
     `¿Deseas ${props.user.hasWritePermission ? "quitar" : "dar"} el permiso?`;
 
   return (
     <View style={[styles.container]}>
       <TouchableOpacity onPress={() => setUpdateIsModalVisible(true)}>
-        <Text style={Styles.textBody}>{props.user.username}</Text>
+        <Text style={Styles.textBody}>{props.user.userName}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => setDeleteIsModalVisible(true)}>
         <Entypo name="cross" size={20} color="black" />
@@ -36,7 +36,7 @@ const SharedUser = (props: SharedUserProps) => {
       />
       <ConfirmationModal
         visible={isDeleteModalVisible}
-        message={`¿Dejar de compartir lesión con: ${props.user.username}?`}
+        message={`¿Dejar de compartir lesión con: ${props.user.userName}?`}
         onCancel={() => setDeleteIsModalVisible(false)}
       />
     </View>
