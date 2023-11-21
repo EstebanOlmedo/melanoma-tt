@@ -3,10 +3,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from . import MelanomaDataset
 from torchvision import transforms, datasets
 from torchsummary import summary
 from torch.utils.data import Dataset, DataLoader, random_split
-from MelanomaDataset import MelanomaDataset
 from image_processing.util.converter import convertToOpenCVFormat
 import sys
 
