@@ -64,8 +64,12 @@ userRouter.get('/', (async (req, res, next) => {
 }) as RequestHandler);
 
 userRouter.get('/:idUser', (async (req, res, next) => {
-  const relations = await PatientRelationship.findAll();
-  log.info(JSON.stringify(relations));
+  const sharedLesions = await PatientRelationship.findAll({
+    where: {
+      doctorId: req.params.idUser,
+    },
+  });
+  console.log(sharedLesions);
   User.findOne({
     where: { id: req.params.idUser },
     include: [
@@ -82,8 +86,26 @@ userRouter.get('/:idUser', (async (req, res, next) => {
         attributes: ['id', 'userName'],
       },
       {
+        as: 'lesions',
         model: Lesion,
         include: [{ model: Photo }],
+      },
+      {
+        model: Lesion,
+        as: 'sharedLesions',
+        through: {
+          attributes: [],
+        },
+        attributes: ['id', 'name'],
+        include: [
+          {
+            model: Photo,
+          },
+          {
+            model: User,
+            as: 'owner',
+          },
+        ],
       },
     ],
   })
@@ -109,6 +131,7 @@ userRouter.get('/:idUser', (async (req, res, next) => {
         reminders: user.reminders,
         patients: user.patients,
         lesions: user.lesions,
+        sharedLesions: user.sharedLesions,
       };
       return res.json(response);
     })
@@ -173,35 +196,59 @@ userRouter.post('/login', (async (req, res, next) => {
   )(req, res, next);
 }) as RequestHandler);
 
-userRouter.post('/:idUser/associate/:idPatient', (async (req, res, next) => {
+userRouter.post('/:idUser/associate/:doctorUsername/:idLesion', (async (
+  req,
+  res,
+  next,
+) => {
   if (req.params.idUser == null) {
     return res.status(400).send({
       result: false,
       message: 'missing user id',
     });
   }
-  if (req.params.idPatient == null) {
+  if (req.params.doctorUsername == null) {
     return res.status(400).send({
       result: false,
-      message: 'missing associate id',
+      message: 'missing doctor id',
+    });
+  }
+  if (req.params.idLesion == null) {
+    return res.status(400).send({
+      result: false,
+      message: 'missing lesion id',
     });
   }
   const user1 = await User.findByPk(Number(req.params.idUser));
-  const user2 = await User.findByPk(Number(req.params.idPatient));
+  const user2 = await User.findOne({
+    where: { userName: req.params.doctorUsername.toLowerCase() },
+  });
+  const lesion = await Lesion.findOne({
+    where: { idUser: req.params.idUser, id: req.params.idLesion },
+  });
+  console.log(user1);
+  console.log(user2);
+  console.log(lesion);
   if (user1 == null) {
     return res.status(404).send({
       result: false,
-      message: 'Doctor does not exist',
+      message: 'User does not exist',
     });
   }
   if (user2 == null) {
     return res.status(404).send({
       result: false,
-      message: 'Patient does not exist',
+      message: 'User does not exist',
+    });
+  }
+  if (lesion == null) {
+    return res.status(404).send({
+      result: false,
+      message: 'Lesion does not exist',
     });
   }
   const existingrelationship = await PatientRelationship.findOne({
-    where: { doctorId: user1.id, patientId: user2.id },
+    where: { patientId: user1.id, doctorId: user2.id, lesionId: lesion.id },
   });
   if (existingrelationship) {
     return res.status(409).send({
@@ -210,8 +257,9 @@ userRouter.post('/:idUser/associate/:idPatient', (async (req, res, next) => {
     });
   }
   const patientRelationship = new PatientRelationship({
-    doctorId: user1.id,
-    patientId: user2.id,
+    doctorId: user2.id,
+    patientId: user1.id,
+    lesionId: lesion.id,
   });
   try {
     await patientRelationship.save();

@@ -6,6 +6,7 @@ import {
   PrimaryKey,
 } from 'sequelize-typescript';
 import User from './user.model';
+import Lesion from './lesion.model';
 
 @Table
 export default class PatientRelationship extends Model {
@@ -18,4 +19,9 @@ export default class PatientRelationship extends Model {
   @PrimaryKey
   @Column
     patientId!: number;
+
+  @ForeignKey(() => Lesion)
+  @PrimaryKey
+  @Column
+    lesionId!: number;
 }
