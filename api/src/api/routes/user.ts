@@ -93,6 +93,23 @@ userRouter.get('/:idUser', (async (req, res, next) => {
           },
         ],
       },
+      {
+        model: Lesion,
+        as: 'sharedLesions',
+        through: {
+          attributes: [],
+        },
+        attributes: ['id', 'name'],
+        include: [
+          {
+            model: Photo,
+          },
+          {
+            model: User,
+            as: 'owner',
+          },
+        ],
+      },
     ],
   })
     .then(async (user) => {
