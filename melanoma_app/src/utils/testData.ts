@@ -33,7 +33,7 @@ export function getPhotos(count: number) {
         id,
         new Date(Date.now() - Math.random() * 10000000000),
         description,
-        {name: "", data: "", ext: ""}
+        { name: "", data: "", ext: "" }
       )
     );
   }
@@ -44,11 +44,13 @@ export function getUsers(count: number): User[] {
   const baseUsers = ["Daniel", "Esteban", "Gabriel"];
   const users = [];
   for (let i = 0; i < count; i++) {
-    users.push({ userName: baseUsers[i % 3], hasWritePermission: i % 2 === 0,
-               id: 0,
-               password: "",
-               name: "",
-               lastName: "",
+    users.push({
+      userName: baseUsers[i % 3],
+      hasWritePermission: i % 2 === 0,
+      id: 0,
+      password: "",
+      name: "",
+      lastName: "",
     });
   }
   return users;
