@@ -35,6 +35,9 @@ reminderRouter.post('/:idLesion', (async (req, res, next) => {
       message: 'missing target date',
     });
   }
+  if (reminder.cycleLength == null) {
+          reminder.cycleLength = 0;
+  }
   const options = {
     body: reminder as Reminder,
     params: {
