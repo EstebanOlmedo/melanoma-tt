@@ -6,6 +6,7 @@ import { IReminder } from "@/models/reminder";
 import User from "@/models/user";
 import {
   ApiResponse,
+  DoctorAssociationRequest,
   PostLesionResponse,
   PostLoginResponse,
   PostUserResponse,
@@ -44,7 +45,7 @@ export const melanomaApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
-    postLogin: builder.query<PostLoginResponse, User>({
+    postLogin: builder.query<PostLoginResponse, Partial<User>>({
       query: (user) => ({
         url: "user/login",
         method: "post",
@@ -55,14 +56,23 @@ export const melanomaApi = createApi({
       query: (userId) => `user/${userId}`,
       providesTags: ["User", "Lesion", "Reminder"],
       transformResponse: (data: User) => {
-        const lesions = data.lesions?.map((lesion) => {
+        const userLesions = (data.lesions ?? []).map((lesion) => {
           return {
             sharedWithUsers: [],
-            userHasWriteNotesPermission: false,
+            userHasWriteNotesPermission: true,
             userIsOwner: true,
             ...lesion,
           };
         });
+        const sharedLesions = (data.sharedLesions ?? []).map((lesion) => {
+          return {
+            sharedWithUsers: [],
+            userHasWriteNotesPermission: false,
+            userIsOwner: false,
+            ...lesion,
+          };
+        });
+        const lesions = [...userLesions, ...sharedLesions];
         return {
           ...data,
           lesions,
@@ -152,6 +162,26 @@ export const melanomaApi = createApi({
       }),
       invalidatesTags: ["Reminder"],
     }),
+    postDoctorAssociation: builder.mutation<
+      ApiResponse,
+      DoctorAssociationRequest
+    >({
+      query: ({ userId, doctorUserName, lesionId }) => ({
+        url: `user/${userId}/associate/${doctorUserName}/${lesionId}`,
+        method: "post",
+      }),
+      invalidatesTags: ["Lesion"],
+    }),
+    deleteDoctorAssociation: builder.mutation<
+      ApiResponse,
+      DoctorAssociationRequest
+    >({
+      query: ({ userId, doctorUserName, lesionId }) => ({
+        url: `user/${userId}/associate/${doctorUserName}/${lesionId}`,
+        method: "delete",
+      }),
+      invalidatesTags: ["Lesion"],
+    }),
   }),
 });
 
@@ -173,4 +203,6 @@ export const {
   usePostLesionMutation,
   usePatchUserMutation,
   useDeleteUserMutation,
+  usePostDoctorAssociationMutation,
+  useDeleteDoctorAssociationMutation,
 } = melanomaApi;
