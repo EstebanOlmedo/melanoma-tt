@@ -64,12 +64,6 @@ userRouter.get('/', (async (req, res, next) => {
 }) as RequestHandler);
 
 userRouter.get('/:idUser', (async (req, res, next) => {
-  const sharedLesions = await PatientRelationship.findAll({
-    where: {
-      doctorId: req.params.idUser,
-    },
-  });
-  console.log(sharedLesions);
   User.findOne({
     where: { id: req.params.idUser },
     include: [
@@ -118,11 +112,11 @@ userRouter.get('/:idUser', (async (req, res, next) => {
       if (user.lesions === undefined) {
         user.lesions = [];
       }
-      for (const lesion of user.lesions) {
-        for await (const photo of lesion.photos) {
-          await Photo.setImage(photo);
-        }
-      }
+      // for (const lesion of user.lesions) {
+      //   for await (const photo of lesion.photos) {
+      //     await Photo.setImage(photo);
+      //   }
+      // }
       const response = {
         username: user.userName,
         name: user.name,
