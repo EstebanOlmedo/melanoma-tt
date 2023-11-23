@@ -52,12 +52,12 @@ export const getReminderById = async (
       data: reminder,
     };
   } catch (error) {
-    log.error(error, 'Error getting photo');
+    log.error(error, 'Error getting reminder');
     return {
       status: 400,
       data: {
         result: false,
-        message: 'Error getting photo',
+        message: 'Error getting reminder',
       },
     };
   }
@@ -182,7 +182,7 @@ export const discardReminder = async (
       status: 400,
       data: {
         result: false,
-        message: 'Error getting photo',
+        message: 'Error getting reminder',
       },
     };
   }
