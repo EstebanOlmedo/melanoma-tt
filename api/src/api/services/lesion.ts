@@ -2,6 +2,7 @@ import log from '../../lib/logger';
 import { type RequestOptions } from '../../lib/types';
 import Lesion from '../../models/lesion.model';
 import Photo from '../../models/photo.model';
+import User from '../../models/user.model';
 
 type LesionPostRequestOptions = RequestOptions<Lesion, unknown>;
 
@@ -38,7 +39,19 @@ type LesionGetRequestOptions = RequestOptions<unknown, { id: number }>;
 
 export const getLesionbyId = async (options: LesionGetRequestOptions) => {
   try {
-    const lesion = await Lesion.findByPk(options.params.id, { include: Photo });
+    const lesion = await Lesion.findByPk(options.params.id, {
+      include: [
+        Photo,
+        {
+          model: User,
+          through: {
+            attributes: [],
+          },
+          as: 'sharedWithUsers',
+          attributes: ['id', 'userName'],
+        },
+      ],
+    });
     if (lesion === null) {
       return {
         status: 404,
