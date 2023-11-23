@@ -72,14 +72,6 @@ userRouter.get('/:idUser', (async (req, res, next) => {
         include: [{ model: Lesion, attributes: ['name'] }],
       },
       {
-        model: User,
-        as: 'patients',
-        through: {
-          attributes: [],
-        },
-        attributes: ['id', 'userName'],
-      },
-      {
         as: 'lesions',
         model: Lesion,
         include: [{ model: Photo }],
@@ -118,12 +110,11 @@ userRouter.get('/:idUser', (async (req, res, next) => {
       //   }
       // }
       const response = {
-        username: user.userName,
+        userName: user.userName,
         name: user.name,
         lastname: user.lastName,
         id: user.id,
         reminders: user.reminders,
-        patients: user.patients,
         lesions: user.lesions,
         sharedLesions: user.sharedLesions,
       };
@@ -220,9 +211,6 @@ userRouter.post('/:idUser/associate/:doctorUsername/:idLesion', (async (
   const lesion = await Lesion.findOne({
     where: { idUser: req.params.idUser, id: req.params.idLesion },
   });
-  console.log(user1);
-  console.log(user2);
-  console.log(lesion);
   if (user1 == null) {
     return res.status(404).send({
       result: false,
@@ -257,6 +245,72 @@ userRouter.post('/:idUser/associate/:doctorUsername/:idLesion', (async (
   });
   try {
     await patientRelationship.save();
+  } catch (error) {
+    log.error('Error while saving the relationship: ', error);
+    return res.status(500).send({
+      result: false,
+      message: 'Internal Error',
+    });
+  }
+  return res.status(200).send({
+    result: true,
+    message: 'Relationship created correctly',
+  });
+}) as RequestHandler);
+
+userRouter.delete('/:idUser/associate/:doctorUsername/:idLesion', (async (
+  req,
+  res,
+  next,
+) => {
+  if (req.params.idUser == null) {
+    return res.status(400).send({
+      result: false,
+      message: 'missing user id',
+    });
+  }
+  if (req.params.doctorUsername == null) {
+    return res.status(400).send({
+      result: false,
+      message: 'missing doctor id',
+    });
+  }
+  if (req.params.idLesion == null) {
+    return res.status(400).send({
+      result: false,
+      message: 'missing lesion id',
+    });
+  }
+  const user1 = await User.findByPk(Number(req.params.idUser));
+  const user2 = await User.findOne({
+    where: { userName: req.params.doctorUsername.toLowerCase() },
+  });
+  const lesion = await Lesion.findOne({
+    where: { idUser: req.params.idUser, id: req.params.idLesion },
+  });
+  if (user1 == null) {
+    return res.status(404).send({
+      result: false,
+      message: 'User does not exist',
+    });
+  }
+  if (user2 == null) {
+    return res.status(404).send({
+      result: false,
+      message: 'User does not exist',
+    });
+  }
+  if (lesion == null) {
+    return res.status(404).send({
+      result: false,
+      message: 'Lesion does not exist',
+    });
+  }
+  try {
+    const existingrelationship = await PatientRelationship.findOne({
+      where: { patientId: user1.id, doctorId: user2.id, lesionId: lesion.id },
+    });
+    await existingrelationship?.destroy();
   } catch (error) {
     log.error('Error while saving the relationship: ', error);
     return res.status(500).send({

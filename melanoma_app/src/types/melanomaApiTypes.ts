@@ -17,3 +17,9 @@ export interface PostLesionResponse {
   message: string;
   id: number;
 }
+
+export interface DoctorAssociationRequest {
+  userId: number;
+  doctorUserName: string;
+  lesionId: number;
+}

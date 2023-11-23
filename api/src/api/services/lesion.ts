@@ -50,6 +50,10 @@ export const getLesionbyId = async (options: LesionGetRequestOptions) => {
           as: 'sharedWithUsers',
           attributes: ['id', 'userName'],
         },
+        {
+          model: User,
+          as: 'owner',
+        },
       ],
     });
     if (lesion === null) {

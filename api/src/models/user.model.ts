@@ -72,7 +72,7 @@ export default class User extends Model {
 
   @BelongsToMany(() => Lesion, {
     through: { model: () => PatientRelationship },
-    foreignKey: 'lesionId',
+    foreignKey: 'doctorId',
     sourceKey: 'id',
     as: 'sharedLesions',
   })
