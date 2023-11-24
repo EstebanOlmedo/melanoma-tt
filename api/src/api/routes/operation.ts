@@ -27,6 +27,7 @@ operationRouter.post('/analyze/:operation', (async (req, res, next) => {
     cmd: '',
     blobNameBefore: '',
     blobNameAfter: '',
+    cmd: '',
   };
   switch (operation) {
     case 'compare':

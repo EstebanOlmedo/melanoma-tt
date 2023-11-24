@@ -54,22 +54,6 @@ export default class User extends Model {
   @HasMany(() => Lesion, { foreignKey: 'idUser', sourceKey: 'id' })
     lesions?: Lesion[];
 
-  @BelongsToMany(() => User, {
-    through: { model: () => PatientRelationship },
-    foreignKey: 'doctorId',
-    as: 'patients',
-    sourceKey: 'id',
-  })
-    patients?: User[];
-
-  @BelongsToMany(() => User, {
-    through: { model: () => PatientRelationship },
-    foreignKey: 'patientId',
-    as: 'patientOf',
-    sourceKey: 'id',
-  })
-    patientOf?: User[];
-
   @BelongsToMany(() => Lesion, {
     through: { model: () => PatientRelationship },
     foreignKey: 'doctorId',
