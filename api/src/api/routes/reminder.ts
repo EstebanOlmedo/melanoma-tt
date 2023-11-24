@@ -142,7 +142,7 @@ reminderRouter.delete('/:idReminder', (async (req, res, next) => {
   }
 }) as RequestHandler);
 
-reminderRouter.post('/discard/:idReminder', (async (req, res, next) => {
+reminderRouter.post('/:idReminder/discard', (async (req, res, next) => {
   if (req.params.idReminder == null) {
     return res.status(400).send({
       result: false,
