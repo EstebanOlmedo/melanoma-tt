@@ -15,9 +15,9 @@ def compare(blobNameBefore, blobNameAfter):
     result1 = extract(blobNameBefore)
     result2 = extract(blobNameAfter)
 
-    if result1['status'] != 400:
+    if result1['status'] != 200:
         return result1
-    if result2['status'] != 400:
+    if result2['status'] != 200:
         return result2
 
     result = {
@@ -26,7 +26,7 @@ def compare(blobNameBefore, blobNameAfter):
     };
 
     return {
-            'status': 400,
+            'status': 200,
             'data' : result,
     }
 
@@ -35,14 +35,14 @@ def classify(blobName):
     err = verify_image_content(img, blobName)
     if err:
         return {
-                'status': 200,
+                'status': 500,
                 'data' : err,
         }
 
     predict(img)
     result = predict(img)
     return {
-            'status' : 200 if 'error' in result else 200,
+            'status' : 500 if 'error' in result else 200,
             'data': result,
     }
 
@@ -51,12 +51,12 @@ def extract(blobName):
     err = verify_image_content(img, blobName)
     if err:
         return {
-                'status': 200,
+                'status': 500,
                 'data' : err,
         }
     result = img_proc.extract(img)
     return {
-            'status': '200',
+            'status': 200,
             'data': result,
     }
 
