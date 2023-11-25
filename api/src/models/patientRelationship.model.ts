@@ -1,4 +1,10 @@
-import { Model, Table, ForeignKey, PrimaryKey, Column } from 'sequelize-typescript';
+import {
+  Model,
+  Table,
+  ForeignKey,
+  PrimaryKey,
+  Column,
+} from 'sequelize-typescript';
 import User from './user.model';
 import Lesion from './lesion.model';
 

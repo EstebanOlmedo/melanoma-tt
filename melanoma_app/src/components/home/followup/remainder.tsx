@@ -8,7 +8,10 @@ import ConfirmationModal from "../../confirmationModal";
 
 import ColorPallete from "@/colorPallete";
 import Loading from "@/components/loading";
-import { useDeleteReminderMutation, useDiscardReminderMutation } from "@/services/melanomaApi";
+import {
+  useDeleteReminderMutation,
+  useDiscardReminderMutation,
+} from "@/services/melanomaApi";
 
 interface RemainderProps {
   remainder: ReminderModel;
@@ -18,7 +21,8 @@ const Remainder = (props: RemainderProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [deleteReminderTrigger, { isLoading }] = useDeleteReminderMutation();
-  const [discardReminderTrigger, {isLoading: isDiscardLoading}] = useDiscardReminderMutation();
+  const [discardReminderTrigger, { isLoading: isDiscardLoading }] =
+    useDiscardReminderMutation();
   const isOverdue = props.remainder.date <= new Date();
 
   const deleteReminder = () => {

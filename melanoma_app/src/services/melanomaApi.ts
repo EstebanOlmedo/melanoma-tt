@@ -162,7 +162,7 @@ export const melanomaApi = createApi({
       }),
       invalidatesTags: ["Reminder"],
     }),
-    discardReminder: builder.mutation<ApiResponse,number>({
+    discardReminder: builder.mutation<ApiResponse, number>({
       query: (reminderId) => ({
         url: `user/0/reminder/${reminderId}/discard`,
         method: "post",
