@@ -14,15 +14,15 @@ export const makeHttpRequest = async (
   >,
 ) => {
   try {
-    const azFunc = process.env.AZURE_FUNCTION_URL ?? "";
-    if (azFunc === "") {
-            return {
-                    status: 500,
-                    data: {
-                            result: false,
-                            message: "Azure function URL isn't defined"
-                    }
-            }
+    const azFunc = process.env.AZURE_FUNCTION_URL ?? '';
+    if (azFunc === '') {
+      return {
+        status: 500,
+        data: {
+          result: false,
+          message: "Azure function URL isn't defined",
+        },
+      };
     }
     const cmd = options.params.cmd;
     const { data, status }: AxiosResponse<Operation> = await axios.post(
