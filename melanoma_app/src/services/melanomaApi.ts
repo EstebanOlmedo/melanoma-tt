@@ -162,6 +162,13 @@ export const melanomaApi = createApi({
       }),
       invalidatesTags: ["Reminder"],
     }),
+    discardReminder: builder.mutation<ApiResponse,number>({
+      query: (reminderId) => ({
+        url: `user/0/reminder/${reminderId}/discard`,
+        method: "post",
+      }),
+      invalidatesTags: ["Reminder"],
+    }),
     postDoctorAssociation: builder.mutation<
       ApiResponse,
       DoctorAssociationRequest
@@ -205,4 +212,5 @@ export const {
   useDeleteUserMutation,
   usePostDoctorAssociationMutation,
   useDeleteDoctorAssociationMutation,
+  useDiscardReminderMutation,
 } = melanomaApi;

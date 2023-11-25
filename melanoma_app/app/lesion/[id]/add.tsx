@@ -59,6 +59,7 @@ const Add = () => {
         idUser: user?.id ?? 0,
         reminder: {
           targetTimeStamp: date.toISOString(),
+          cycleLength: config.reminderCycleLength * 24,
         },
       });
     }

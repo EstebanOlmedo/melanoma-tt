@@ -247,7 +247,7 @@ userRouter.post('/:idUser/associate/:doctorUsername/:idLesion', (async (
     });
   }
   const existingrelationship = await PatientRelationship.findOne({
-    where: { patientId: user1.id, doctorId: user2.id, lesionId: lesion.id },
+    where: { doctorId: user2.id, lesionId: lesion.id },
   });
   if (existingrelationship) {
     return res.status(409).send({
@@ -257,7 +257,6 @@ userRouter.post('/:idUser/associate/:doctorUsername/:idLesion', (async (
   }
   const patientRelationship = new PatientRelationship({
     doctorId: user2.id,
-    patientId: user1.id,
     lesionId: lesion.id,
   });
   try {
@@ -325,7 +324,7 @@ userRouter.delete('/:idUser/associate/:doctorUsername/:idLesion', (async (
   }
   try {
     const existingrelationship = await PatientRelationship.findOne({
-      where: { patientId: user1.id, doctorId: user2.id, lesionId: lesion.id },
+      where: { doctorId: user2.id, lesionId: lesion.id },
     });
     await existingrelationship?.destroy();
   } catch (error) {
