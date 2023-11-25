@@ -14,4 +14,9 @@ export default class PatientRelationship extends Model {
 
   @Column
     patientId!: number;
+
+  @ForeignKey(() => Lesion)
+  @PrimaryKey
+  @Column
+    lesionId!: number;
 }

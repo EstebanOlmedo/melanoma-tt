@@ -24,7 +24,6 @@ operationRouter.post('/analyze/:operation', (async (req, res, next) => {
     return badRequest();
   }
   const cmd = {
-    cmd: '',
     blobNameBefore: '',
     blobNameAfter: '',
     cmd: '',
