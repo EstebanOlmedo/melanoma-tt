@@ -121,11 +121,6 @@ userRouter.get('/:idUser', (async (req, res, next) => {
       if (user.lesions === undefined) {
         user.lesions = [];
       }
-      // for (const lesion of user.lesions) {
-      //   for await (const photo of lesion.photos) {
-      //     await Photo.setImage(photo);
-      //   }
-      // }
       const response = {
         userName: user.userName,
         name: user.name,
