@@ -24,9 +24,15 @@ operationRouter.post('/analyze/:operation', (async (req, res, next) => {
     return badRequest();
   }
   const cmd = {
+<<<<<<< HEAD
     blobNameBefore: '',
     blobNameAfter: '',
     cmd: '',
+=======
+    cmd: '',
+    blobNameBefore: '',
+    blobNameAfter: '',
+>>>>>>> 93785a3 (Revert "Erase operation endpoint from api code")
   };
   switch (operation) {
     case 'compare':

@@ -73,7 +73,10 @@ export const spawnProcess = async (
       });
     },
   );
+<<<<<<< HEAD
 
+=======
+>>>>>>> 93785a3 (Revert "Erase operation endpoint from api code")
   // Wait for the process to complete and return the result
   return await processCompletionPromise;
 };
