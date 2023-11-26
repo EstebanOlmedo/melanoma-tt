@@ -5,6 +5,7 @@ from .comparison_img import (compare_color_score_palletes, compare_contour,
                              compare_symetry)
 from .util import converter, noise_removal, segmenter
 
+import cv2
 
 def process_image(img):
     img = cv2.resize(img, (200, 200))
