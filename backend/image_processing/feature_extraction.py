@@ -1,4 +1,5 @@
 from collections import defaultdict
+from typing import Union
 import cv2
 import numpy as np
 
@@ -176,7 +177,7 @@ def get_roughness(img) -> float:
     return slope
 
 
-def get_major_axis(img, img_org=None) -> tuple[cv2.RotatedRect, np.ndarray | None]:
+def get_major_axis(img, img_org=None) -> tuple[cv2.RotatedRect, Union[np.ndarray, None]]:
     contours, _ = cv2.findContours(
         img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     largest_contour = max(contours, key=cv2.contourArea)

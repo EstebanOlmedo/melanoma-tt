@@ -1,9 +1,7 @@
-from image_processing.util.colors import COLOR_SCORE_PERCENTAGES
-from image_processing.feature_extraction import center, get_color_score_freqs, get_major_axis, get_simetry_images
-from .processor import process_image
+from .util.colors import COLOR_SCORE_PERCENTAGES
+from .feature_extraction import center, get_color_score_freqs, get_simetry_images
 import numpy as np
 import cv2
-from .util.image import TEST_IMAGES
 
 
 def get_color_score_pallet(processed_img, msk):
@@ -13,12 +11,12 @@ def get_color_score_pallet(processed_img, msk):
     colors = get_color_score_freqs(processed_img, msk)
     total_freq = sum(colors.values())
     lst_width = 0
-    for color, cnt in colors.items():
+    for color, cnt in sorted(colors.items()):
         width = lst_width + int(cnt / total_freq * cols)
         r, g, b = COLOR_SCORE_PERCENTAGES[color]
-        img[:,lst_width:width,2] = np.ones([rows, width - lst_width]) * r
-        img[:,lst_width:width,1] = np.ones([rows, width - lst_width]) * g
-        img[:,lst_width:width,0] = np.ones([rows, width - lst_width]) * b
+        img[:,lst_width:width,2] = np.ones([rows, width - lst_width]) * r * 255
+        img[:,lst_width:width,1] = np.ones([rows, width - lst_width]) * g * 255
+        img[:,lst_width:width,0] = np.ones([rows, width - lst_width]) * b * 255
         lst_width = width
     return img
 
@@ -40,37 +38,24 @@ def add_imgs(img1, img2, alpha=0.5):
     dst = cv2.addWeighted(img1, alpha, img2, beta, 0)
     return dst
 
-def main():
-    image_metadata = TEST_IMAGES[1]
+def compare_symetry(img_before, img_after):
+    sym_before = get_symetry_img(img_before)
+    sym_after = get_symetry_img(img_after)
+    sym_compare = cv2.hconcat([sym_before, sym_after])
+    return sym_before, sym_after, sym_compare
 
-    img = cv2.imread(image_metadata.get_path(), cv2.IMREAD_COLOR)
-    [processed_img, msk] = process_image(img)
+def compare_contour(imgs_before, imgs_after):
+    img_before, msk_before = imgs_before
+    img_after, msk_after = imgs_after
+    contour_before = get_contour_img(img_before, msk_before)
+    contour_after = get_contour_img(img_after, msk_after, (255, 0, 0))
+    contour_compare = add_imgs(contour_before, contour_after)
+    return contour_before, contour_after, contour_compare
 
-    img1 = cv2.imread(image_metadata.get_path(), cv2.IMREAD_COLOR)
-    image_metadata = TEST_IMAGES[2]
-    img2 = cv2.imread(image_metadata.get_path(), cv2.IMREAD_COLOR)
-    [processed_img1, msk1] = process_image(img1)
-    [processed_img2, msk2] = process_image(img2)
-
-    msk, processed_img = center(msk, processed_img)
-    pallete = get_color_score_pallet(processed_img, msk)
-    contour1 = get_contour_img(processed_img1, msk1)
-    contour2 = get_contour_img(processed_img2, msk2, (255,0,0))
-    dst = add_imgs(contour1, contour2)
-    # print(img)
-
-    cv2.imshow('1', contour1)
-    cv2.imshow('2', contour2)
-    cv2.imshow('join', dst)
-    # cv2.imshow('Org', img)
-    cv2.imshow('Processed', processed_img)
-    cv2.imshow('Mask', msk)
-    cv2.imshow('Pallete', pallete)
-    # cv2.imshow('Symetry horizontal', hor)
-    # cv2.imshow('Symetry vertical', vert)
-    # cv2.imshow('Symetry', symetries)
-    # cv2.imshow('Ellipse', img_ellipse)
-    cv2.waitKey(0)
-
-if __name__ == '__main__':
-    main()
+def compare_color_score_palletes(imgs_before, imgs_after):
+    img_before, msk_before = imgs_before
+    img_after, msk_after = imgs_after
+    pallete_before = get_color_score_pallet(img_before, msk_before)
+    pallete_after = get_color_score_pallet(img_after, msk_after)
+    pallete_compare = cv2.vconcat([pallete_before, pallete_after])
+    return pallete_before, pallete_after, pallete_compare
