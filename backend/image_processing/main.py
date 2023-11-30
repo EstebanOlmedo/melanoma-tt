@@ -50,7 +50,8 @@ def main():
     img = cv2.imread('./img/example4.jpg')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (200, 200))
-    msks, scores, _ = process_image_SAM(img)
+    result, img = process_image_SAM(img)
+    msks, scores, _ = result
     plot(img, msks, scores)
     # i = 0
     # for mask in msks:

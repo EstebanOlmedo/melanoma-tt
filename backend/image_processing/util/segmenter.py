@@ -16,7 +16,15 @@ def segment(img, input_point=np.array([[150, 200]])):
     predictor = SamPredictor(sam)
     predictor.set_image(img)
 
-    input_label = np.array([1])
+    input_point = np.array([
+        [70, 90], # point inside lesion
+
+        [10, 10], # background points in corners
+        [90, 90],
+        [10, 90],
+        [90, 10],
+    ])
+    input_label = np.array([1, 0, 0, 0, 0])
     return predictor.predict(
         point_coords=input_point,
         point_labels=input_label,
