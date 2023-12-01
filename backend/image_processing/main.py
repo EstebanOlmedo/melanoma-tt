@@ -53,6 +53,7 @@ def main():
     our_seg, our_msk = process_image(img)
     result, img = process_image_SAM(img)
     msks, scores, _ = result
+    # sam_msk = np.asarray(msks[0], dtype="uint8")
     plot(img, msks, scores)
     # i = 0
     # for mask in msks:
@@ -64,6 +65,7 @@ def main():
     cv2.imshow('image', img)
     cv2.imshow('seg', our_seg)
     cv2.imshow('msk', our_msk)
+    # cv2.imshow('sam', sam_msk)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
