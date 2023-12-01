@@ -17,7 +17,7 @@ def segment(img, input_point=np.array([[150, 200]])):
     predictor.set_image(img)
 
     input_point = np.array([
-        [70, 90], # point inside lesion
+        [100, 100], # point inside lesion
 
         [10, 10], # background points in corners
         [90, 90],

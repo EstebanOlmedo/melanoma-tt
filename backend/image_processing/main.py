@@ -1,4 +1,4 @@
-from processor import process_image_SAM
+from processor import process_image, process_image_SAM
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,9 +47,10 @@ def show_points(coords, labels, ax, marker_size=375):
     ax.scatter(neg_points[:, 0], neg_points[:, 1], color='red', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)
 
 def main():
-    img = cv2.imread('./img/example4.jpg')
+    img = cv2.imread('./img/photo1.jpg')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (200, 200))
+    our_seg, our_msk = process_image(img)
     result, img = process_image_SAM(img)
     msks, scores, _ = result
     plot(img, msks, scores)
@@ -60,9 +61,11 @@ def main():
     #     cv2.imshow(f'binaria {i}', bin_mat)
     #     i = i + 1
     #
-    # cv2.imshow('image', img)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    cv2.imshow('image', img)
+    cv2.imshow('seg', our_seg)
+    cv2.imshow('msk', our_msk)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
