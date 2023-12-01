@@ -25,6 +25,7 @@ azure-functions = "*"
 autopep8 = "*"
 pycodestyle = "*"
 isort = "*"
+segment-anything = {editable = true, git = "https://github.com/facebookresearch/segment-anything.git"}
 
 [dev-packages]
 pylint = "*"

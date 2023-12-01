@@ -1,10 +1,13 @@
 from . import feature_extraction
 from .comparison_img import (compare_color_score_palletes, compare_contour,
                              compare_symetry)
-from .util import converter, noise_removal
+from .util import converter, noise_removal, segmenter
 
+import feature_extraction
+import cv2
 
 def process_image(img):
+    img = cv2.resize(img, (200, 200))
     processed_img, _ = noise_removal.dull_razor(img)
     blurred_img = noise_removal.median_filtering(processed_img)
     segmented_image = noise_removal.otsu_method(blurred_img)
@@ -14,6 +17,13 @@ def process_image(img):
     segmented_color = noise_removal.and_bitwise(blurred_img, enclosed_image)
     return [segmented_color, enclosed_image]
 
+
+def process_image_SAM(img):
+    # img = cv2.resize(img, (200, 200))
+    # processsed_img, _ = noise_removal.dull_razor(img)
+    # blurred_img = noise_removal.median_filtering(processsed_img)
+    # masks = segmenter.segment(blurred_img)
+    return segmenter.segment(img)
 
 def extract(img):
     img_cv2 = converter.convertToOpenCVFormat(img)
