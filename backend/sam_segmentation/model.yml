@@ -2,4 +2,4 @@ $schema: https://azuremlschemas.azureedge.net/latest/model.schema.json
 
 name: sam
 version: 1
-path: "../image_processing/util/sam_vit_h_4b8939.pth"
+path: "./sam_vit_h_4b8939.pth"
