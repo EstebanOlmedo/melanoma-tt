@@ -26,6 +26,8 @@ node_modules
 dist
 .vscode
 
+*.pth
+
 # Local python packages
 .python_packages/
 

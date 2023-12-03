@@ -17,16 +17,22 @@ def segment(img, input_point=np.array([[150, 200]])):
     predictor.set_image(img)
 
     input_point = np.array([
-        [100, 100], # point inside lesion
+        [100, 100],  # point inside lesion
 
-        [10, 10], # background points in corners
+        [10, 10],  # background points in corners
         [90, 90],
         [10, 90],
         [90, 10],
     ])
     input_label = np.array([1, 0, 0, 0, 0])
-    return predictor.predict(
+    msks, scores, _ = predictor.predict(
         point_coords=input_point,
         point_labels=input_label,
         multimask_output=True,
     )
+    results = zip(msks, scores)
+    results = sorted(results, key=(lambda item: item[1]), reverse=True)
+    msk = results[0][0]
+    segmentation = np.asarray(msk, dtype="uint8")
+    segmentation *= 255
+    return segmentation, results[0][1]

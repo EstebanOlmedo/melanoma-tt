@@ -3,26 +3,23 @@ import cv2
 from . import feature_extraction
 from .comparison_img import (compare_color_score_palletes, compare_contour,
                              compare_symetry)
-from .util import converter, noise_removal, segmenter
+from .util import converter, noise_removal
 
-import cv2
 
-def process_image(img):
-    img = cv2.resize(img, (200, 200))
+def remove_hair(img):
     processed_img, _ = noise_removal.dull_razor(img)
     blurred_img = noise_removal.median_filtering(processed_img)
+    return blurred_img
+
+
+def process_image(img):
+    blurred_img = remove_hair(img)
     segmented_image = noise_removal.otsu_method(blurred_img)
     enclosed_image = noise_removal.closing(segmented_image)
     enclosed_image = noise_removal.opening(
         noise_removal.invert_bitwise(enclosed_image))
     segmented_color = noise_removal.and_bitwise(blurred_img, enclosed_image)
     return [segmented_color, enclosed_image]
-
-
-def process_image_SAM(img):
-    processsed_img, _ = noise_removal.dull_razor(img)
-    blurred_img = noise_removal.median_filtering(processsed_img)
-    return segmenter.segment(blurred_img)
 
 
 def extract(img):

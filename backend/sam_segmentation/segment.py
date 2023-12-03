@@ -1,43 +1,130 @@
 import json
 import logging
 import os
+import urllib.error
+import urllib.request
 
 import numpy as np
 import torch
-from torch import Tensor, nn
 from segment_anything import SamPredictor, sam_model_registry
+from torch import Tensor, nn
 
-from ..image_processing.util.converter import convertToOpenCVFormat
-
-model = None
-device = None
-
-
-def predict(trained_model: nn.Module, x: Tensor) -> torch.Tensor:
-    with torch.no_grad():
-        y_prime = trained_model(x)
-        probabilities = nn.functional.softmax(y_prime, dim=1)
-        predicted_indices = probabilities.argmax(1)
-    return predicted_indices
+from adapters.config import load
+from adapters.keyvault import get_secrets
+from image_processing.processor import remove_hair
+from image_processing.util.converter import (convertOpenCVToBase64,
+                                             convertToOpenCVFormat)
 
 
-def init():
-    logging.info('Init started')
+def get_input_points_and_labes(img):
+    h, w = img.shape[:2]
+    offset_h = h // 20
+    offset_w = w // 20
+    offset_c = 2
+    input_points = [
+        [h // 2, w // 2],  # points inside lesion
+        [h // 2 - offset_c, w // 2],
+        [h // 2 + offset_c, w // 2],
+        [h // 2, w // 2 - offset_c],
+        [h // 2, w // 2 + offset_c],
 
-    global model
-    global device
-
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    logging.info('Device: %s', device)
-
-    model_path = os.path.join(os.getenv('AZUREML_MODEL_DIR'), 'sam_vit_h_4b8939.pth')
-
-    model = sam_model_registry['vit_h'](checkpoint=model_path)
-
-    logging.info('Init completed')
+        [offset_h, offset_w],  # background points in corners
+        [h - offset_h, w - offset_w],
+        [offset_h, w - offset_w],
+        [h - offset_h, offset_w],
+    ]
+    input_labels = [1, 1, 1, 1, 1, 0, 0, 0, 0]
+    return input_points, input_labels
 
 
-def run(raw_data):
-    logging.info('Run started')
-    request = json.loads(raw_data)
-    return request
+def segment(img):
+    """
+    Performs segmentation using SAM local model
+
+    requires file in './sam_segmentation/sam_vit_h_4b8939.pth'
+    """
+    dire = os.path.dirname(os.path.abspath(__file__))
+    filename = 'sam_vit_h_4b8939.pth'
+    model = sam_model_registry['vit_h'](
+        checkpoint=os.path.join(dire, filename))
+    predictor = SamPredictor(model)
+    predictor.set_image(img)
+    input_points, input_labels = get_input_points_and_labes(img)
+    msks, scores, _ = predictor.predict(
+        point_coords=np.array(input_points),
+        point_labels=np.array(input_labels),
+        multimask_output=True,
+    )
+    results = zip(msks, scores)
+    results = sorted(results, key=(lambda item: item[1]), reverse=True)
+    msk = results[0][0]
+    segmentation = np.asarray(msk, dtype="uint8")
+    segmentation *= 255
+    return segmentation, results[0][1]
+
+
+def setup_request(img):
+    img_str = convertOpenCVToBase64(img, False)
+    input_points, input_labels = get_input_points_and_labes(img)
+    data = {
+        "input_data": {
+            "columns": [
+                "image",
+                "input_points",
+                "input_boxes",
+                "input_labels",
+                "multimask_output",
+            ],
+            "index": [0],
+            "data": [[
+                img_str,
+                json.dumps(input_points),
+                "",
+                json.dumps(input_labels),
+                False,
+            ]],
+        },
+        "params": {},
+    }
+    body = str.encode(json.dumps(data))
+    config = load()
+    url = config['defaults']['azure']['samEndpoint']
+    secrets = get_secrets()
+    api_key = secrets['samEndpointKey']
+
+    if not api_key:
+        raise Exception("A key should be provided to invoke the endpoint")
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': ('Bearer ' + api_key),
+        'azureml-model-deployment': 'facebook-sam-vit-huge-1',
+    }
+    req = urllib.request.Request(url, body, headers)
+    return req
+
+
+def segment_online(img):
+    """
+    Performs segmentation using SAM and online endpoint
+    """
+    req = setup_request(img)
+
+    try:
+        response = urllib.request.urlopen(req)
+
+        result_raw = response.read().decode("utf-8")
+        result = json.loads(result_raw)
+        prediction = result[0]['response']['predictions'][0]['masks_per_prediction'][0]
+        msk_str = prediction['encoded_binary_mask']
+        score = prediction['iou_score']
+        sam_msk = convertToOpenCVFormat({'data': msk_str}, False)
+        return sam_msk, score
+    except urllib.error.HTTPError as error:
+        print("The request failed with status code: " + str(error.code))
+
+        # Print the headers - they include the requert ID and the timestamp,
+        # which are useful for debugging the failure
+        print(error.info())
+        print(error.read().decode("utf8", 'ignore'))
+        return None, 0
