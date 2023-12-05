@@ -23,13 +23,14 @@ azure-identity = "*"
 azure-keyvault-secrets = "*"
 azure-functions = "*"
 autopep8 = "*"
-pycodestyle = "*"
-isort = "*"
+segment-anything = {editable = true, git = "https://github.com/facebookresearch/segment-anything.git"}
 
 [dev-packages]
 pylint = "*"
 pytest = "*"
 autopep8 = "*"
+pycodestyle = "*"
+isort = "*"
 
 [requires]
 python_version = "3.11"
@@ -42,3 +43,4 @@ dataset = "python3 -m cnn.create_dataset"
 test = "pytest"
 autolint = "autopep8 --in-place --recursive ."
 compare = "python3 -m image_processing.test_comparison"
+segment = "python3 -m image_processing.test_sam_segmentation"

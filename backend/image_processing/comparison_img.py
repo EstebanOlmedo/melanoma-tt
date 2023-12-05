@@ -16,12 +16,13 @@ def get_color_score_pallet(processed_img, msk):
     for color, cnt in sorted(colors.items()):
         width = lst_width + int(cnt / total_freq * cols)
         r, g, b = COLOR_SCORE_PERCENTAGES[color]
+        print(r, g, b, width)
         img[:, lst_width:width, 2] = np.ones(
-            [rows, width - lst_width]) * r * 255
+            [rows, width - lst_width]) * r * 1
         img[:, lst_width:width, 1] = np.ones(
-            [rows, width - lst_width]) * g * 255
+            [rows, width - lst_width]) * g * 1
         img[:, lst_width:width, 0] = np.ones(
-            [rows, width - lst_width]) * b * 255
+            [rows, width - lst_width]) * b * 1
         lst_width = width
     return img
 
