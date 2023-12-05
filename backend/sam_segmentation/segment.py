@@ -1,17 +1,14 @@
 import json
-import logging
 import os
 import urllib.error
 import urllib.request
 
+import cv2
 import numpy as np
-import torch
 from segment_anything import SamPredictor, sam_model_registry
-from torch import Tensor, nn
 
 from adapters.config import load
 from adapters.keyvault import get_secrets
-from image_processing.processor import remove_hair
 from image_processing.util.converter import (convertOpenCVToBase64,
                                              convertToOpenCVFormat)
 
@@ -119,7 +116,9 @@ def segment_online(img):
         msk_str = prediction['encoded_binary_mask']
         score = prediction['iou_score']
         sam_msk = convertToOpenCVFormat({'data': msk_str}, False)
-        return sam_msk, score
+        sam_gray = cv2.cvtColor(sam_msk, cv2.COLOR_BGR2GRAY)
+        _th, msk = cv2.threshold(sam_gray, 128, 255, cv2.IMREAD_GRAYSCALE)
+        return msk, score
     except urllib.error.HTTPError as error:
         print("The request failed with status code: " + str(error.code))
 

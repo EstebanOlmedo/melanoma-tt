@@ -1,5 +1,7 @@
 import cv2
 
+from sam_segmentation.segment import segment_online
+
 from . import feature_extraction
 from .comparison_img import (compare_color_score_palletes, compare_contour,
                              compare_symetry)
@@ -12,14 +14,19 @@ def remove_hair(img):
     return blurred_img
 
 
-def process_image(img):
-    blurred_img = remove_hair(img)
-    segmented_image = noise_removal.otsu_method(blurred_img)
+def segment_ots(img):
+    segmented_image = noise_removal.otsu_method(img)
     enclosed_image = noise_removal.closing(segmented_image)
     enclosed_image = noise_removal.opening(
         noise_removal.invert_bitwise(enclosed_image))
-    segmented_color = noise_removal.and_bitwise(blurred_img, enclosed_image)
-    return [segmented_color, enclosed_image]
+    return enclosed_image
+
+
+def process_image(img):
+    blurred_img = remove_hair(img)
+    segmented_image, _ = segment_online(blurred_img)
+    segmented_color = noise_removal.and_bitwise(blurred_img, segmented_image)
+    return [segmented_color, segmented_image]
 
 
 def extract(img):
