@@ -15,7 +15,7 @@ def remove_hair(img):
 
 
 def segment_ots(img):
-    segmented_image = noise_removal.otsu_method(img)
+    _, segmented_image = noise_removal.otsu_method(img)
     enclosed_image = noise_removal.closing(segmented_image)
     enclosed_image = noise_removal.opening(
         noise_removal.invert_bitwise(enclosed_image))

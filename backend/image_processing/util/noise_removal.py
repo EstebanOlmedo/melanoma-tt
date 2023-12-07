@@ -47,10 +47,10 @@ def otsu_method(img, gaussian_ksize=(5, 5), threshold=0,
     # gray = img
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     blur = cv2.GaussianBlur(gray, gaussian_ksize, 0)
-    _, ret = cv2.threshold(blur, threshold, threshold_max_val,
-                           cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    val, ret = cv2.threshold(blur, threshold, threshold_max_val,
+                             cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-    return ret
+    return val, ret
 
 
 def closing(img, kernel=(3, 3)):
