@@ -45,7 +45,7 @@ const LoginForm = ({ onRegisterPressed }: LoginFormProps) => {
       password: password.trim(),
     }).then(({ data, error }) => {
       if (error != null) {
-        Alert("Error", "Error al loggear usuario");
+        Alert("Error", "Error al loggear usuario:\n" + JSON.stringify(error));
         return;
       }
       if (data?.user?.id !== undefined) {
