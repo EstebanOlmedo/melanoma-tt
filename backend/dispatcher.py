@@ -1,9 +1,13 @@
+import json
 import logging
 import os
 import urllib.request
 
 import image_processing.processor as img_proc
 from adapters.blob_storage import download_image
+from adapters.keyvault import get_secrets
+from image_processing.util.converter import (convertOpenCVToBase64,
+                                             convertToOpenCVFormat)
 
 CNN_NAME = "CNN_ENDPOINT_URL"
 CNN_KEY = "CNN_API_KEY"
@@ -35,6 +39,8 @@ def compare(blob_name_before, blob_name_after):
             'data': err_after,
         }
 
+    logging.info("Downloaded images")
+
     result = img_proc.extract_and_compare(img_before, img_after)
 
     return {
@@ -43,21 +49,17 @@ def compare(blob_name_before, blob_name_after):
     }
 
 
-def classify(blob_name):
-    img = download_image(blob_name)
-    err = verify_image_content(img, blob_name)
-    if err:
-        return {
-            'status': 500,
-            'data': err,
-        }
-    url = os.getenv(CNN_NAME)
+def classify(raw_img):
+    secrets = get_secrets()
+    img = convertToOpenCVFormat({'data': bytes(raw_img, "utf-8")})
+    img_str = convertOpenCVToBase64(img, encode='png')
+    url = secrets["cnnEndpointUrl"]
     if url is None:
         return {
             'status': 500,
             'data': "CNN URL enviroment variable is not defined"
         }
-    api_key = os.getenv(CNN_KEY)
+    api_key = secrets["cnnApiKey"]
     if api_key is None:
         return {
             'status': 500,
@@ -71,18 +73,18 @@ def classify(blob_name):
         "Inputs": {
             "WebServiceInput0": [
                 {
-                    "image": "",
+                    "image": img_str,
                     "id": 0,
                     "category": "melanoma"
                 }]
-        }
+        },
+        "GlobalParameters": {}
     }
-    req = urllib.request.Request(url, body, headers)
+    req = urllib.request.Request(url, str.encode(json.dumps(body)), headers)
     result = {}
     try:
         response = urllib.request.urlopen(req)
-
-        result = response.read()
+        result = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as error:
         result["error"] = str(error.info())
         logging.error(
@@ -95,7 +97,10 @@ def classify(blob_name):
 
     return {
         'status': 500 if 'error' in result else 200,
-        'data': result,
+        'data': {
+            'img': raw_img,
+            'score': result['Results']["WebServiceOutput0"][0]['Scored Probabilities_melanoma']
+        }
     }
 
 

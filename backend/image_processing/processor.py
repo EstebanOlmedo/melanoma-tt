@@ -1,3 +1,5 @@
+import logging
+
 import cv2
 
 from sam_segmentation.segment import segment_online
@@ -45,6 +47,7 @@ def extract_and_compare(img_base64_before, img_base64_after):
     img_after = converter.convertToOpenCVFormat(img_base64_after)
     [processed_before, msk_before] = process_image(img_before)
     [processed_after, msk_after] = process_image(img_after)
+    logging.info("Proccessed images")
 
     features_before = extract(img_base64_before)
     features_after = extract(img_base64_after)

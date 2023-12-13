@@ -38,7 +38,7 @@ export default class User extends Model {
 
   @Column(DataType.TEXT)
     salt!: string;
-  
+
   @Column
     isDoctor!: boolean;
 

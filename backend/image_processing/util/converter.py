@@ -13,7 +13,7 @@ def convertToOpenCVFormat(image, contains_data_type=True):
 
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     total_pixels = img.shape[0] * img.shape[1]
-    if total_pixels > 40000:
+    if total_pixels > 600 * 600:
         scale_percent = 10  # percent of original size
         width = int(img.shape[1] * scale_percent / 100)
         height = int(img.shape[0] * scale_percent / 100)
@@ -23,8 +23,8 @@ def convertToOpenCVFormat(image, contains_data_type=True):
     return img
 
 
-def convertOpenCVToBase64(img, include_data_type=True):
-    img_str = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
+def convertOpenCVToBase64(img, include_data_type=True, encode='jpg'):
+    img_str = base64.b64encode(cv2.imencode('.' + encode, img)[1]).decode()
     if not include_data_type:
         return img_str
-    return 'data:image/jpg;base64,' + img_str
+    return f'data:image/{encode};base64,' + img_str

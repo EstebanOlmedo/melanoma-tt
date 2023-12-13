@@ -40,4 +40,14 @@ TEST_IMAGES = [
     #               True, 'LMM8_2_contour.png'),  # fails
     ImageMetadata(IMAGES_PATH, 'photo1.jpg',
                   IMG_SIZE, False),
+    ImageMetadata(IMAGES_PATH, 'photo2.jpg',
+                  IMG_SIZE, False),
+    ImageMetadata(IMAGES_PATH, 'photo3.jpg',
+                  IMG_SIZE, False),
+    ImageMetadata(IMAGES_PATH, 'photo4.jpg',
+                  IMG_SIZE, False),
+    ImageMetadata(IMAGES_PATH, 'photo5.jpg',
+                  IMG_SIZE, False),
+    ImageMetadata(IMAGES_PATH, 'photo6.jpg',
+                  IMG_SIZE, False),
 ]
