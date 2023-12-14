@@ -1,3 +1,4 @@
+import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
@@ -22,6 +23,7 @@ import {
 } from "@/services/melanomaApi";
 import { ErrorMessage } from "@/statusMessages";
 import Styles from "@/styles";
+import { Images } from "@/utils/images";
 
 interface LoginFormProps {
   onRegisterPressed: () => void;
@@ -122,15 +124,22 @@ const RegisterForm = ({ onLoginPressed }: RegisterFormProps) => {
   const [postUser, result] = usePostUserMutation();
 
   const register = () => {
-    if (userName === "" || name === "" || lastName === "" || password === "") {
+    if (
+      userName.trim() === "" ||
+      name.trim() === "" ||
+      lastName.trim() === "" ||
+      password.trim() === ""
+    ) {
       Alert("Información no válida", "Completa todos los campos");
       return;
     }
+    let pass = password.trim();
+    pass += password[password.length - 1] ?? "";
     postUser({
       userName: userName.trim(),
       name: name.trim(),
       lastName: lastName.trim(),
-      password: password.trim(),
+      password: pass.trim(),
       isDoctor,
     });
   };
@@ -202,11 +211,27 @@ const LoginMenu = () => {
 
   return (
     <View style={styles.container}>
-      {formType === "login" ? (
-        <LoginForm onRegisterPressed={() => setFormType("register")} />
-      ) : (
-        <RegisterForm onLoginPressed={() => setFormType("login")} />
-      )}
+      <View style={styles.descriptionContainer}>
+        <Image
+          source={Images.logo}
+          style={styles.logo}
+          contentFit="contain"
+          contentPosition="center"
+          responsivePolicy="live"
+        />
+        <Text style={styles.descriptionText}>
+          Esta aplicación ayuda a dar un seguimiento a lesiones sospechosas,
+          para prevenir el cáncer de melanoma por medio del criterio ABCD,
+          utilizando redes neuronales convolucionales y análisis de imágenes.
+        </Text>
+      </View>
+      <View style={styles.formContainer}>
+        {formType === "login" ? (
+          <LoginForm onRegisterPressed={() => setFormType("register")} />
+        ) : (
+          <RegisterForm onLoginPressed={() => setFormType("login")} />
+        )}
+      </View>
     </View>
   );
 };
@@ -215,6 +240,19 @@ const styles = StyleSheet.create({
   container: {
     margin: 30,
     ...Styles.centeredContainer,
+  },
+  descriptionContainer: {
+    flex: 1,
+  },
+  formContainer: {
+    flex: 1,
+  },
+  descriptionText: {
+    color: "white",
+    textAlign: "center",
+  },
+  logo: {
+    flex: 1,
   },
   input: {
     flex: 1,

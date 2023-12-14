@@ -1,6 +1,6 @@
 # Acerca de
 
-La aplicación *[APP_NAME]* es una herramienta innovadora diseñada para ayudar a los usuarios a identificar y hacer un seguimiento de lesiones cutáneas potencialmente cancerosas. Con un enfoque en la prevención y detección temprana, la aplicación integra tecnologías avanzadas de análisis de imágenes. Sus características clave incluyen:
+La aplicación *Melanoma App* es una herramienta innovadora diseñada para ayudar a los usuarios a identificar y hacer un seguimiento de lesiones cutáneas potencialmente cancerosas. Con un enfoque en la prevención y detección temprana, la aplicación integra tecnologías avanzadas de análisis de imágenes. Sus características clave incluyen:
 
 ## Captura de Imágenes:
 Permite a los usuarios tomar fotografías de lesiones cutáneas utilizando la cámara de su dispositivo.

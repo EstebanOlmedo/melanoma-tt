@@ -13,6 +13,7 @@ export const Images = {
   search: require("../../assets/img/search.png"),
   noImage: require("../../assets/img/no_image.jpg"),
   loading: require("../../assets/img/loading.gif"),
+  logo: require("../../assets/adaptive-icon.png"),
 };
 
 export const TutorialsImages = new Map([
