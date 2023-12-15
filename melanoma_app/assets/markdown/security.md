@@ -3,7 +3,7 @@
 Este informe proporciona una visión detallada de las medidas de seguridad implementadas en la aplicación *[APP_NAME]* para garantizar la protección de los datos de los usuarios. La seguridad de la información es una prioridad fundamental, y se han aplicado estrategias integrales para prevenir accesos no autorizados, asegurar la integridad de los datos y garantizar la confidencialidad de la información personal.
 
 1. Descripción General:
-La aplicación *[APP_NAME]* gestiona datos altamente sensibles, incluyendo imágenes médicas y datos personales del usuario. Nuestra arquitectura de seguridad sigue los estándares de cumplimiento relevantes.
+La aplicación *Melanoma App* gestiona datos altamente sensibles, incluyendo imágenes médicas y datos personales del usuario. Nuestra arquitectura de seguridad sigue los estándares de cumplimiento relevantes.
 
 2. Acceso y Control de Datos:
 El acceso a los datos se gestiona mediante autenticación y autorización robustas. Solo el personal autorizado tiene acceso a la infraestructura y se requieren credenciales seguras para cualquier interacción con la base de datos. Se implementan protocolos estrictos para el control de acceso y la gestión de privilegios.

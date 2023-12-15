@@ -16,6 +16,9 @@
     "preview": {
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "MELANOMA_API_URL": "https://api-melanota-tt-eus.azurewebsites.net/"
       }
     },
     "production": {

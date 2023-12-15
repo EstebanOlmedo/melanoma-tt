@@ -1,4 +1,4 @@
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { Camera, CameraType, FlashMode } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -116,6 +116,9 @@ const CameraPreview = (props: CameraPreviewProps) => {
         ratio={ratio}
         ref={camera}
       >
+        <View style={styles.target}>
+          <SimpleLineIcons name="target" size={24} color="white" />
+        </View>
         <View style={[styles.captureContainer, styles.bottomContainer]}>
           <TouchableOpacity style={styles.captureButton} onPress={takePhoto} />
         </View>
@@ -147,6 +150,15 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
+  },
+  target: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
   captureContainer: {
     alignSelf: "center",

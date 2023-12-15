@@ -1,7 +1,7 @@
 # Acuerdo de Privacidad
 
-Este acuerdo de privacidad describe cómo se recopilan, utilizan y comparten los datos personales proporcionados por los usuarios de la aplicación [*APP_NAME*]. Al utilizar nuestra aplicación, usted acepta las prácticas de privacidad descritas en este documento.
-
+Este acuerdo de privacidad describe cómo se recopilan, utilizan y comparten los datos personales proporcionados por los usuarios de la aplicación *Melanoma App*. Al utilizar nuestra aplicación, usted acepta las prácticas de privacidad descritas en este documento.
+  
 1. Información Recopilada:
 Recopilamos información que usted proporciona voluntariamente, como imágenes de lesiones de piel y datos personales para la creación de su cuenta. Además, podemos recopilar datos de uso, como la frecuencia de uso de la aplicación y las funciones utilizadas.
 
@@ -22,4 +22,4 @@ Al utilizar nuestra aplicación, usted otorga su consentimiento para la recopila
 
 Si tiene preguntas sobre esta política de privacidad, comuníquese con nosotros a través de *[correo electrónico de soporte]*.
 
-Gracias por confiar en nuestra aplicación *[APP_NAME]*. Su privacidad es de suma importancia para nosotros.
+Gracias por confiar en nuestra aplicación *Melanoma App*. Su privacidad es de suma importancia para nosotros.
